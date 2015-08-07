@@ -215,6 +215,9 @@ namespace BoozeHoundBooks
       // budget transaction
       transactionBudget.Checked = debit.IsBudgetTransaction();
 
+      // recuring
+      transactionRecuring.Checked = debit.IsRecuring();
+
       // load complete
       m_formLoading = false;
     }
@@ -564,7 +567,8 @@ namespace BoozeHoundBooks
   		                            amount,
   		                            transactionDate.Value,
   		                            transactionInfo.Text,
-                                  transactionBudget.Checked );
+                                  transactionBudget.Checked,
+                                  transactionRecuring.Checked );
 
   		  // updating an existing transaction? delete the orig transaction
   		  if ( m_editingTransaction )
@@ -642,7 +646,8 @@ namespace BoozeHoundBooks
   		                            amount,
   		                            transactionDate.Value,
   		                            transactionInfo.Text,
-                                  transactionBudget.Checked );
+                                  transactionBudget.Checked,
+                                  transactionRecuring.Checked );
 
   		  m_book.Save();
   		  

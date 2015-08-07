@@ -333,7 +333,8 @@ namespace BoozeHoundBooks
                                  t.GetDescription(),
                                  t.IsAdjustment(),
                                  t.IsBudgetTransaction(),
-                                 false );
+                                 false,
+                                 t.IsRecuring() );
         }
       }
 
@@ -353,7 +354,8 @@ namespace BoozeHoundBooks
                                    decimal amount,
                                    DateTime date,
                                    String description,
-                                   bool isBudgetTransaction )
+                                   bool isBudgetTransaction,
+                                   bool isRecuring )
 		{
       // find the period
       KPeriod period = null;
@@ -386,7 +388,8 @@ namespace BoozeHoundBooks
                                       description,
                                       false,
                                       isBudgetTransaction,
-                                      false );
+                                      false,
+                                      isRecuring );
 
       creditAccount.CreateTransaction( id,
                                        KTransaction.TransactionType.c_credit,
@@ -397,7 +400,8 @@ namespace BoozeHoundBooks
                                        description,
                                        false,
                                        isBudgetTransaction,
-                                       true );
+                                       true,
+                                       isRecuring );
     }
 
 		//---------------------------------------------------------------
@@ -409,7 +413,8 @@ namespace BoozeHoundBooks
                                    decimal amount,
                                    DateTime date,
                                    String description,
-                                   bool budgetTransaction )
+                                   bool budgetTransaction,
+                                   bool isRecuring )
 		{
       // find the period
       KPeriod period = null;
@@ -442,7 +447,8 @@ namespace BoozeHoundBooks
                                  description,
                                  true,
                                  budgetTransaction,
-                                 false );
+                                 false,
+                                 isRecuring );
     }
 
   	//---------------------------------------------------------------

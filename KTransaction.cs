@@ -24,6 +24,7 @@ namespace BoozeHoundBooks
 	  private const String c_attrib_description = "Description";
     private const String c_attrib_adjustment = "Adjustment";
     private const String c_attrib_budget = "Budget";
+    private const String c_attrib_recuring = "Recuring";
 	  
 	  // class vars ---------------------------------------------------
     private uint m_id;
@@ -37,6 +38,7 @@ namespace BoozeHoundBooks
 	  private String m_description;
 	  private bool m_isAdjustment;
     private bool m_isBudgetTransaction;
+    private bool m_isRecuring;
 
 	  //---------------------------------------------------------------
 
@@ -134,6 +136,9 @@ namespace BoozeHoundBooks
           m_isBudgetTransaction = false;
         }
 
+        // recuring?
+        m_isRecuring = element.HasAttribute( c_attrib_recuring );
+
       // set class vars
 	    m_account = account;
 
@@ -171,7 +176,8 @@ namespace BoozeHoundBooks
 	                       KPeriod period,
 	                       String description,
 	                       bool isAdjustment,
-                         bool isBudgetTransaction )
+                         bool isBudgetTransaction,
+                         bool isRecuring )
 		{
       // set class vars
       m_id = id;
@@ -185,6 +191,7 @@ namespace BoozeHoundBooks
 		  m_description = description;
 		  m_isAdjustment = isAdjustment;
       m_isBudgetTransaction = isBudgetTransaction;
+      m_isRecuring = isRecuring;
 
       // update next id
       if ( m_id >= m_nextTransactionId )
@@ -216,6 +223,11 @@ namespace BoozeHoundBooks
       if ( m_isBudgetTransaction )
       {
         element.SetAttribute( c_attrib_budget, "" );
+      }
+
+      if ( m_isRecuring )
+      {
+        element.SetAttribute( c_attrib_recuring, "" );
       }
 		  
 		  return element;
@@ -327,6 +339,13 @@ namespace BoozeHoundBooks
     public bool IsBudgetTransaction()
     {
       return m_isBudgetTransaction;
+    }
+
+    //---------------------------------------------------------------
+
+    public bool IsRecuring()
+    {
+      return m_isRecuring;
     }
 
     //---------------------------------------------------------------

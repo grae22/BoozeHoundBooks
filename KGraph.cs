@@ -8,9 +8,9 @@ namespace BoozeHoundBooks
   {
     // class vars -------------------------------------------------------------
 
-    private String      m_name; 
-    private ArrayList   m_point = new ArrayList( 50 );
-    private Color       m_colour = Color.Black;
+    private String m_name; 
+    private ArrayList m_point = new ArrayList( 50 );
+    private Color m_colour = Color.Black;
     
     //-------------------------------------------------------------------------
     

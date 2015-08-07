@@ -1489,5 +1489,20 @@ namespace BoozeHoundBooks
     }
 
     //---------------------------------------------------------------
+
+    private void generateRecuringTransactions_Click( object sender, EventArgs e )
+    {
+      if( m_activeBook == null )
+      {
+        return;
+      }
+
+      GenerateRecuringTransactionsDlg dlg =
+        new GenerateRecuringTransactionsDlg( m_activeBook );
+      dlg.ShowDialog( this );
+      dlg.Dispose();
+    }
+
+    //---------------------------------------------------------------
 	}
 }
