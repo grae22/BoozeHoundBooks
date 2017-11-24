@@ -14,15 +14,19 @@ namespace BoozeHoundBooks
     // constants ----------------------------------------------------
     
     // settings
-    private const String c_setting_accountTreeWidth       = "AccountTreeWidth";
-    private const String c_setting_transactionGridHeight  = "TransactionGridHeight";
-    private const String c_setting_viewByPeriod           = "ViewByPeriod";
-    private const String c_setting_viewByDateFrom         = "ViewByDateFrom";
-    private const String c_setting_viewByDateTo           = "ViewByDateTo";
-    
+    private const String c_setting_accountTreeWidth = "AccountTreeWidth";
+    private const String c_setting_transactionGridHeight = "TransactionGridHeight";
+    private const String c_setting_viewByPeriod = "ViewByPeriod";
+    private const String c_setting_viewByDateFrom = "ViewByDateFrom";
+    private const String c_setting_viewByDateTo = "ViewByDateTo";
+	  private const String c_setting_windowX = "WindowX";
+	  private const String c_setting_windowY = "WindowY";
+	  private const String c_setting_windowW = "WindowW";
+	  private const String c_setting_windowH = "WindowH";
+
     // colours
-    private Color c_col_budget            = Color.Blue;
-    private Color c_col_negativeBalance   = Color.Red;
+    private Color c_col_budget = Color.Blue;
+    private Color c_col_negativeBalance = Color.Red;
 
 	  // class vars ---------------------------------------------------
 	  
@@ -64,34 +68,37 @@ namespace BoozeHoundBooks
 		{
 		  try
 		  {
-        // apply settings
-          // account tree panel width
-          splitContainerHoriz.SplitterDistance =
-            (int)KMain.m_appSetting.GetSetting( c_setting_accountTreeWidth,
-                                                splitContainerHoriz.SplitterDistance );
+		    Location = new Point
+		    {
+		      X = (int)KMain.m_appSetting.GetSetting( c_setting_windowX, 0 ),
+		      Y = (int)KMain.m_appSetting.GetSetting( c_setting_windowY, 0 )
+		    };
 
-          // transaction grid height
-          splitContainerVert.SplitterDistance =
-            (int)KMain.m_appSetting.GetSetting( c_setting_transactionGridHeight,
-                                                splitContainerVert.SplitterDistance );
-          
-          // view by period
-          viewByPeriod.Checked =
-            (bool)KMain.m_appSetting.GetSetting( c_setting_viewByPeriod, false );
+		    Width = (int)KMain.m_appSetting.GetSetting( c_setting_windowW, Width );
+		    Height = (int)KMain.m_appSetting.GetSetting( c_setting_windowH, Height );
 
-          // view by date from
-          viewByDateFrom.Checked =
-            (bool)KMain.m_appSetting.GetSetting( c_setting_viewByDateFrom, false );
+		    WindowState = FormWindowState.Maximized;
 
-          // view by date to
-          viewByDateTo.Checked =
-            (bool)KMain.m_appSetting.GetSetting( c_setting_viewByDateTo, false );
+        splitContainerHoriz.SplitterDistance =
+          (int)KMain.m_appSetting.GetSetting( c_setting_accountTreeWidth,
+                                              splitContainerHoriz.SplitterDistance );
+
+        splitContainerVert.SplitterDistance =
+          (int)KMain.m_appSetting.GetSetting( c_setting_transactionGridHeight,
+                                              splitContainerVert.SplitterDistance );
           
-          // default date
-          defaultDate.Value = DateTime.Now;
+        viewByPeriod.Checked =
+          (bool)KMain.m_appSetting.GetSetting( c_setting_viewByPeriod, false );
+
+        viewByDateFrom.Checked =
+          (bool)KMain.m_appSetting.GetSetting( c_setting_viewByDateFrom, false );
+
+        viewByDateTo.Checked =
+          (bool)KMain.m_appSetting.GetSetting( c_setting_viewByDateTo, false );
+
+        defaultDate.Value = DateTime.Now;
           
-          // load complete
-          m_allowAccountTreeAndTransactionGridRefresh = true;
+        m_allowAccountTreeAndTransactionGridRefresh = true;
 		  }
 		  catch ( Exception ex )
 		  {
@@ -110,25 +117,20 @@ namespace BoozeHoundBooks
         {
           m_activeBook.Save();
         }
-        
+
         // save settings
-          // account tree width
-          KMain.m_appSetting.SetSetting( c_setting_accountTreeWidth, splitContainerHoriz.SplitterDistance );
-          
-          // transaction grid height
-          KMain.m_appSetting.SetSetting( c_setting_transactionGridHeight, splitContainerVert.SplitterDistance );
-          
-          // view by period
-          KMain.m_appSetting.SetSetting( c_setting_viewByPeriod, viewByPeriod.Checked );
+        KMain.m_appSetting.SetSetting( c_setting_windowX, Location.X );
+        KMain.m_appSetting.SetSetting( c_setting_windowY, Location.Y );
+        KMain.m_appSetting.SetSetting( c_setting_windowW, Width );
+        KMain.m_appSetting.SetSetting( c_setting_windowH, Height );
+        KMain.m_appSetting.SetSetting( c_setting_accountTreeWidth, splitContainerHoriz.SplitterDistance );
+        KMain.m_appSetting.SetSetting( c_setting_transactionGridHeight, splitContainerVert.SplitterDistance );
+        KMain.m_appSetting.SetSetting( c_setting_viewByPeriod, viewByPeriod.Checked );
+        KMain.m_appSetting.SetSetting( c_setting_viewByDateFrom, viewByDateFrom.Checked );
+        KMain.m_appSetting.SetSetting( c_setting_viewByDateTo, viewByDateTo.Checked );
 
-          // view by date from
-          KMain.m_appSetting.SetSetting( c_setting_viewByDateFrom, viewByDateFrom.Checked );
-
-          // view by date to
-          KMain.m_appSetting.SetSetting( c_setting_viewByDateTo, viewByDateTo.Checked );
-
-          // save
-          KMain.m_appSetting.Save();
+        // save
+        KMain.m_appSetting.Save();
 		  }
 		  catch ( Exception ex )
 		  {
