@@ -16,7 +16,6 @@ namespace BoozeHoundBooks
 	  
 	  // class vars ---------------------------------------------------
 	  
-	  private String m_name;
 	  private String m_path;
 	  private ArrayList m_account = new ArrayList( 10 );
 	  private ArrayList m_period = new ArrayList( 10 );
@@ -28,12 +27,10 @@ namespace BoozeHoundBooks
 	  
 	  //---------------------------------------------------------------
 	  
-		public KBook( String name,
-	                String path,
+		public KBook( String path,
 	                bool newBook )
 		{
 	    // set class vars
-		  m_name = name;
 		  m_path = path;
 
       // clear out account icons
@@ -231,11 +228,19 @@ namespace BoozeHoundBooks
   
   		  // save the xml doc
   		  doc.Save( m_path );
+
+        // write zip
+        var compressedPath = m_path.Replace( Path.GetExtension( m_path ), ".zip" );
+
+        KCompressedFileWriter.WriteFile(
+          compressedPath,
+          "Backup.bhb",
+          File.ReadAllText( m_path ) );
   
   		  // success
   		  return true;
 		  }
-		  catch
+		  catch (Exception)
 		  {
 		    return false;
 		  }

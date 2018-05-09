@@ -212,7 +212,7 @@ namespace BoozeHoundBooks
   		  }
   		  
   		  // setup new book
-  		  m_activeBook = new KBook( name, path, true );
+  		  m_activeBook = new KBook( path, true );
   		  
   		  m_activeBook.Save();
   		  
@@ -269,7 +269,7 @@ namespace BoozeHoundBooks
         String name = KCommon.GetFilenameFromPath( path );
   
   		  // setup new book
-  		  m_activeBook = new KBook( name, path, false );
+  		  m_activeBook = new KBook( path, false );
   
   		  // update form
   	    PopulateAccountTree( false );
