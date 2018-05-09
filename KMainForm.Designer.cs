@@ -89,17 +89,12 @@ namespace BoozeHoundBooks
       this.viewTo = new System.Windows.Forms.DateTimePicker();
       this.viewFrom = new System.Windows.Forms.DateTimePicker();
       this.transactionCountLbl = new System.Windows.Forms.Label();
-      this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-      this.recuringTransactionsMenu = new System.Windows.Forms.ToolStripMenuItem();
-      this.generateRecuringTransactions = new System.Windows.Forms.ToolStripMenuItem();
       this.topMenu.SuspendLayout();
       this.mainPanel.SuspendLayout();
       this.panel1.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.splitContainerHoriz)).BeginInit();
       this.splitContainerHoriz.Panel1.SuspendLayout();
       this.splitContainerHoriz.Panel2.SuspendLayout();
       this.splitContainerHoriz.SuspendLayout();
-      ((System.ComponentModel.ISupportInitialize)(this.splitContainerVert)).BeginInit();
       this.splitContainerVert.Panel1.SuspendLayout();
       this.splitContainerVert.Panel2.SuspendLayout();
       this.splitContainerVert.SuspendLayout();
@@ -116,8 +111,7 @@ namespace BoozeHoundBooks
             this.viewMenu,
             this.accountMenu,
             this.periodMenu,
-            this.summaryExpressionMenu,
-            this.recuringTransactionsMenu});
+            this.summaryExpressionMenu});
       this.topMenu.Location = new System.Drawing.Point(0, 0);
       this.topMenu.Name = "topMenu";
       this.topMenu.Size = new System.Drawing.Size(992, 24);
@@ -136,14 +130,14 @@ namespace BoozeHoundBooks
       // newBook
       // 
       this.newBook.Name = "newBook";
-      this.newBook.Size = new System.Drawing.Size(152, 22);
+      this.newBook.Size = new System.Drawing.Size(133, 22);
       this.newBook.Text = "&New Book";
       this.newBook.Click += new System.EventHandler(this.NewBookClick);
       // 
       // openBook
       // 
       this.openBook.Name = "openBook";
-      this.openBook.Size = new System.Drawing.Size(152, 22);
+      this.openBook.Size = new System.Drawing.Size(133, 22);
       this.openBook.Text = "&Open Book";
       this.openBook.Click += new System.EventHandler(this.OpenBookClick);
       // 
@@ -155,7 +149,6 @@ namespace BoozeHoundBooks
             this.toolStripSeparator2,
             this.viewMovement,
             this.viewBudget,
-            this.toolStripSeparator1,
             this.showHiddenAccountsToolStripMenuItem});
       this.viewMenu.Name = "viewMenu";
       this.viewMenu.Size = new System.Drawing.Size(44, 20);
@@ -165,7 +158,7 @@ namespace BoozeHoundBooks
       // 
       this.viewTransactionGridBGAccount.CheckOnClick = true;
       this.viewTransactionGridBGAccount.Name = "viewTransactionGridBGAccount";
-      this.viewTransactionGridBGAccount.Size = new System.Drawing.Size(358, 22);
+      this.viewTransactionGridBGAccount.Size = new System.Drawing.Size(357, 22);
       this.viewTransactionGridBGAccount.Text = "Use Account colours for Transaction Grid background";
       this.viewTransactionGridBGAccount.CheckedChanged += new System.EventHandler(this.ViewTransactionGridBGCheckedChanged);
       // 
@@ -173,21 +166,21 @@ namespace BoozeHoundBooks
       // 
       this.viewTransactionGridBGContra.CheckOnClick = true;
       this.viewTransactionGridBGContra.Name = "viewTransactionGridBGContra";
-      this.viewTransactionGridBGContra.Size = new System.Drawing.Size(358, 22);
+      this.viewTransactionGridBGContra.Size = new System.Drawing.Size(357, 22);
       this.viewTransactionGridBGContra.Text = "Use Contra colours for Transaction Grid background";
       this.viewTransactionGridBGContra.CheckedChanged += new System.EventHandler(this.ViewTransactionGridBGCheckedChanged);
       // 
       // toolStripSeparator2
       // 
       this.toolStripSeparator2.Name = "toolStripSeparator2";
-      this.toolStripSeparator2.Size = new System.Drawing.Size(355, 6);
+      this.toolStripSeparator2.Size = new System.Drawing.Size(354, 6);
       // 
       // viewMovement
       // 
       this.viewMovement.CheckOnClick = true;
       this.viewMovement.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
       this.viewMovement.Name = "viewMovement";
-      this.viewMovement.Size = new System.Drawing.Size(358, 22);
+      this.viewMovement.Size = new System.Drawing.Size(357, 22);
       this.viewMovement.Text = "Movement";
       this.viewMovement.Click += new System.EventHandler(this.viewMovement_CheckedChanged);
       // 
@@ -196,7 +189,7 @@ namespace BoozeHoundBooks
       this.viewBudget.CheckOnClick = true;
       this.viewBudget.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
       this.viewBudget.Name = "viewBudget";
-      this.viewBudget.Size = new System.Drawing.Size(358, 22);
+      this.viewBudget.Size = new System.Drawing.Size(357, 22);
       this.viewBudget.Text = "Budget Transactions";
       this.viewBudget.Click += new System.EventHandler(this.viewBudget_CheckedChanged);
       // 
@@ -204,7 +197,7 @@ namespace BoozeHoundBooks
       // 
       this.showHiddenAccountsToolStripMenuItem.CheckOnClick = true;
       this.showHiddenAccountsToolStripMenuItem.Name = "showHiddenAccountsToolStripMenuItem";
-      this.showHiddenAccountsToolStripMenuItem.Size = new System.Drawing.Size(358, 22);
+      this.showHiddenAccountsToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
       this.showHiddenAccountsToolStripMenuItem.Text = "Show Hidden Accounts";
       this.showHiddenAccountsToolStripMenuItem.CheckedChanged += new System.EventHandler(this.showHiddenAccountsToolStripMenuItem_CheckedChanged);
       // 
@@ -220,14 +213,14 @@ namespace BoozeHoundBooks
       // addAccount
       // 
       this.addAccount.Name = "addAccount";
-      this.addAccount.Size = new System.Drawing.Size(152, 22);
+      this.addAccount.Size = new System.Drawing.Size(144, 22);
       this.addAccount.Text = "&Add Account";
       this.addAccount.Click += new System.EventHandler(this.AddAccountClick);
       // 
       // editAccount
       // 
       this.editAccount.Name = "editAccount";
-      this.editAccount.Size = new System.Drawing.Size(152, 22);
+      this.editAccount.Size = new System.Drawing.Size(144, 22);
       this.editAccount.Text = "&Edit Account";
       this.editAccount.Click += new System.EventHandler(this.EditAccountClick);
       // 
@@ -242,7 +235,7 @@ namespace BoozeHoundBooks
       // editPeriods
       // 
       this.editPeriods.Name = "editPeriods";
-      this.editPeriods.Size = new System.Drawing.Size(152, 22);
+      this.editPeriods.Size = new System.Drawing.Size(136, 22);
       this.editPeriods.Text = "&Edit Periods";
       this.editPeriods.Click += new System.EventHandler(this.EditPeriodsClick);
       // 
@@ -257,7 +250,7 @@ namespace BoozeHoundBooks
       // addSummaryExpressionItem
       // 
       this.addSummaryExpressionItem.Name = "addSummaryExpressionItem";
-      this.addSummaryExpressionItem.Size = new System.Drawing.Size(152, 22);
+      this.addSummaryExpressionItem.Size = new System.Drawing.Size(124, 22);
       this.addSummaryExpressionItem.Text = "&Add Field";
       this.addSummaryExpressionItem.Click += new System.EventHandler(this.AddSummaryExpressionItemClick);
       // 
@@ -611,26 +604,6 @@ namespace BoozeHoundBooks
       this.transactionCountLbl.TabIndex = 7;
       this.transactionCountLbl.Text = "Transactions: x";
       // 
-      // toolStripSeparator1
-      // 
-      this.toolStripSeparator1.Name = "toolStripSeparator1";
-      this.toolStripSeparator1.Size = new System.Drawing.Size(355, 6);
-      // 
-      // recuringTransactionsMenu
-      // 
-      this.recuringTransactionsMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.generateRecuringTransactions});
-      this.recuringTransactionsMenu.Name = "recuringTransactionsMenu";
-      this.recuringTransactionsMenu.Size = new System.Drawing.Size(136, 20);
-      this.recuringTransactionsMenu.Text = "&Recuring Transactions";
-      // 
-      // generateRecuringTransactions
-      // 
-      this.generateRecuringTransactions.Name = "generateRecuringTransactions";
-      this.generateRecuringTransactions.Size = new System.Drawing.Size(152, 22);
-      this.generateRecuringTransactions.Text = "&Generate";
-      this.generateRecuringTransactions.Click += new System.EventHandler(this.generateRecuringTransactions_Click);
-      // 
       // KMainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -641,8 +614,8 @@ namespace BoozeHoundBooks
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MainMenuStrip = this.topMenu;
       this.Name = "KMainForm";
+      this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Booze Hound Books";
-      this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
       this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
       this.Load += new System.EventHandler(this.KMainFormLoad);
       this.topMenu.ResumeLayout(false);
@@ -652,11 +625,9 @@ namespace BoozeHoundBooks
       this.panel1.ResumeLayout(false);
       this.splitContainerHoriz.Panel1.ResumeLayout(false);
       this.splitContainerHoriz.Panel2.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)(this.splitContainerHoriz)).EndInit();
       this.splitContainerHoriz.ResumeLayout(false);
       this.splitContainerVert.Panel1.ResumeLayout(false);
       this.splitContainerVert.Panel2.ResumeLayout(false);
-      ((System.ComponentModel.ISupportInitialize)(this.splitContainerVert)).EndInit();
       this.splitContainerVert.ResumeLayout(false);
       this.panel3.ResumeLayout(false);
       ((System.ComponentModel.ISupportInitialize)(this.summaryExpressionGrid)).EndInit();
@@ -716,8 +687,5 @@ namespace BoozeHoundBooks
     private System.Windows.Forms.Button deleteTransaction;
     private System.Windows.Forms.Label transactionCountLbl;
     private System.Windows.Forms.ToolStripMenuItem showHiddenAccountsToolStripMenuItem;
-    private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
-    private System.Windows.Forms.ToolStripMenuItem recuringTransactionsMenu;
-    private System.Windows.Forms.ToolStripMenuItem generateRecuringTransactions;
 	}
 }
