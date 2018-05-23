@@ -16,6 +16,9 @@ namespace BoozeHoundBooks
       c_credit
     };
 
+    // properties ---------------------------------------------------
+    public bool IsBudget { get; set; }
+
     // xml constants ------------------------------------------------
     private const String c_attrib_id = "Id";
 
@@ -40,7 +43,6 @@ namespace BoozeHoundBooks
     private KPeriod m_period;
     private String m_description;
     private bool m_isAdjustment;
-    private bool m_isBudgetTransaction;
     private bool m_isRecuring;
 
     //---------------------------------------------------------------
@@ -132,11 +134,11 @@ namespace BoozeHoundBooks
       // budget transaction
       if (element.HasAttribute(c_attrib_budget))
       {
-        m_isBudgetTransaction = true;
+        IsBudget = true;
       }
       else
       {
-        m_isBudgetTransaction = false;
+        IsBudget = false;
       }
 
       // recuring?
@@ -193,7 +195,7 @@ namespace BoozeHoundBooks
       m_period = period;
       m_description = description;
       m_isAdjustment = isAdjustment;
-      m_isBudgetTransaction = isBudgetTransaction;
+      IsBudget = isBudgetTransaction;
       m_isRecuring = isRecuring;
 
       // update next id
@@ -225,7 +227,7 @@ namespace BoozeHoundBooks
         element.SetAttribute(c_attrib_adjustment, "");
       }
 
-      if (m_isBudgetTransaction)
+      if (IsBudget)
       {
         element.SetAttribute(c_attrib_budget, "");
       }
@@ -340,14 +342,7 @@ namespace BoozeHoundBooks
     }
 
     //---------------------------------------------------------------
-
-    public bool IsBudgetTransaction()
-    {
-      return m_isBudgetTransaction;
-    }
-
-    //---------------------------------------------------------------
-
+    
     public bool IsRecuring()
     {
       return m_isRecuring;

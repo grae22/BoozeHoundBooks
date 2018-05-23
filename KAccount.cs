@@ -488,7 +488,7 @@ namespace BoozeHoundBooks
       foreach (KTransaction t in m_transaction)
       {
         // include budget transactions?
-        if (t.IsBudgetTransaction() &&
+        if (t.IsBudget &&
             includeBudget == false)
         {
           continue;
@@ -532,7 +532,7 @@ namespace BoozeHoundBooks
             t.GetDate().Date <= end.Date)
         {
           // include budget transactions?
-          if (t.IsBudgetTransaction() &&
+          if (t.IsBudget &&
               includeBudget == false)
           {
             continue;
@@ -802,7 +802,7 @@ namespace BoozeHoundBooks
       // check this account's transactions
       foreach (KTransaction t in m_transaction)
       {
-        if (t.IsBudgetTransaction())
+        if (t.IsBudget)
         {
           DateTime date = t.GetDate();
 

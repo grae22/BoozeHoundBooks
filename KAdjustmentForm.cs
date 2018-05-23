@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace BoozeHoundBooks
@@ -97,7 +96,7 @@ namespace BoozeHoundBooks
       }
 
       // budget transaction
-      budgetBox.Checked = trans.IsBudgetTransaction();
+      budgetBox.Checked = trans.IsBudget;
 
       // recuring
       recuringBox.Checked = trans.IsRecuring();

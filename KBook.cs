@@ -337,7 +337,7 @@ namespace BoozeHoundBooks
             t.GetPeriod(),
             t.GetDescription(),
             t.IsAdjustment(),
-            t.IsBudgetTransaction(),
+            t.IsBudget,
             false,
             t.IsRecuring());
         }
@@ -501,7 +501,7 @@ namespace BoozeHoundBooks
         foreach (KTransaction transaction in account.GetTransactions())
         {
           if (transaction.IsAdjustment() == false &&
-              transaction.IsBudgetTransaction() == false &&
+              transaction.IsBudget == false &&
               transaction.GetTransactionType() == KTransaction.TransactionType.c_debit)
           {
             count++;

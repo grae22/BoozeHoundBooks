@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
@@ -808,7 +809,7 @@ namespace BoozeHoundBooks
         {
           // include budget transactions?
           if (viewBudget.Checked == false &&
-              trans.IsBudgetTransaction())
+              trans.IsBudget)
           {
             continue;
           }
@@ -837,7 +838,7 @@ namespace BoozeHoundBooks
           // is budget trans? special description
           String extraDesc = "";
 
-          if (trans.IsBudgetTransaction())
+          if (trans.IsBudget)
           {
             extraDesc = "[BUDGET] ";
           }
@@ -846,9 +847,9 @@ namespace BoozeHoundBooks
           Object[] row =
           {
             trans.GetId().ToString(),
+            trans.IsBudget,
             trans.GetDate().ToString("yyyy/MM/dd"),
-            KMain.m_resourceManager.m_dayOfWeek[(int) trans.GetDate().DayOfWeek]
-              .GetImage(m_activeBook.GetTransactionGridIconSize()),
+            KMain.m_resourceManager.m_dayOfWeek[(int) trans.GetDate().DayOfWeek].GetImage(m_activeBook.GetTransactionGridIconSize()),
             trans.GetSignedAmount().ToString("C"),
             trans.GetAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
             trans.GetAccount().ToString(),
@@ -859,8 +860,10 @@ namespace BoozeHoundBooks
 
           int rowNum = transactionGrid.Rows.Add(row);
 
+          transactionGrid.Rows[rowNum].Tag = trans;
+
           // is a budget transaction, change forecolour
-          if (trans.IsBudgetTransaction())
+          if (trans.IsBudget)
           {
             transactionGrid.Rows[rowNum].DefaultCellStyle.ForeColor = c_col_budget;
           }
@@ -883,8 +886,7 @@ namespace BoozeHoundBooks
         }
 
         // sort
-        transactionGrid.Sort(transactionGrid.Columns.GetFirstColumn(DataGridViewElementStates.Visible),
-          System.ComponentModel.ListSortDirection.Descending);
+        transactionGrid.Sort(transactionGrid.Columns["Date"], ListSortDirection.Descending);
 
         // select nothing
         transactionGrid.ClearSelection();
@@ -1488,6 +1490,57 @@ namespace BoozeHoundBooks
             PopulateAccountTransactionGrid(m_activeBook.GetAccount(selectedAcc));
           }
         }
+      }
+      catch (Exception ex)
+      {
+        KMain.HandleException(ex, true);
+      }
+    }
+
+    //---------------------------------------------------------------
+
+    private void transactionGrid_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+    {
+      try
+      {
+        // 'Budget' checkbox changes.
+        if (e.ColumnIndex != transactionGrid.Columns["Budget"]?.Index ||
+            e.RowIndex == -1 ||
+            transactionGrid.CurrentRow == null)
+        {
+          return;
+        }
+
+        var checkboxCell = (DataGridViewCheckBoxCell)transactionGrid.CurrentRow.Cells["Budget"];
+
+        var transaction = (KTransaction)transactionGrid.CurrentRow.Tag;
+        transaction.IsBudget = (bool)checkboxCell.Value;
+
+        m_activeBook.Save();
+
+        PopulateAccountTransactionGrid();
+      }
+      catch (Exception ex)
+      {
+        KMain.HandleException(ex, true);
+      }
+    }
+
+    //---------------------------------------------------------------
+
+    private void transactionGrid_CellMouseUp(object sender, DataGridViewCellMouseEventArgs e)
+    {
+      try
+      {
+        // This is specifically for 'budget' checkbox changes so that the
+        // "cell value changed" event is raised immediately (and not when the row loses focus).
+        if (e.ColumnIndex != transactionGrid.Columns["Budget"].Index ||
+            e.RowIndex == -1)
+        {
+          return;
+        }
+
+        transactionGrid.EndEdit();
       }
       catch (Exception ex)
       {

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Drawing;
 using System.Windows.Forms;
 
 namespace BoozeHoundBooks
@@ -213,7 +212,7 @@ namespace BoozeHoundBooks
       transactionAmount.Text = debit.GetAmount().ToString("0.00");
 
       // budget transaction
-      transactionBudget.Checked = debit.IsBudgetTransaction();
+      transactionBudget.Checked = debit.IsBudget;
 
       // recuring
       transactionRecuring.Checked = debit.IsRecuring();
@@ -563,8 +562,8 @@ namespace BoozeHoundBooks
         }
 
         // create transaction
-        m_book.CreateTransaction((KAccount) transactionFromAcc.SelectedItem,
-          (KAccount) transactionToAcc.SelectedItem,
+        m_book.CreateTransaction((KAccount)transactionFromAcc.SelectedItem,
+          (KAccount)transactionToAcc.SelectedItem,
           amount,
           transactionDate.Value,
           transactionInfo.Text,
