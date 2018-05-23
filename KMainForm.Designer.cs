@@ -78,6 +78,7 @@ namespace BoozeHoundBooks
       this.Contra = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.panel2 = new System.Windows.Forms.Panel();
+      this.viewBudget = new System.Windows.Forms.CheckBox();
       this.label1 = new System.Windows.Forms.Label();
       this.defaultDate = new System.Windows.Forms.DateTimePicker();
       this.viewByDateTo = new System.Windows.Forms.CheckBox();
@@ -89,7 +90,6 @@ namespace BoozeHoundBooks
       this.viewTo = new System.Windows.Forms.DateTimePicker();
       this.viewFrom = new System.Windows.Forms.DateTimePicker();
       this.transactionCountLbl = new System.Windows.Forms.Label();
-      this.viewBudget = new System.Windows.Forms.CheckBox();
       this.topMenu.SuspendLayout();
       this.mainPanel.SuspendLayout();
       this.panel1.SuspendLayout();
@@ -495,6 +495,19 @@ namespace BoozeHoundBooks
       this.panel2.Size = new System.Drawing.Size(976, 25);
       this.panel2.TabIndex = 6;
       // 
+      // viewBudget
+      // 
+      this.viewBudget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.viewBudget.Appearance = System.Windows.Forms.Appearance.Button;
+      this.viewBudget.Location = new System.Drawing.Point(642, 2);
+      this.viewBudget.Name = "viewBudget";
+      this.viewBudget.Size = new System.Drawing.Size(80, 23);
+      this.viewBudget.TabIndex = 28;
+      this.viewBudget.Text = "Budget View";
+      this.viewBudget.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+      this.viewBudget.UseVisualStyleBackColor = true;
+      this.viewBudget.CheckedChanged += new System.EventHandler(this.viewBudget_CheckedChanged);
+      // 
       // label1
       // 
       this.label1.AutoSize = true;
@@ -605,19 +618,6 @@ namespace BoozeHoundBooks
       this.transactionCountLbl.Size = new System.Drawing.Size(79, 13);
       this.transactionCountLbl.TabIndex = 7;
       this.transactionCountLbl.Text = "Transactions: x";
-      // 
-      // viewBudget
-      // 
-      this.viewBudget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.viewBudget.Appearance = System.Windows.Forms.Appearance.Button;
-      this.viewBudget.AutoSize = true;
-      this.viewBudget.Location = new System.Drawing.Point(660, 2);
-      this.viewBudget.Name = "viewBudget";
-      this.viewBudget.Size = new System.Drawing.Size(51, 23);
-      this.viewBudget.TabIndex = 28;
-      this.viewBudget.Text = "Budget";
-      this.viewBudget.UseVisualStyleBackColor = true;
-      this.viewBudget.CheckedChanged += new System.EventHandler(this.viewBudget_CheckedChanged);
       // 
       // KMainForm
       // 

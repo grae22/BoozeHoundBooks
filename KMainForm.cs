@@ -9,8 +9,6 @@ namespace BoozeHoundBooks
 {
   public partial class KMainForm
   {
-    // statics ------------------------------------------------------
-
     // constants ----------------------------------------------------
 
     // settings
