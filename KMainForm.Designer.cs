@@ -49,7 +49,6 @@ namespace BoozeHoundBooks
       this.viewTransactionGridBGContra = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
       this.viewMovement = new System.Windows.Forms.ToolStripMenuItem();
-      this.viewBudget = new System.Windows.Forms.ToolStripMenuItem();
       this.showHiddenAccountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.accountMenu = new System.Windows.Forms.ToolStripMenuItem();
       this.addAccount = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,6 +67,16 @@ namespace BoozeHoundBooks
       this.SummaryNameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.ValueCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.transactionGrid = new System.Windows.Forms.DataGridView();
+      this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.Budget = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+      this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.DayOfWeekIcon = new System.Windows.Forms.DataGridViewImageColumn();
+      this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.AccountIcon = new System.Windows.Forms.DataGridViewImageColumn();
+      this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ContraIcon = new System.Windows.Forms.DataGridViewImageColumn();
+      this.Contra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.panel2 = new System.Windows.Forms.Panel();
       this.label1 = new System.Windows.Forms.Label();
       this.defaultDate = new System.Windows.Forms.DateTimePicker();
@@ -80,16 +89,7 @@ namespace BoozeHoundBooks
       this.viewTo = new System.Windows.Forms.DateTimePicker();
       this.viewFrom = new System.Windows.Forms.DateTimePicker();
       this.transactionCountLbl = new System.Windows.Forms.Label();
-      this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.Budget = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-      this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.DayOfWeekIcon = new System.Windows.Forms.DataGridViewImageColumn();
-      this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.AccountIcon = new System.Windows.Forms.DataGridViewImageColumn();
-      this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.ContraIcon = new System.Windows.Forms.DataGridViewImageColumn();
-      this.Contra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.viewBudget = new System.Windows.Forms.CheckBox();
       this.topMenu.SuspendLayout();
       this.mainPanel.SuspendLayout();
       this.panel1.SuspendLayout();
@@ -151,7 +151,6 @@ namespace BoozeHoundBooks
             this.viewTransactionGridBGContra,
             this.toolStripSeparator2,
             this.viewMovement,
-            this.viewBudget,
             this.showHiddenAccountsToolStripMenuItem});
       this.viewMenu.Name = "viewMenu";
       this.viewMenu.Size = new System.Drawing.Size(44, 20);
@@ -186,15 +185,6 @@ namespace BoozeHoundBooks
       this.viewMovement.Size = new System.Drawing.Size(357, 22);
       this.viewMovement.Text = "Movement";
       this.viewMovement.Click += new System.EventHandler(this.viewMovement_CheckedChanged);
-      // 
-      // viewBudget
-      // 
-      this.viewBudget.CheckOnClick = true;
-      this.viewBudget.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-      this.viewBudget.Name = "viewBudget";
-      this.viewBudget.Size = new System.Drawing.Size(357, 22);
-      this.viewBudget.Text = "Budget Transactions";
-      this.viewBudget.Click += new System.EventHandler(this.viewBudget_CheckedChanged);
       // 
       // showHiddenAccountsToolStripMenuItem
       // 
@@ -407,8 +397,88 @@ namespace BoozeHoundBooks
       this.transactionGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.transactionGrid_CellValueChanged);
       this.transactionGrid.DoubleClick += new System.EventHandler(this.transactionGrid_DoubleClick);
       // 
+      // Id
+      // 
+      this.Id.HeaderText = "Id";
+      this.Id.Name = "Id";
+      this.Id.ReadOnly = true;
+      this.Id.Visible = false;
+      // 
+      // Budget
+      // 
+      this.Budget.FillWeight = 5F;
+      this.Budget.HeaderText = "Budget";
+      this.Budget.Name = "Budget";
+      // 
+      // Date
+      // 
+      this.Date.FillWeight = 15F;
+      this.Date.HeaderText = "Date";
+      this.Date.Name = "Date";
+      this.Date.ReadOnly = true;
+      // 
+      // DayOfWeekIcon
+      // 
+      this.DayOfWeekIcon.FillWeight = 5.543147F;
+      this.DayOfWeekIcon.HeaderText = "";
+      this.DayOfWeekIcon.Name = "DayOfWeekIcon";
+      this.DayOfWeekIcon.ReadOnly = true;
+      this.DayOfWeekIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+      this.DayOfWeekIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+      // 
+      // Amount
+      // 
+      dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+      dataGridViewCellStyle1.Format = "C2";
+      dataGridViewCellStyle1.NullValue = null;
+      this.Amount.DefaultCellStyle = dataGridViewCellStyle1;
+      this.Amount.FillWeight = 15F;
+      this.Amount.HeaderText = "Amount";
+      this.Amount.Name = "Amount";
+      this.Amount.ReadOnly = true;
+      // 
+      // AccountIcon
+      // 
+      this.AccountIcon.FillWeight = 4.619289F;
+      this.AccountIcon.HeaderText = "";
+      this.AccountIcon.Name = "AccountIcon";
+      this.AccountIcon.ReadOnly = true;
+      // 
+      // Account
+      // 
+      dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.Account.DefaultCellStyle = dataGridViewCellStyle2;
+      this.Account.FillWeight = 20F;
+      this.Account.HeaderText = "Account";
+      this.Account.Name = "Account";
+      this.Account.ReadOnly = true;
+      // 
+      // ContraIcon
+      // 
+      this.ContraIcon.FillWeight = 4.619289F;
+      this.ContraIcon.HeaderText = "";
+      this.ContraIcon.Name = "ContraIcon";
+      this.ContraIcon.ReadOnly = true;
+      // 
+      // Contra
+      // 
+      dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.Contra.DefaultCellStyle = dataGridViewCellStyle3;
+      this.Contra.FillWeight = 20F;
+      this.Contra.HeaderText = "Contra";
+      this.Contra.Name = "Contra";
+      this.Contra.ReadOnly = true;
+      // 
+      // Description
+      // 
+      this.Description.FillWeight = 25F;
+      this.Description.HeaderText = "Description";
+      this.Description.Name = "Description";
+      this.Description.ReadOnly = true;
+      // 
       // panel2
       // 
+      this.panel2.Controls.Add(this.viewBudget);
       this.panel2.Controls.Add(this.label1);
       this.panel2.Controls.Add(this.defaultDate);
       this.panel2.Controls.Add(this.viewByDateTo);
@@ -536,84 +606,18 @@ namespace BoozeHoundBooks
       this.transactionCountLbl.TabIndex = 7;
       this.transactionCountLbl.Text = "Transactions: x";
       // 
-      // Id
+      // viewBudget
       // 
-      this.Id.HeaderText = "Id";
-      this.Id.Name = "Id";
-      this.Id.ReadOnly = true;
-      this.Id.Visible = false;
-      // 
-      // Budget
-      // 
-      this.Budget.FillWeight = 5F;
-      this.Budget.HeaderText = "Budget";
-      this.Budget.Name = "Budget";
-      // 
-      // Date
-      // 
-      this.Date.FillWeight = 15F;
-      this.Date.HeaderText = "Date";
-      this.Date.Name = "Date";
-      this.Date.ReadOnly = true;
-      // 
-      // DayOfWeekIcon
-      // 
-      this.DayOfWeekIcon.FillWeight = 5.543147F;
-      this.DayOfWeekIcon.HeaderText = "";
-      this.DayOfWeekIcon.Name = "DayOfWeekIcon";
-      this.DayOfWeekIcon.ReadOnly = true;
-      this.DayOfWeekIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-      this.DayOfWeekIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-      // 
-      // Amount
-      // 
-      dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-      dataGridViewCellStyle1.Format = "C2";
-      dataGridViewCellStyle1.NullValue = null;
-      this.Amount.DefaultCellStyle = dataGridViewCellStyle1;
-      this.Amount.FillWeight = 15F;
-      this.Amount.HeaderText = "Amount";
-      this.Amount.Name = "Amount";
-      this.Amount.ReadOnly = true;
-      // 
-      // AccountIcon
-      // 
-      this.AccountIcon.FillWeight = 4.619289F;
-      this.AccountIcon.HeaderText = "";
-      this.AccountIcon.Name = "AccountIcon";
-      this.AccountIcon.ReadOnly = true;
-      // 
-      // Account
-      // 
-      dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.Account.DefaultCellStyle = dataGridViewCellStyle2;
-      this.Account.FillWeight = 20F;
-      this.Account.HeaderText = "Account";
-      this.Account.Name = "Account";
-      this.Account.ReadOnly = true;
-      // 
-      // ContraIcon
-      // 
-      this.ContraIcon.FillWeight = 4.619289F;
-      this.ContraIcon.HeaderText = "";
-      this.ContraIcon.Name = "ContraIcon";
-      this.ContraIcon.ReadOnly = true;
-      // 
-      // Contra
-      // 
-      dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.Contra.DefaultCellStyle = dataGridViewCellStyle3;
-      this.Contra.FillWeight = 20F;
-      this.Contra.HeaderText = "Contra";
-      this.Contra.Name = "Contra";
-      this.Contra.ReadOnly = true;
-      // 
-      // Description
-      // 
-      this.Description.FillWeight = 25F;
-      this.Description.HeaderText = "Description";
-      this.Description.Name = "Description";
-      this.Description.ReadOnly = true;
+      this.viewBudget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.viewBudget.Appearance = System.Windows.Forms.Appearance.Button;
+      this.viewBudget.AutoSize = true;
+      this.viewBudget.Location = new System.Drawing.Point(660, 2);
+      this.viewBudget.Name = "viewBudget";
+      this.viewBudget.Size = new System.Drawing.Size(51, 23);
+      this.viewBudget.TabIndex = 28;
+      this.viewBudget.Text = "Budget";
+      this.viewBudget.UseVisualStyleBackColor = true;
+      this.viewBudget.CheckedChanged += new System.EventHandler(this.viewBudget_CheckedChanged);
       // 
       // KMainForm
       // 
@@ -684,7 +688,6 @@ namespace BoozeHoundBooks
 		private System.Windows.Forms.CheckBox viewByPeriod;
     private System.Windows.Forms.TreeView accountTree;
     private System.Windows.Forms.ToolStripMenuItem viewMovement;
-    private System.Windows.Forms.ToolStripMenuItem viewBudget;
     private System.Windows.Forms.ComboBox viewPeriod;
     private System.Windows.Forms.DateTimePicker viewTo;
     private System.Windows.Forms.DateTimePicker viewFrom;
@@ -701,5 +704,6 @@ namespace BoozeHoundBooks
     private System.Windows.Forms.DataGridViewImageColumn ContraIcon;
     private System.Windows.Forms.DataGridViewTextBoxColumn Contra;
     private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+    private System.Windows.Forms.CheckBox viewBudget;
   }
 }
