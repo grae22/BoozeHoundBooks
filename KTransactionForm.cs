@@ -1,46 +1,26 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BoozeHoundBooks
 {
   public partial class KTransactionForm
   {
+    // constants ---------------------------------------------------------------
+
+    private readonly Color PeriodNameColour_Prior = Color.Orange;
+    private readonly Color PeriodNameColour_Normal = Color.DodgerBlue;
+    private readonly Color PeriodNameColour_Error = Color.Red;
+
     // class vars --------------------------------------------------------------
 
-    private KBook m_book;
-    private bool m_editingTransaction = false;
-    private uint m_editingTransactionId = 0;
-    private bool m_formLoading = true;
+    private KBook _book;
+    private bool _editingTransaction = false;
+    private uint _editingTransactionId = 0;
+    private bool _formLoading = true;
 
     //--------------------------------------------------------------------------
-
-    public KTransactionForm(KBook book)
-    {
-      // init components
-      InitializeComponent();
-
-      // title
-      this.Text = "New Transaction";
-
-      // init vars
-      m_book = book;
-
-      transactionIncome.Checked = false;
-      transactionIncome.Checked = true;
-
-      // set today's date
-      transactionDate.Value = DateTime.Now;
-      transactionDate_ValueChanged(null, null);
-
-      // hide 'process as new' by default
-      transactionProcessAsNew.Hide();
-
-      // load complete
-      m_formLoading = false;
-    }
-
-    //--------------------------------------------------------------------------
-
+    
     public KTransactionForm(KBook book,
       KAccount account,
       DateTime transDate)
@@ -52,7 +32,7 @@ namespace BoozeHoundBooks
       this.Text = "New Transaction";
 
       // init vars
-      m_book = book;
+      _book = book;
 
       // income/expense/inter/debt/credit
       switch (account.GetAccountType())
@@ -108,7 +88,7 @@ namespace BoozeHoundBooks
       transactionProcessAsNew.Hide();
 
       // load complete
-      m_formLoading = false;
+      _formLoading = false;
     }
 
     //---------------------------------------------------------------
@@ -125,9 +105,9 @@ namespace BoozeHoundBooks
       transactionProcess.Text = "Save";
 
       // init vars
-      m_book = book;
-      m_editingTransaction = true;
-      m_editingTransactionId = debit.GetId();
+      _book = book;
+      _editingTransaction = true;
+      _editingTransactionId = debit.GetId();
 
       // show the 'process as new' button
       transactionProcessAsNew.Show();
@@ -181,7 +161,7 @@ namespace BoozeHoundBooks
         actionLoan.Checked = false;
         actionLoan.Checked = true;
       }
-      // creidt - repayment
+      // credit - repayment
       else if (debit.GetAccount().GetAccountType() == KAccount.c_credit &&
                credit.GetAccount().GetAccountType() == KAccount.c_bank)
       {
@@ -218,12 +198,12 @@ namespace BoozeHoundBooks
       transactionRecuring.Checked = debit.IsRecuring();
 
       // load complete
-      m_formLoading = false;
+      _formLoading = false;
     }
 
     //---------------------------------------------------------------
 
-    void TransactionIncomeClick(object sender, System.EventArgs e)
+    void TransactionIncomeClick(object sender, EventArgs e)
     {
       // unchecked? do nothing
       if (transactionIncome.Checked == false)
@@ -241,7 +221,7 @@ namespace BoozeHoundBooks
       // add income accounts to 'from' accounts box
       transactionFromAcc.Items.Clear();
 
-      foreach (KAccount acc in m_book.GetAccountList())
+      foreach (KAccount acc in _book.GetAccountList())
       {
         if (acc.GetAccountType() == KAccount.c_income &&
             acc.HasChildren() == false)
@@ -258,7 +238,7 @@ namespace BoozeHoundBooks
       // add bank accounts to 'to' accounts box
       transactionToAcc.Items.Clear();
 
-      foreach (KAccount acc in m_book.GetAccountList())
+      foreach (KAccount acc in _book.GetAccountList())
       {
         if (acc.GetAccountType() == KAccount.c_bank &&
             acc.HasChildren() == false)
@@ -275,7 +255,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void TransactionExpenseClick(object sender, System.EventArgs e)
+    void TransactionExpenseClick(object sender, EventArgs e)
     {
       // unchecked? do nothing
       if (transactionExpense.Checked == false)
@@ -293,7 +273,7 @@ namespace BoozeHoundBooks
       // add bank accounts to 'from' accounts box
       transactionFromAcc.Items.Clear();
 
-      foreach (KAccount acc in m_book.GetAccountList())
+      foreach (KAccount acc in _book.GetAccountList())
       {
         if (acc.GetAccountType() == KAccount.c_bank &&
             acc.HasChildren() == false)
@@ -310,7 +290,7 @@ namespace BoozeHoundBooks
       // add expense accounts to 'to' accounts box
       transactionToAcc.Items.Clear();
 
-      foreach (KAccount acc in m_book.GetAccountList())
+      foreach (KAccount acc in _book.GetAccountList())
       {
         if (acc.GetAccountType() == KAccount.c_expense &&
             acc.HasChildren() == false)
@@ -327,7 +307,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void TransactionInterClick(object sender, System.EventArgs e)
+    void TransactionInterClick(object sender, EventArgs e)
     {
       // unchecked? do nothing
       if (transactionInter.Checked == false)
@@ -345,7 +325,7 @@ namespace BoozeHoundBooks
       // add master accounts to 'master' accounts box
       transactionMasterAccount.Items.Clear();
 
-      foreach (KAccount acc in m_book.GetAccountList())
+      foreach (KAccount acc in _book.GetAccountList())
       {
         if (acc.IsMasterAccount() &&
             acc.GetAccountType() != KAccount.c_unknown)
@@ -362,7 +342,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void TransactionDebtClick(object sender, System.EventArgs e)
+    void TransactionDebtClick(object sender, EventArgs e)
     {
       // unchecked? do nothing
       if (transactionDebt.Checked == false)
@@ -383,7 +363,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void TransactionCreditClick(object sender, System.EventArgs e)
+    void TransactionCreditClick(object sender, EventArgs e)
     {
       // unchecked? do nothing
       if (transactionCredit.Checked == false)
@@ -410,7 +390,7 @@ namespace BoozeHoundBooks
       transactionFromAcc.Items.Clear();
       transactionToAcc.Items.Clear();
 
-      KAccount master = m_book.GetAccount(transactionMasterAccount.Text);
+      KAccount master = _book.GetAccount(transactionMasterAccount.Text);
 
       if (master != null && master.HasChildren())
       {
@@ -430,7 +410,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    private void DebtCreditActionUpdate(object sender, System.EventArgs e)
+    private void DebtCreditActionUpdate(object sender, EventArgs e)
     {
       int fromAccType;
       int toAccType;
@@ -471,7 +451,7 @@ namespace BoozeHoundBooks
       // add accounts to 'from' accounts box
       transactionFromAcc.Items.Clear();
 
-      foreach (KAccount acc in m_book.GetAccountList())
+      foreach (KAccount acc in _book.GetAccountList())
       {
         if (acc.GetAccountType() == fromAccType &&
             acc.HasChildren() == false)
@@ -488,7 +468,7 @@ namespace BoozeHoundBooks
       // add accounts to 'to' accounts box
       transactionToAcc.Items.Clear();
 
-      foreach (KAccount acc in m_book.GetAccountList())
+      foreach (KAccount acc in _book.GetAccountList())
       {
         if (acc.GetAccountType() == toAccType &&
             acc.HasChildren() == false)
@@ -505,7 +485,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void TransactionProcessClick(object sender, System.EventArgs e)
+    void TransactionProcessClick(object sender, EventArgs e)
     {
       try
       {
@@ -562,7 +542,7 @@ namespace BoozeHoundBooks
         }
 
         // create transaction
-        m_book.CreateTransaction((KAccount)transactionFromAcc.SelectedItem,
+        _book.CreateTransaction((KAccount)transactionFromAcc.SelectedItem,
           (KAccount)transactionToAcc.SelectedItem,
           amount,
           transactionDate.Value,
@@ -571,12 +551,12 @@ namespace BoozeHoundBooks
           transactionRecuring.Checked);
 
         // updating an existing transaction? delete the orig transaction
-        if (m_editingTransaction)
+        if (_editingTransaction)
         {
-          m_book.DeleteTransaction(m_editingTransactionId);
+          _book.DeleteTransaction(_editingTransactionId);
         }
 
-        m_book.Save();
+        _book.Save();
 
         Dispose();
       }
@@ -588,7 +568,7 @@ namespace BoozeHoundBooks
 
     //--------------------------------------------------------------------------
 
-    void TransactionCancelClick(object sender, System.EventArgs e)
+    void TransactionCancelClick(object sender, EventArgs e)
     {
       Dispose();
     }
@@ -641,7 +621,7 @@ namespace BoozeHoundBooks
         }
 
         // create transaction
-        m_book.CreateTransaction((KAccount) transactionFromAcc.SelectedItem,
+        _book.CreateTransaction((KAccount) transactionFromAcc.SelectedItem,
           (KAccount) transactionToAcc.SelectedItem,
           amount,
           transactionDate.Value,
@@ -649,7 +629,7 @@ namespace BoozeHoundBooks
           transactionBudget.Checked,
           transactionRecuring.Checked);
 
-        m_book.Save();
+        _book.Save();
 
         Dispose();
       }
@@ -664,7 +644,7 @@ namespace BoozeHoundBooks
     void TransactionTypeKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
     {
       // enter? move to next box
-      if (e.KeyChar == (char) System.Windows.Forms.Keys.Enter)
+      if (e.KeyChar == (char)Keys.Enter)
       {
         transactionFromAcc.Focus();
       }
@@ -675,7 +655,7 @@ namespace BoozeHoundBooks
     void TransactionMasterAccountKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
     {
       // enter? move to next box
-      if (e.KeyChar == (char) System.Windows.Forms.Keys.Enter)
+      if (e.KeyChar == (char)Keys.Enter)
       {
         transactionFromAcc.Focus();
       }
@@ -686,7 +666,7 @@ namespace BoozeHoundBooks
     void TransactionFromAccKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
     {
       // enter? move to next box
-      if (e.KeyChar == (char) System.Windows.Forms.Keys.Enter)
+      if (e.KeyChar == (char)Keys.Enter)
       {
         transactionToAcc.Focus();
       }
@@ -697,7 +677,7 @@ namespace BoozeHoundBooks
     void TransactionToAccKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
     {
       // enter? move to next box
-      if (e.KeyChar == (char) System.Windows.Forms.Keys.Enter)
+      if (e.KeyChar == (char)Keys.Enter)
       {
         transactionDate.Focus();
       }
@@ -708,7 +688,7 @@ namespace BoozeHoundBooks
     void TransactionDateKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
     {
       // enter? move to next box
-      if (e.KeyChar == (char) System.Windows.Forms.Keys.Enter)
+      if (e.KeyChar == (char)Keys.Enter)
       {
         transactionInfo.Focus();
       }
@@ -719,7 +699,7 @@ namespace BoozeHoundBooks
     void TransactionInfoKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
     {
       // enter? move to next box
-      if (e.KeyChar == (char) System.Windows.Forms.Keys.Enter)
+      if (e.KeyChar == (char)Keys.Enter)
       {
         transactionAmount.Focus();
       }
@@ -730,7 +710,7 @@ namespace BoozeHoundBooks
     void TransactionAmountKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
     {
       // enter? move to next box
-      if (e.KeyChar == (char) System.Windows.Forms.Keys.Enter)
+      if (e.KeyChar == (char)Keys.Enter)
       {
         transactionProcess.PerformClick();
       }
@@ -741,10 +721,22 @@ namespace BoozeHoundBooks
     private void transactionDate_ValueChanged(object sender, EventArgs e)
     {
       // find period
-      String s = m_book.GetPeriodName(transactionDate.Value);
+      String s = _book.GetPeriodName(transactionDate.Value);
 
       if (s != null)
       {
+        periodName.ForeColor = PeriodNameColour_Normal;
+
+        string periodNameNow = _book.GetPeriodName(DateTime.Now) ?? string.Empty;
+        bool isTransactionForPriorPeriod =
+          !periodNameNow.Equals(s, StringComparison.OrdinalIgnoreCase) &&
+          transactionDate.Value < DateTime.Now;
+
+        if (isTransactionForPriorPeriod)
+        {
+          periodName.ForeColor = PeriodNameColour_Prior;
+        }
+
         periodName.Text = s;
 
         transactionProcess.Enabled = true;
@@ -752,6 +744,7 @@ namespace BoozeHoundBooks
       else
       {
         periodName.Text = "Unknown Period";
+        periodName.ForeColor = PeriodNameColour_Error;
 
         transactionProcess.Enabled = false;
       }
@@ -762,8 +755,8 @@ namespace BoozeHoundBooks
     void TransactionToAccSelectedIndexChanged(object sender, EventArgs e)
     {
       // do nothing if form loading for transaction edit
-      if (m_editingTransaction &&
-          m_formLoading)
+      if (_editingTransaction &&
+          _formLoading)
       {
         return;
       }
@@ -774,7 +767,7 @@ namespace BoozeHoundBooks
 
       if (contraAccName != null)
       {
-        KAccount contraAcc = m_book.GetAccount(contraAccName);
+        KAccount contraAcc = _book.GetAccount(contraAccName);
 
         if (contraAcc != null &&
             transactionFromAcc.Items.Contains(contraAcc))

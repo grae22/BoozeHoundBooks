@@ -1,15 +1,22 @@
 ﻿using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace BoozeHoundBooks
 {
   public partial class KAdjustmentForm
   {
+    // constants ---------------------------------------------------------------
+
+    private readonly Color PeriodNameColour_Prior = Color.Orange;
+    private readonly Color PeriodNameColour_Normal = Color.DodgerBlue;
+    private readonly Color PeriodNameColour_Error = Color.Red;
+
     // class vars --------------------------------------------------------------
 
-    private KBook m_book;
-    private bool m_editingAdjustment = false;
-    private uint m_editingAdjustmentId = 0;
+    private KBook _book;
+    private bool _editingAdjustment = false;
+    private uint _editingAdjustmentId = 0;
 
     //--------------------------------------------------------------------------
 
@@ -22,7 +29,7 @@ namespace BoozeHoundBooks
       this.Text = "New Adjustment";
 
       // init vars
-      m_book = book;
+      _book = book;
 
       // populate account box
       PopulateAccountBox();
@@ -33,30 +40,7 @@ namespace BoozeHoundBooks
     }
 
     //--------------------------------------------------------------------------
-
-    public KAdjustmentForm(KBook book, KAccount account)
-    {
-      // init components
-      InitializeComponent();
-
-      // title
-      this.Text = "New Adjustment";
-
-      // init vars
-      m_book = book;
-
-      // populate account box
-      PopulateAccountBox();
-
-      accountBox.SelectedItem = account;
-
-      // set today's date
-      dateBox.Value = DateTime.Now;
-      DateBox_ValueChanged(null, null);
-    }
-
-    //---------------------------------------------------------------
-
+    
     public KAdjustmentForm(KBook book, KTransaction trans)
     {
       // init components
@@ -69,9 +53,9 @@ namespace BoozeHoundBooks
       processBtn.Text = "Save";
 
       // init vars
-      m_book = book;
-      m_editingAdjustment = true;
-      m_editingAdjustmentId = trans.GetId();
+      _book = book;
+      _editingAdjustment = true;
+      _editingAdjustmentId = trans.GetId();
 
       // populate account box
       PopulateAccountBox();
@@ -88,7 +72,7 @@ namespace BoozeHoundBooks
       // amount
       if (trans.GetTransactionType() == KTransaction.TransactionType.c_debit)
       {
-        amountBox.Text = (trans.GetAmount() * -1m).ToString("0.00");
+        amountBox.Text = (-trans.GetAmount()).ToString("0.00");
       }
       else
       {
@@ -106,7 +90,7 @@ namespace BoozeHoundBooks
 
     private void PopulateAccountBox()
     {
-      foreach (KAccount a in m_book.GetAccountList())
+      foreach (KAccount a in _book.GetAccountList())
       {
         if (a.HasChildren() == false &&
             a.GetAccountType() != KAccount.c_unknown)
@@ -123,7 +107,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void ProcessBtnClick(object sender, System.EventArgs e)
+    void ProcessBtnClick(object sender, EventArgs e)
     {
       try
       {
@@ -217,11 +201,11 @@ namespace BoozeHoundBooks
 
             if (amount > 0.0m)
             {
-              type = KTransaction.TransactionType.c_debit;
+              type = KTransaction.TransactionType.c_credit;
             }
             else
             {
-              type = KTransaction.TransactionType.c_credit;
+              type = KTransaction.TransactionType.c_debit;
             }
 
             break;
@@ -245,7 +229,7 @@ namespace BoozeHoundBooks
         }
 
         // create transaction
-        m_book.CreateTransaction(account,
+        _book.CreateTransaction(account,
           type,
           Math.Abs(amount),
           dateBox.Value,
@@ -254,12 +238,12 @@ namespace BoozeHoundBooks
           recuringBox.Checked);
 
         // updating an existing transaction? delete the orig transaction
-        if (m_editingAdjustment)
+        if (_editingAdjustment)
         {
-          m_book.DeleteTransaction(m_editingAdjustmentId);
+          _book.DeleteTransaction(_editingAdjustmentId);
         }
 
-        m_book.Save();
+        _book.Save();
 
         Dispose();
       }
@@ -271,17 +255,17 @@ namespace BoozeHoundBooks
 
     //--------------------------------------------------------------------------
 
-    void CancelBtnClick(object sender, System.EventArgs e)
+    void CancelBtnClick(object sender, EventArgs e)
     {
       Dispose();
     }
 
     //--------------------------------------------------------------------------
 
-    void AccountBoxKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+    void AccountBoxKeyPress(object sender, KeyPressEventArgs e)
     {
       // enter? move to next box
-      if (e.KeyChar == (char) System.Windows.Forms.Keys.Enter)
+      if (e.KeyChar == (char)Keys.Enter)
       {
         dateBox.Focus();
       }
@@ -289,10 +273,10 @@ namespace BoozeHoundBooks
 
     //--------------------------------------------------------------------------
 
-    void DateBoxKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+    void DateBoxKeyPress(object sender, KeyPressEventArgs e)
     {
       // enter? move to next box
-      if (e.KeyChar == (char) System.Windows.Forms.Keys.Enter)
+      if (e.KeyChar == (char)Keys.Enter)
       {
         infoBox.Focus();
       }
@@ -300,10 +284,10 @@ namespace BoozeHoundBooks
 
     //--------------------------------------------------------------------------
 
-    void InfoBoxKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+    void InfoBoxKeyPress(object sender, KeyPressEventArgs e)
     {
       // enter? move to next box
-      if (e.KeyChar == (char) System.Windows.Forms.Keys.Enter)
+      if (e.KeyChar == (char)Keys.Enter)
       {
         amountBox.Focus();
       }
@@ -311,10 +295,10 @@ namespace BoozeHoundBooks
 
     //--------------------------------------------------------------------------
 
-    void AmountBoxKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+    void AmountBoxKeyPress(object sender, KeyPressEventArgs e)
     {
       // enter? move to next box
-      if (e.KeyChar == (char) System.Windows.Forms.Keys.Enter)
+      if (e.KeyChar == (char)Keys.Enter)
       {
         processBtn.PerformClick();
       }
@@ -325,10 +309,22 @@ namespace BoozeHoundBooks
     private void DateBox_ValueChanged(object sender, EventArgs e)
     {
       // find period
-      String s = m_book.GetPeriodName(dateBox.Value);
+      String s = _book.GetPeriodName(dateBox.Value);
 
       if (s != null)
       {
+        periodName.ForeColor = PeriodNameColour_Normal;
+
+        string periodNameNow = _book.GetPeriodName(DateTime.Now) ?? string.Empty;
+        bool isTransactionForPriorPeriod =
+          !periodNameNow.Equals(s, StringComparison.OrdinalIgnoreCase) &&
+          dateBox.Value < DateTime.Now;
+
+        if (isTransactionForPriorPeriod)
+        {
+          periodName.ForeColor = PeriodNameColour_Prior;
+        }
+
         periodName.Text = s;
 
         processBtn.Enabled = true;
@@ -336,6 +332,7 @@ namespace BoozeHoundBooks
       else
       {
         periodName.Text = "Unknown Period";
+        periodName.ForeColor = PeriodNameColour_Error;
 
         processBtn.Enabled = false;
       }
