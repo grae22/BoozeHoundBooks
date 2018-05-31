@@ -1611,6 +1611,7 @@ namespace BoozeHoundBooks
 
         m_activeBook.Save();
 
+        PopulateAccountTree(true);
         PopulateAccountTransactionGrid();
       }
       catch (Exception ex)
