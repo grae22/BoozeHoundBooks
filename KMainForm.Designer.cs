@@ -48,7 +48,7 @@ namespace BoozeHoundBooks
       this.viewTransactionGridBGAccount = new System.Windows.Forms.ToolStripMenuItem();
       this.viewTransactionGridBGContra = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
-      this.viewMovement = new System.Windows.Forms.ToolStripMenuItem();
+      this.viewCurrentVsPriorPeriod = new System.Windows.Forms.ToolStripMenuItem();
       this.showHiddenAccountsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.accountMenu = new System.Windows.Forms.ToolStripMenuItem();
       this.addAccount = new System.Windows.Forms.ToolStripMenuItem();
@@ -150,7 +150,7 @@ namespace BoozeHoundBooks
             this.viewTransactionGridBGAccount,
             this.viewTransactionGridBGContra,
             this.toolStripSeparator2,
-            this.viewMovement,
+            this.viewCurrentVsPriorPeriod,
             this.showHiddenAccountsToolStripMenuItem});
       this.viewMenu.Name = "viewMenu";
       this.viewMenu.Size = new System.Drawing.Size(44, 20);
@@ -177,14 +177,14 @@ namespace BoozeHoundBooks
       this.toolStripSeparator2.Name = "toolStripSeparator2";
       this.toolStripSeparator2.Size = new System.Drawing.Size(354, 6);
       // 
-      // viewMovement
+      // viewCurrentVsPriorPeriod
       // 
-      this.viewMovement.CheckOnClick = true;
-      this.viewMovement.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-      this.viewMovement.Name = "viewMovement";
-      this.viewMovement.Size = new System.Drawing.Size(357, 22);
-      this.viewMovement.Text = "Movement";
-      this.viewMovement.Click += new System.EventHandler(this.viewMovement_CheckedChanged);
+      this.viewCurrentVsPriorPeriod.CheckOnClick = true;
+      this.viewCurrentVsPriorPeriod.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+      this.viewCurrentVsPriorPeriod.Name = "viewCurrentVsPriorPeriod";
+      this.viewCurrentVsPriorPeriod.Size = new System.Drawing.Size(357, 22);
+      this.viewCurrentVsPriorPeriod.Text = "Current vs Prior Period";
+      this.viewCurrentVsPriorPeriod.Click += new System.EventHandler(this.viewMovement_CheckedChanged);
       // 
       // showHiddenAccountsToolStripMenuItem
       // 
@@ -687,7 +687,7 @@ namespace BoozeHoundBooks
     private System.Windows.Forms.ToolStripMenuItem viewMenu;
 		private System.Windows.Forms.CheckBox viewByPeriod;
     private System.Windows.Forms.TreeView accountTree;
-    private System.Windows.Forms.ToolStripMenuItem viewMovement;
+    private System.Windows.Forms.ToolStripMenuItem viewCurrentVsPriorPeriod;
     private System.Windows.Forms.ComboBox viewPeriod;
     private System.Windows.Forms.DateTimePicker viewTo;
     private System.Windows.Forms.DateTimePicker viewFrom;

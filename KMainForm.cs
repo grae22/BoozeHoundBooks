@@ -505,18 +505,23 @@ namespace BoozeHoundBooks
         // get viewing end date
         DateTime start = DateTime.MinValue;
         DateTime end = DateTime.MaxValue;
+        DateTime previousPeriodStart = DateTime.MinValue;
+        DateTime previousPeriodEnd = DateTime.MinValue;
 
         if (viewByPeriod.Checked)
         {
           foreach (KPeriod p in m_activeBook.GetPeriodList())
           {
-            if (p.ToString().Equals(viewPeriod.Text))
+            if (p.ToString().Equals(viewPeriod.Text, StringComparison.OrdinalIgnoreCase))
             {
               start = p.GetStart().Date;
               end = p.GetEnd().Date;
 
               break;
             }
+
+            previousPeriodStart = p.GetStart();
+            previousPeriodEnd = p.GetEnd();
           }
         }
 
@@ -554,17 +559,25 @@ namespace BoozeHoundBooks
             // don't add 'unknown' type
             if (accountType != KAccount.c_unknown)
             {
-              // view account movement
-              if (viewMovement.Checked ||
-                  (accountType != KAccount.c_bank &&
-                   accountType != KAccount.c_debt &&
-                   accountType != KAccount.c_credit))
+              // non-cumulative accounts
+              if (accountType != KAccount.c_bank &&
+                  accountType != KAccount.c_debt &&
+                  accountType != KAccount.c_credit)
               {
-                bal = a.GetBalance(start, end, viewBudget.Checked);
+                if (viewCurrentVsPriorPeriod.Checked)
+                {
+                  bal =
+                    a.GetBalance(start, end, viewBudget.Checked) -
+                    a.GetBalance(previousPeriodStart, previousPeriodEnd, viewBudget.Checked);
+                }
+                else
+                {
+                  bal = a.GetBalance(start, end, viewBudget.Checked);
+                }
 
                 node =
                   accountTree.Nodes.Add(a.GetQualifiedAccountName(),
-                    a.GetAccountName() + " ( " + bal.ToString("0.00") + " )",
+                    $"{a.GetAccountName()} ( {bal:0.00} )",
                     a.GetIconId(),
                     a.GetIconId());
 
@@ -575,11 +588,20 @@ namespace BoozeHoundBooks
               // view account balance
               else
               {
-                bal = a.GetBalance(end, viewBudget.Checked);
+                if (viewCurrentVsPriorPeriod.Checked)
+                {
+                  bal =
+                    a.GetBalance(end, viewBudget.Checked) -
+                    a.GetBalance(previousPeriodEnd, viewBudget.Checked);
+                }
+                else
+                {
+                  bal = a.GetBalance(end, viewBudget.Checked);
+                }
 
                 node =
                   accountTree.Nodes.Add(a.GetQualifiedAccountName(),
-                    a.GetAccountName() + " ( " + bal.ToString("0.00") + " )",
+                    $"{a.GetAccountName()} ( {bal:0.00} )",
                     a.GetIconId(),
                     a.GetIconId());
 
@@ -595,15 +617,31 @@ namespace BoozeHoundBooks
               }
 
               // 'negative' balance?
-              if ((bal > 0.0m &&
-                   (accountType == KAccount.c_income ||
-                    accountType == KAccount.c_debt)) ||
-                  (bal < 0.0m &&
-                   (accountType == KAccount.c_bank ||
-                    accountType == KAccount.c_expense ||
-                    accountType == KAccount.c_credit)))
+              if (!viewCurrentVsPriorPeriod.Checked)
               {
-                node.BackColor = c_col_negativeBalance;
+                if ((bal > 0.0m &&
+                     (accountType == KAccount.c_income ||
+                      accountType == KAccount.c_debt)) ||
+                    (bal < 0.0m &&
+                     (accountType == KAccount.c_bank ||
+                      accountType == KAccount.c_expense ||
+                      accountType == KAccount.c_credit)))
+                {
+                  node.BackColor = c_col_negativeBalance;
+                }
+              }
+              else
+              {
+                if ((bal < 0.0m &&
+                     (accountType == KAccount.c_bank)) ||
+                    (bal > 0.0m &&
+                     (accountType == KAccount.c_income ||
+                      accountType == KAccount.c_expense ||
+                      accountType == KAccount.c_credit ||
+                      accountType == KAccount.c_debt)))
+                {
+                  node.BackColor = c_col_negativeBalance;
+                }
               }
             }
           }
@@ -618,17 +656,25 @@ namespace BoozeHoundBooks
               bool hasBudgetTrans = false;
 
               // add current account to master account node
-              // view account movement
-              if (viewMovement.Checked ||
-                  (accountType != KAccount.c_bank &&
-                   accountType != KAccount.c_debt &&
-                   accountType != KAccount.c_credit))
+              // non-cumulative accounts
+              if (accountType != KAccount.c_bank &&
+                  accountType != KAccount.c_debt &&
+                  accountType != KAccount.c_credit)
               {
-                bal = a.GetBalance(start, end, viewBudget.Checked);
+                if (viewCurrentVsPriorPeriod.Checked)
+                {
+                  bal =
+                    a.GetBalance(start, end, viewBudget.Checked) -
+                    a.GetBalance(previousPeriodStart, previousPeriodEnd, viewBudget.Checked);
+                }
+                else
+                {
+                  bal = a.GetBalance(start, end, viewBudget.Checked);
+                }
 
                 node =
                   list[0].Nodes.Add(a.GetQualifiedAccountName(),
-                    a.GetAccountName() + " ( " + bal.ToString("0.00") + " )",
+                    $"{a.GetAccountName()} ( {bal:0.00} )",
                     a.GetIconId(),
                     a.GetIconId());
 
@@ -639,11 +685,20 @@ namespace BoozeHoundBooks
               // view account balance
               else
               {
-                bal = a.GetBalance(end, viewBudget.Checked);
+                if (viewCurrentVsPriorPeriod.Checked)
+                {
+                  bal =
+                    a.GetBalance(end, viewBudget.Checked) -
+                    a.GetBalance(previousPeriodEnd, viewBudget.Checked);
+                }
+                else
+                {
+                  bal = a.GetBalance(end, viewBudget.Checked);
+                }
 
                 node =
                   list[0].Nodes.Add(a.GetQualifiedAccountName(),
-                    a.GetAccountName() + " ( " + bal.ToString("0.00") + " )",
+                    $"{a.GetAccountName()} ( {bal:0.00} )",
                     a.GetIconId(),
                     a.GetIconId());
 
@@ -659,15 +714,31 @@ namespace BoozeHoundBooks
               }
 
               // 'negative' balance?
-              if ((bal > 0.0m &&
-                   (accountType == KAccount.c_income ||
-                    accountType == KAccount.c_debt)) ||
-                  (bal < 0.0m &&
-                   (accountType == KAccount.c_bank ||
-                    accountType == KAccount.c_expense ||
-                    accountType == KAccount.c_credit)))
+              if (!viewCurrentVsPriorPeriod.Checked)
               {
-                node.BackColor = c_col_negativeBalance;
+                if ((bal > 0.0m &&
+                     (accountType == KAccount.c_income ||
+                      accountType == KAccount.c_debt)) ||
+                    (bal < 0.0m &&
+                     (accountType == KAccount.c_bank ||
+                      accountType == KAccount.c_expense ||
+                      accountType == KAccount.c_credit)))
+                {
+                  node.BackColor = c_col_negativeBalance;
+                }
+              }
+              else
+              {
+                if ((bal < 0.0m &&
+                     (accountType == KAccount.c_bank)) ||
+                    (bal > 0.0m &&
+                     (accountType == KAccount.c_income ||
+                      accountType == KAccount.c_expense ||
+                      accountType == KAccount.c_credit ||
+                      accountType == KAccount.c_debt)))
+                {
+                  node.BackColor = c_col_negativeBalance;
+                }
               }
             }
             else if (list.Length > 1) // duplicate accounts found?
