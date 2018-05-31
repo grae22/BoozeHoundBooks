@@ -26,7 +26,7 @@ namespace BoozeHoundBooks
     // colours
     private Color c_col_budget = Color.Blue;
 
-    private Color c_col_negativeBalance = Color.Red;
+    private Color c_col_negativeBalance = Color.LightCoral;
 
     // class vars ---------------------------------------------------
 
@@ -542,6 +542,7 @@ namespace BoozeHoundBooks
         {
           byte accountType = a.GetAccountType();
           decimal bal;
+          decimal balanceDelta;
 
           // don't include hidden accounts
           if (showHiddenAccountsToolStripMenuItem.Checked == false &&
@@ -564,20 +565,22 @@ namespace BoozeHoundBooks
                   accountType != KAccount.c_debt &&
                   accountType != KAccount.c_credit)
               {
-                if (viewCurrentVsPriorPeriod.Checked)
-                {
-                  bal =
-                    a.GetBalance(start, end, viewBudget.Checked) -
-                    a.GetBalance(previousPeriodStart, previousPeriodEnd, viewBudget.Checked);
-                }
-                else
-                {
-                  bal = a.GetBalance(start, end, viewBudget.Checked);
-                }
+                balanceDelta =
+                  a.GetBalance(start, end, viewBudget.Checked) -
+                  a.GetBalance(previousPeriodStart, previousPeriodEnd, viewBudget.Checked);
+
+                var priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+
+                bal = a.GetBalance(start, end, viewBudget.Checked);
+
+                var balText =
+                  viewCurrentVsPriorPeriod.Checked ?
+                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
+                    $" ( {bal:0.00} )";
 
                 node =
                   accountTree.Nodes.Add(a.GetQualifiedAccountName(),
-                    $"{a.GetAccountName()} ( {bal:0.00} )",
+                    $"{a.GetAccountName()} {balText}",
                     a.GetIconId(),
                     a.GetIconId());
 
@@ -588,20 +591,22 @@ namespace BoozeHoundBooks
               // view account balance
               else
               {
-                if (viewCurrentVsPriorPeriod.Checked)
-                {
-                  bal =
-                    a.GetBalance(end, viewBudget.Checked) -
-                    a.GetBalance(previousPeriodEnd, viewBudget.Checked);
-                }
-                else
-                {
-                  bal = a.GetBalance(end, viewBudget.Checked);
-                }
+                balanceDelta =
+                  a.GetBalance(end, viewBudget.Checked) -
+                  a.GetBalance(previousPeriodEnd, viewBudget.Checked);
+
+                var priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+
+                bal = a.GetBalance(end, viewBudget.Checked);
+
+                var balText =
+                  viewCurrentVsPriorPeriod.Checked ?
+                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
+                    $" ( {bal:0.00} )";
 
                 node =
                   accountTree.Nodes.Add(a.GetQualifiedAccountName(),
-                    $"{a.GetAccountName()} ( {bal:0.00} )",
+                    $"{a.GetAccountName()} {balText}",
                     a.GetIconId(),
                     a.GetIconId());
 
@@ -632,9 +637,9 @@ namespace BoozeHoundBooks
               }
               else
               {
-                if ((bal < 0.0m &&
+                if ((balanceDelta < 0.0m &&
                      (accountType == KAccount.c_bank)) ||
-                    (bal > 0.0m &&
+                    (balanceDelta > 0.0m &&
                      (accountType == KAccount.c_income ||
                       accountType == KAccount.c_expense ||
                       accountType == KAccount.c_credit ||
@@ -661,20 +666,22 @@ namespace BoozeHoundBooks
                   accountType != KAccount.c_debt &&
                   accountType != KAccount.c_credit)
               {
-                if (viewCurrentVsPriorPeriod.Checked)
-                {
-                  bal =
-                    a.GetBalance(start, end, viewBudget.Checked) -
-                    a.GetBalance(previousPeriodStart, previousPeriodEnd, viewBudget.Checked);
-                }
-                else
-                {
-                  bal = a.GetBalance(start, end, viewBudget.Checked);
-                }
+                balanceDelta =
+                  a.GetBalance(start, end, viewBudget.Checked) -
+                  a.GetBalance(previousPeriodStart, previousPeriodEnd, viewBudget.Checked);
+
+                var priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+
+                bal = a.GetBalance(start, end, viewBudget.Checked);
+
+                var balText =
+                  viewCurrentVsPriorPeriod.Checked ?
+                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
+                    $" ( {bal:0.00} )";
 
                 node =
                   list[0].Nodes.Add(a.GetQualifiedAccountName(),
-                    $"{a.GetAccountName()} ( {bal:0.00} )",
+                    $"{a.GetAccountName()} {balText}",
                     a.GetIconId(),
                     a.GetIconId());
 
@@ -685,20 +692,22 @@ namespace BoozeHoundBooks
               // view account balance
               else
               {
-                if (viewCurrentVsPriorPeriod.Checked)
-                {
-                  bal =
-                    a.GetBalance(end, viewBudget.Checked) -
-                    a.GetBalance(previousPeriodEnd, viewBudget.Checked);
-                }
-                else
-                {
-                  bal = a.GetBalance(end, viewBudget.Checked);
-                }
+                balanceDelta =
+                  a.GetBalance(end, viewBudget.Checked) -
+                  a.GetBalance(previousPeriodEnd, viewBudget.Checked);
+
+                var priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+
+                bal = a.GetBalance(end, viewBudget.Checked);
+
+                var balText =
+                  viewCurrentVsPriorPeriod.Checked ?
+                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
+                    $" ( {bal:0.00} )";
 
                 node =
                   list[0].Nodes.Add(a.GetQualifiedAccountName(),
-                    $"{a.GetAccountName()} ( {bal:0.00} )",
+                    $"{a.GetAccountName()} {balText}",
                     a.GetIconId(),
                     a.GetIconId());
 
@@ -729,9 +738,9 @@ namespace BoozeHoundBooks
               }
               else
               {
-                if ((bal < 0.0m &&
+                if ((balanceDelta < 0.0m &&
                      (accountType == KAccount.c_bank)) ||
-                    (bal > 0.0m &&
+                    (balanceDelta > 0.0m &&
                      (accountType == KAccount.c_income ||
                       accountType == KAccount.c_expense ||
                       accountType == KAccount.c_credit ||
