@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO;
+using System.Linq;
 
 namespace BoozeHoundBooks
 {
@@ -1593,6 +1594,20 @@ namespace BoozeHoundBooks
 
         var transaction = (KTransaction)transactionGrid.CurrentRow.Tag;
         transaction.IsBudget = (bool)checkboxCell.Value;
+
+        var contraTransaction =
+          transaction
+            .GetContraAccount()
+            .GetTransactions()
+            .Cast<KTransaction>()
+            .FirstOrDefault(t => t.GetId() == transaction.GetId());
+
+        if (contraTransaction == null)
+        {
+          throw new Exception("Contra transaction not found.");
+        }
+
+        contraTransaction.IsBudget = transaction.IsBudget;
 
         m_activeBook.Save();
 
