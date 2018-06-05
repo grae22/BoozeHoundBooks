@@ -28,6 +28,7 @@ namespace BoozeHoundBooks
     private Color c_col_budget = Color.Blue;
 
     private Color c_col_negativeBalance = Color.LightCoral;
+    private Color c_col_significantNegativeBalance = Color.OrangeRed;
 
     // class vars ---------------------------------------------------
 
@@ -543,7 +544,7 @@ namespace BoozeHoundBooks
         {
           byte accountType = a.GetAccountType();
           decimal bal;
-          decimal balanceDelta;
+          decimal balanceDelta = 0;
 
           // don't include hidden accounts
           if (showHiddenAccountsToolStripMenuItem.Checked == false &&
@@ -566,11 +567,16 @@ namespace BoozeHoundBooks
                   accountType != KAccount.c_debt &&
                   accountType != KAccount.c_credit)
               {
-                balanceDelta =
-                  a.GetBalance(start, end, viewBudget.Checked) -
-                  a.GetBalance(previousPeriodStart, previousPeriodEnd, viewBudget.Checked);
+                var priorPeriodBalPrefix = string.Empty;
 
-                var priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+                if (viewCurrentVsPriorPeriod.Checked)
+                {
+                  balanceDelta =
+                    a.GetBalance(start, end, viewBudget.Checked) -
+                    a.GetBalance(previousPeriodStart, previousPeriodEnd, viewBudget.Checked);
+
+                  priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+                }
 
                 bal = a.GetBalance(start, end, viewBudget.Checked);
 
@@ -592,11 +598,16 @@ namespace BoozeHoundBooks
               // view account balance
               else
               {
-                balanceDelta =
-                  a.GetBalance(end, viewBudget.Checked) -
-                  a.GetBalance(previousPeriodEnd, viewBudget.Checked);
+                var priorPeriodBalPrefix = string.Empty;
 
-                var priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+                if (viewCurrentVsPriorPeriod.Checked)
+                {
+                  balanceDelta =
+                    a.GetBalance(end, viewBudget.Checked) -
+                    a.GetBalance(previousPeriodEnd, viewBudget.Checked);
+
+                  priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+                }
 
                 bal = a.GetBalance(end, viewBudget.Checked);
 
@@ -646,7 +657,9 @@ namespace BoozeHoundBooks
                       accountType == KAccount.c_credit ||
                       accountType == KAccount.c_debt)))
                 {
-                  node.BackColor = c_col_negativeBalance;
+                  bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > bal * 0.2m);
+
+                  node.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
                 }
               }
             }
@@ -667,11 +680,16 @@ namespace BoozeHoundBooks
                   accountType != KAccount.c_debt &&
                   accountType != KAccount.c_credit)
               {
-                balanceDelta =
-                  a.GetBalance(start, end, viewBudget.Checked) -
-                  a.GetBalance(previousPeriodStart, previousPeriodEnd, viewBudget.Checked);
+                var priorPeriodBalPrefix = string.Empty;
 
-                var priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+                if (viewCurrentVsPriorPeriod.Checked)
+                {
+                  balanceDelta =
+                    a.GetBalance(start, end, viewBudget.Checked) -
+                    a.GetBalance(previousPeriodStart, previousPeriodEnd, viewBudget.Checked);
+
+                  priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+                }
 
                 bal = a.GetBalance(start, end, viewBudget.Checked);
 
@@ -693,11 +711,16 @@ namespace BoozeHoundBooks
               // view account balance
               else
               {
-                balanceDelta =
-                  a.GetBalance(end, viewBudget.Checked) -
-                  a.GetBalance(previousPeriodEnd, viewBudget.Checked);
+                var priorPeriodBalPrefix = string.Empty;
 
-                var priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+                if (viewCurrentVsPriorPeriod.Checked)
+                {
+                  balanceDelta =
+                    a.GetBalance(end, viewBudget.Checked) -
+                    a.GetBalance(previousPeriodEnd, viewBudget.Checked);
+
+                  priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
+                }
 
                 bal = a.GetBalance(end, viewBudget.Checked);
 
@@ -747,7 +770,9 @@ namespace BoozeHoundBooks
                       accountType == KAccount.c_credit ||
                       accountType == KAccount.c_debt)))
                 {
-                  node.BackColor = c_col_negativeBalance;
+                  bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > bal * 0.2m);
+
+                  node.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
                 }
               }
             }
