@@ -30,6 +30,9 @@ namespace BoozeHoundBooks
     private Color c_col_negativeBalance = Color.LightCoral;
     private Color c_col_significantNegativeBalance = Color.OrangeRed;
 
+    private Color c_col_positiveBalance = Color.LightGreen;
+    private Color c_col_significantPositiveBalance = Color.GreenYellow;
+
     // class vars ---------------------------------------------------
 
     private KBook m_activeBook = null;
@@ -657,9 +660,27 @@ namespace BoozeHoundBooks
                       accountType == KAccount.c_credit ||
                       accountType == KAccount.c_debt)))
                 {
-                  bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > bal * 0.2m);
+                  if ((Math.Abs(balanceDelta) > Math.Abs(bal) * 0.01m))
+                  {
+                    bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > Math.Abs(bal) * 0.2m);
 
-                  node.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
+                    node.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
+                  }
+                }
+                else if ((balanceDelta > 0.0m &&
+                          (accountType == KAccount.c_bank)) ||
+                    (balanceDelta < 0.0m &&
+                     (accountType == KAccount.c_income ||
+                      accountType == KAccount.c_expense ||
+                      accountType == KAccount.c_credit ||
+                      accountType == KAccount.c_debt)))
+                {
+                  if ((Math.Abs(balanceDelta) > Math.Abs(bal) * 0.01m))
+                  {
+                    bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > Math.Abs(bal) * 0.2m);
+
+                    node.BackColor = isBalanceDeltaSignificant ? c_col_significantPositiveBalance : c_col_positiveBalance;
+                  }
                 }
               }
             }
@@ -770,9 +791,27 @@ namespace BoozeHoundBooks
                       accountType == KAccount.c_credit ||
                       accountType == KAccount.c_debt)))
                 {
-                  bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > bal * 0.2m);
+                  if ((Math.Abs(balanceDelta) > Math.Abs(bal) * 0.01m))
+                  {
+                    bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > Math.Abs(bal) * 0.2m);
 
-                  node.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
+                    node.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
+                  }
+                }
+                else if ((balanceDelta > 0.0m &&
+                          (accountType == KAccount.c_bank)) ||
+                         (balanceDelta < 0.0m &&
+                          (accountType == KAccount.c_income ||
+                           accountType == KAccount.c_expense ||
+                           accountType == KAccount.c_credit ||
+                           accountType == KAccount.c_debt)))
+                {
+                  if ((Math.Abs(balanceDelta) > Math.Abs(bal) * 0.01m))
+                  {
+                    bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > Math.Abs(bal) * 0.2m);
+
+                    node.BackColor = isBalanceDeltaSignificant ? c_col_significantPositiveBalance : c_col_positiveBalance;
+                  }
                 }
               }
             }
