@@ -30,8 +30,8 @@ namespace BoozeHoundBooks
     private Color c_col_negativeBalance = Color.LightCoral;
     private Color c_col_significantNegativeBalance = Color.OrangeRed;
 
-    private Color c_col_positiveBalance = Color.LightGreen;
-    private Color c_col_significantPositiveBalance = Color.GreenYellow;
+    private Color c_col_positiveBalance = Color.FromArgb(180, 255, 180);
+    private Color c_col_significantPositiveBalance = Color.FromArgb(20, 255, 20);
 
     // class vars ---------------------------------------------------
 
