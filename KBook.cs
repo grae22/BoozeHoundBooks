@@ -2,7 +2,9 @@
 using System.Xml;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 
 namespace BoozeHoundBooks
 {
@@ -18,10 +20,10 @@ namespace BoozeHoundBooks
     // class vars ---------------------------------------------------
 
     private String m_path;
-    private ArrayList m_account = new ArrayList(10);
-    private ArrayList m_period = new ArrayList(10);
+    private List<KAccount> m_account = new List<KAccount>();
+    private List<KPeriod> m_period = new List<KPeriod>();
     private Hashtable m_setting = new Hashtable(10);
-    private ArrayList m_summaryExpression = new ArrayList(5);
+    private List<KSummaryExpression> m_summaryExpression = new List<KSummaryExpression>();
 
     private Size m_accountTreeIconSize = new Size(20, 20);
     private Size m_transactionGridIconSize = new Size(16, 16);
@@ -122,7 +124,7 @@ namespace BoozeHoundBooks
     private void LoadAccountFromXml(XmlElement element, KAccount parent)
     {
       // load the account
-      KAccount acc = new KAccount(element, parent, m_account, m_period);
+      KAccount acc = new KAccount(element, parent, m_period);
 
       m_account.Add(acc);
 
@@ -514,7 +516,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public ArrayList GetAccountList()
+    public IEnumerable<KAccount> GetAccountList()
     {
       return m_account;
     }
@@ -538,14 +540,14 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public void SetPeriodList(ArrayList periodList)
+    public void SetPeriodList(IEnumerable<KPeriod> periodList)
     {
-      m_period = periodList;
+      m_period = periodList.ToList();
     }
 
     //---------------------------------------------------------------
 
-    public ArrayList GetPeriodList()
+    public IEnumerable<KPeriod> GetPeriodList()
     {
       return m_period;
     }
@@ -569,7 +571,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public ArrayList GetSummaryExpressionList()
+    public IEnumerable<KSummaryExpression> GetSummaryExpressionList()
     {
       return m_summaryExpression;
     }

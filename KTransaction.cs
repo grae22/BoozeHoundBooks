@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Xml;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace BoozeHoundBooks
 {
@@ -54,9 +54,10 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public KTransaction(XmlElement element,
+    public KTransaction(
+      XmlElement element,
       KAccount account,
-      ArrayList periods)
+      IEnumerable<KPeriod> periods)
     {
       // grab from xml
       // id

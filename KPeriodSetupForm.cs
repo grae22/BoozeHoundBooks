@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace BoozeHoundBooks
 {
   public partial class KPeriodSetupForm
   {
-    private ArrayList m_period = new ArrayList();
+    private List<KPeriod> m_period = new List<KPeriod>();
 
     //---------------------------------------------------------------
 
@@ -59,7 +59,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public ArrayList GetPeriodList()
+    public IEnumerable<KPeriod> GetPeriodList()
     {
       return m_period;
     }

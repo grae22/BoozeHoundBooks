@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Xml;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
@@ -77,10 +78,10 @@ namespace BoozeHoundBooks
 
     // Loading an existing account.
 
-    public KAccount(XmlElement element,
+    public KAccount(
+      XmlElement element,
       KAccount parent,
-      ArrayList accounts,
-      ArrayList periods)
+      IEnumerable<KPeriod> periods)
     {
       // load info from element
       // name
@@ -472,14 +473,7 @@ namespace BoozeHoundBooks
     }
 
     //---------------------------------------------------------------
-
-//		public decimal GetBalance()
-//		{
-//		  return m_balance;
-//		}
-
-    //---------------------------------------------------------------
-
+    
     public decimal GetBalance(DateTime date, bool includeBudget)
     {
       // add up account's transactions
@@ -710,7 +704,7 @@ namespace BoozeHoundBooks
     // This method goes through this account's transactions and updates them
     // with the contra-account object.
 
-    public void UpdateTransactionsWithContraAccounts(ArrayList accounts)
+    public void UpdateTransactionsWithContraAccounts(IEnumerable<KAccount> accounts)
     {
       // loop through transactions
       foreach (KTransaction t in m_transaction)
