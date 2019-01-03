@@ -1187,12 +1187,14 @@ namespace BoozeHoundBooks
     }
 
     //---------------------------------------------------------------
-
-    private void viewMovement_CheckedChanged(object sender, EventArgs e)
+    
+    private void viewBudget_CheckedChanged(object sender, EventArgs e)
     {
       try
       {
         PopulateAccountTree(true);
+        PopulateAccountTransactionGrid();
+        PopulateSummaryExpressionGrid();
       }
       catch (Exception ex)
       {
@@ -1202,13 +1204,11 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    private void viewBudget_CheckedChanged(object sender, EventArgs e)
+    private void viewCurrentVsPreviousPeriod_CheckedChanged(object sender, EventArgs e)
     {
       try
       {
         PopulateAccountTree(true);
-        PopulateAccountTransactionGrid();
-        PopulateSummaryExpressionGrid();
       }
       catch (Exception ex)
       {
@@ -1533,7 +1533,11 @@ namespace BoozeHoundBooks
         {
           KSummaryExpression expression = (KSummaryExpression) expressions.Current;
 
-          Object[] cols = {expression.GetName(), expression.CalculateValue(start, end, viewBudget.Checked)};
+          Object[] cols =
+          {
+            expression.GetName(),
+            $"{expression.CalculateValue(start, end, viewBudget.Checked):0.00}"
+          };
 
           summaryExpressionGrid.Rows.Add(cols);
         }
