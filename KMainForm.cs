@@ -1720,10 +1720,104 @@ namespace BoozeHoundBooks
     {
       try
       {
-        foreach (KAccount account in m_activeBook.GetAccountList())
+        if (viewByPeriod.Checked == false ||
+            viewPeriod.SelectedItem == null)
         {
-          account
-            .GetTransactions();
+          MessageBox.Show(
+            "Select a period first.",
+            "No Period Selected",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Error);
+        }
+
+        var messageBoxResult =
+          MessageBox.Show(
+            "Are you sure?",
+            "Generate Recurring Transactions",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.Question);
+
+        if (messageBoxResult != DialogResult.Yes)
+        {
+          return;
+        }
+
+        var currentPeriod = (KPeriod)viewPeriod.SelectedItem;
+
+        if (currentPeriod == null)
+        {
+          throw new Exception("Period not found for current date.");
+        }
+
+        KPeriod nextPeriod = null;
+        var periods = new Stack<KPeriod>(m_activeBook.GetPeriodList());
+
+        while (periods.Any() &&
+               periods.Peek() != currentPeriod)
+        {
+          nextPeriod = periods.Pop();
+        }
+
+        if (nextPeriod == null)
+        {
+          throw new Exception("Failed to find period for new transactions.");
+        }
+
+        bool nextPeriodContainsRecurringTransactions =
+          m_activeBook
+            .GetTransactionsForPeriod(nextPeriod)
+            .Any(t => t.IsRecuring());
+
+        if (nextPeriodContainsRecurringTransactions)
+        {
+          var dialogResult =
+            MessageBox.Show(
+              "The next period already contains recurring transactions, proceeding will probably create duplicates - continue?",
+              "Warning",
+              MessageBoxButtons.YesNo,
+              MessageBoxIcon.Exclamation);
+
+          if (dialogResult != DialogResult.Yes)
+          {
+            return;
+          }
+        }
+
+        var transactionsCreatedCount = 0;
+
+        m_activeBook
+          .GetTransactionsForPeriod(currentPeriod)
+          .Where(t => t.IsRecuring())
+          .ToList()
+          .ForEach(t =>
+          {
+            m_activeBook.CreateTransaction(
+              t.GetAccount(),
+              t.GetContraAccount(),
+              t.GetAmount(),
+              t.GetDate().AddMonths(1),
+              t.GetDescription(),
+              true,
+              true);
+
+            transactionsCreatedCount++;
+          });
+
+        if (transactionsCreatedCount == 0)
+        {
+          MessageBox.Show(
+            "No transactions were generated.",
+            "Warning",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Warning);
+        }
+        else
+        {
+          MessageBox.Show(
+            $"{transactionsCreatedCount} transaction(s) generated.",
+            "Success",
+            MessageBoxButtons.OK,
+            MessageBoxIcon.Information);
         }
       }
       catch (Exception ex)

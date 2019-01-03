@@ -30,8 +30,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public KBook(String path,
-      bool newBook)
+    public KBook(String path, bool newBook)
     {
       // set class vars
       m_path = path;
@@ -516,6 +515,21 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
+    public IEnumerable<KTransaction> GetTransactionsForPeriod(KPeriod period)
+    {
+      var transactions = new List<KTransaction>();
+
+      m_account
+        .ForEach(a => KAccount.GetTransactionsForPeriodRecursive(
+          a,
+          period,
+          transactions));
+
+      return transactions;
+    }
+
+    //---------------------------------------------------------------
+
     public IEnumerable<KAccount> GetAccountList()
     {
       return m_account;
@@ -567,6 +581,13 @@ namespace BoozeHoundBooks
 
       // no period found?
       return null;
+    }
+
+    //---------------------------------------------------------------
+
+    public KPeriod GetPeriodForDate(DateTime date)
+    {
+      return m_period.FirstOrDefault(p => p.DateInPeriod(date));
     }
 
     //---------------------------------------------------------------

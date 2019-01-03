@@ -5,6 +5,7 @@ using System.Drawing;
 using System.Reflection;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
+using System.Linq;
 
 namespace BoozeHoundBooks
 {
@@ -677,6 +678,26 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
+    public static void GetTransactionsForPeriodRecursive(
+      KAccount account,
+      KPeriod period,
+      List<KTransaction> transactions)
+    {
+      transactions.AddRange(
+        account
+          .GetTransactions()
+          .Where(t =>
+            t.GetPeriod() == period &&
+            transactions.FirstOrDefault(x => x.GetId() == t.GetId()) == null));
+
+      account
+        .GetChildren(false)
+        .ToList()
+        .ForEach(c => GetTransactionsForPeriodRecursive(c, period, transactions));
+    }
+
+    //---------------------------------------------------------------
+    
     public void ClearTransactions()
     {
       m_transaction.Clear();
