@@ -194,8 +194,9 @@ namespace BoozeHoundBooks
       // budget transaction
       transactionBudget.Checked = debit.IsBudget;
 
-      // recuring
-      transactionRecuring.Checked = debit.IsRecuring();
+      // recurring
+      transactionRecurring.Checked = debit.IsRecurring();
+      confirmAmount.Checked = debit.IsRecurringConfirmAmount();
 
       // load complete
       _formLoading = false;
@@ -542,13 +543,15 @@ namespace BoozeHoundBooks
         }
 
         // create transaction
-        _book.CreateTransaction((KAccount)transactionFromAcc.SelectedItem,
+        _book.CreateTransaction(
+          (KAccount)transactionFromAcc.SelectedItem,
           (KAccount)transactionToAcc.SelectedItem,
           amount,
           transactionDate.Value,
           transactionInfo.Text,
           transactionBudget.Checked,
-          transactionRecuring.Checked);
+          transactionRecurring.Checked,
+          confirmAmount.Checked);
 
         // updating an existing transaction? delete the orig transaction
         if (_editingTransaction)
@@ -621,13 +624,15 @@ namespace BoozeHoundBooks
         }
 
         // create transaction
-        _book.CreateTransaction((KAccount) transactionFromAcc.SelectedItem,
-          (KAccount) transactionToAcc.SelectedItem,
+        _book.CreateTransaction(
+          (KAccount)transactionFromAcc.SelectedItem,
+          (KAccount)transactionToAcc.SelectedItem,
           amount,
           transactionDate.Value,
           transactionInfo.Text,
           transactionBudget.Checked,
-          transactionRecuring.Checked);
+          transactionRecurring.Checked,
+          confirmAmount.Checked);
 
         _book.Save();
 

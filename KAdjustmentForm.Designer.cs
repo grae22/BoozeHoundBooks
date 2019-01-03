@@ -37,6 +37,7 @@ namespace BoozeHoundBooks
 		private void InitializeComponent()
 		{
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.recurringBox = new System.Windows.Forms.CheckBox();
       this.periodName = new System.Windows.Forms.Label();
       this.cancelButton = new System.Windows.Forms.Button();
       this.budgetBox = new System.Windows.Forms.CheckBox();
@@ -49,13 +50,14 @@ namespace BoozeHoundBooks
       this.label6 = new System.Windows.Forms.Label();
       this.accountBox = new System.Windows.Forms.ComboBox();
       this.label4 = new System.Windows.Forms.Label();
-      this.recuringBox = new System.Windows.Forms.CheckBox();
+      this.confirmAmount = new System.Windows.Forms.CheckBox();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
       // 
       // groupBox1
       // 
-      this.groupBox1.Controls.Add(this.recuringBox);
+      this.groupBox1.Controls.Add(this.confirmAmount);
+      this.groupBox1.Controls.Add(this.recurringBox);
       this.groupBox1.Controls.Add(this.periodName);
       this.groupBox1.Controls.Add(this.cancelButton);
       this.groupBox1.Controls.Add(this.budgetBox);
@@ -74,6 +76,16 @@ namespace BoozeHoundBooks
       this.groupBox1.Size = new System.Drawing.Size(333, 218);
       this.groupBox1.TabIndex = 6;
       this.groupBox1.TabStop = false;
+      // 
+      // recurringBox
+      // 
+      this.recurringBox.AutoSize = true;
+      this.recurringBox.Location = new System.Drawing.Point(55, 150);
+      this.recurringBox.Name = "recurringBox";
+      this.recurringBox.Size = new System.Drawing.Size(72, 17);
+      this.recurringBox.TabIndex = 5;
+      this.recurringBox.Text = "Recurring";
+      this.recurringBox.UseVisualStyleBackColor = true;
       // 
       // periodName
       // 
@@ -191,15 +203,15 @@ namespace BoozeHoundBooks
       this.label4.TabIndex = 9;
       this.label4.Text = "Account";
       // 
-      // recuringBox
+      // confirmAmount
       // 
-      this.recuringBox.AutoSize = true;
-      this.recuringBox.Location = new System.Drawing.Point(55, 150);
-      this.recuringBox.Name = "recuringBox";
-      this.recuringBox.Size = new System.Drawing.Size(69, 17);
-      this.recuringBox.TabIndex = 5;
-      this.recuringBox.Text = "Recuring";
-      this.recuringBox.UseVisualStyleBackColor = true;
+      this.confirmAmount.AutoSize = true;
+      this.confirmAmount.Location = new System.Drawing.Point(133, 150);
+      this.confirmAmount.Name = "confirmAmount";
+      this.confirmAmount.Size = new System.Drawing.Size(100, 17);
+      this.confirmAmount.TabIndex = 23;
+      this.confirmAmount.Text = "Confirm Amount";
+      this.confirmAmount.UseVisualStyleBackColor = true;
       // 
       // KAdjustmentForm
       // 
@@ -236,6 +248,7 @@ namespace BoozeHoundBooks
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label periodName;
 		private System.Windows.Forms.GroupBox groupBox1;
-    private System.Windows.Forms.CheckBox recuringBox;
-	}
+    private System.Windows.Forms.CheckBox recurringBox;
+    private System.Windows.Forms.CheckBox confirmAmount;
+  }
 }

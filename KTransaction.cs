@@ -29,7 +29,8 @@ namespace BoozeHoundBooks
     private const String c_attrib_description = "Description";
     private const String c_attrib_adjustment = "Adjustment";
     private const String c_attrib_budget = "Budget";
-    private const String c_attrib_recuring = "Recuring";
+    private const String c_attrib_recurring = "Recurring";
+    private const String c_attrib_recurringConfirmAmount = "RecurringConfirmAmount";
 
     // class vars ---------------------------------------------------
     private uint m_id;
@@ -43,7 +44,8 @@ namespace BoozeHoundBooks
     private KPeriod m_period;
     private String m_description;
     private bool m_isAdjustment;
-    private bool m_isRecuring;
+    private bool m_isRecurring;
+    private bool m_isRecurringConfirmAmount;
 
     //---------------------------------------------------------------
 
@@ -142,8 +144,9 @@ namespace BoozeHoundBooks
         IsBudget = false;
       }
 
-      // recuring?
-      m_isRecuring = element.HasAttribute(c_attrib_recuring);
+      // recurring?
+      m_isRecurring = element.HasAttribute(c_attrib_recurring);
+      m_isRecurringConfirmAmount = element.HasAttribute(c_attrib_recurringConfirmAmount);
 
       // set class vars
       m_account = account;
@@ -183,7 +186,8 @@ namespace BoozeHoundBooks
       String description,
       bool isAdjustment,
       bool isBudgetTransaction,
-      bool isRecuring)
+      bool isRecurring,
+      bool isRecurringConfirmAmount)
     {
       // set class vars
       m_id = id;
@@ -197,7 +201,8 @@ namespace BoozeHoundBooks
       m_description = description;
       m_isAdjustment = isAdjustment;
       IsBudget = isBudgetTransaction;
-      m_isRecuring = isRecuring;
+      m_isRecurring = isRecurring;
+      m_isRecurringConfirmAmount = isRecurringConfirmAmount;
 
       // update next id
       if (m_id >= m_nextTransactionId)
@@ -233,9 +238,14 @@ namespace BoozeHoundBooks
         element.SetAttribute(c_attrib_budget, "");
       }
 
-      if (m_isRecuring)
+      if (m_isRecurring)
       {
-        element.SetAttribute(c_attrib_recuring, "");
+        element.SetAttribute(c_attrib_recurring, "");
+      }
+
+      if (m_isRecurringConfirmAmount)
+      {
+        element.SetAttribute(c_attrib_recurringConfirmAmount, "");
       }
 
       return element;
@@ -343,10 +353,17 @@ namespace BoozeHoundBooks
     }
 
     //---------------------------------------------------------------
-    
-    public bool IsRecuring()
+
+    public bool IsRecurring()
     {
-      return m_isRecuring;
+      return m_isRecurring;
+    }
+
+    //---------------------------------------------------------------
+
+    public bool IsRecurringConfirmAmount()
+    {
+      return m_isRecurringConfirmAmount;
     }
 
     //---------------------------------------------------------------

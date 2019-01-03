@@ -82,8 +82,9 @@ namespace BoozeHoundBooks
       // budget transaction
       budgetBox.Checked = trans.IsBudget;
 
-      // recuring
-      recuringBox.Checked = trans.IsRecuring();
+      // recurring
+      recurringBox.Checked = trans.IsRecurring();
+      confirmAmount.Checked = trans.IsRecurringConfirmAmount();
     }
 
     //---------------------------------------------------------------
@@ -235,7 +236,8 @@ namespace BoozeHoundBooks
           dateBox.Value,
           infoBox.Text,
           budgetBox.Checked,
-          recuringBox.Checked);
+          recurringBox.Checked,
+          confirmAmount.Checked);
 
         // updating an existing transaction? delete the orig transaction
         if (_editingAdjustment)

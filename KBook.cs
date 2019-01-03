@@ -340,7 +340,8 @@ namespace BoozeHoundBooks
             t.IsAdjustment(),
             t.IsBudget,
             false,
-            t.IsRecuring());
+            t.IsRecurring(),
+            t.IsRecurringConfirmAmount());
         }
       }
 
@@ -361,7 +362,8 @@ namespace BoozeHoundBooks
       DateTime date,
       String description,
       bool isBudgetTransaction,
-      bool isRecuring)
+      bool isRecurring,
+      bool isRecurringConfirmAmount)
     {
       // find the period
       KPeriod period = null;
@@ -395,7 +397,8 @@ namespace BoozeHoundBooks
         false,
         isBudgetTransaction,
         false,
-        isRecuring);
+        isRecurring,
+        isRecurringConfirmAmount);
 
       creditAccount.CreateTransaction(id,
         KTransaction.TransactionType.c_credit,
@@ -407,7 +410,8 @@ namespace BoozeHoundBooks
         false,
         isBudgetTransaction,
         true,
-        isRecuring);
+        isRecurring,
+        isRecurringConfirmAmount);
     }
 
     //---------------------------------------------------------------
@@ -420,7 +424,8 @@ namespace BoozeHoundBooks
       DateTime date,
       String description,
       bool budgetTransaction,
-      bool isRecuring)
+      bool isRecurring,
+      bool isRecurringConfirmAmount)
     {
       // find the period
       KPeriod period = null;
@@ -454,7 +459,8 @@ namespace BoozeHoundBooks
         true,
         budgetTransaction,
         false,
-        isRecuring);
+        isRecurring,
+        isRecurringConfirmAmount);
     }
 
     //---------------------------------------------------------------

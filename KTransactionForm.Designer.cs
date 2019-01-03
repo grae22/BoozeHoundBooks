@@ -37,6 +37,7 @@ namespace BoozeHoundBooks
 		private void InitializeComponent()
 		{
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.transactionRecurring = new System.Windows.Forms.CheckBox();
       this.transactionProcessAsNew = new System.Windows.Forms.Button();
       this.panel1 = new System.Windows.Forms.Panel();
       this.actionLoan = new System.Windows.Forms.RadioButton();
@@ -64,14 +65,15 @@ namespace BoozeHoundBooks
       this.label1 = new System.Windows.Forms.Label();
       this.transactionIncome = new System.Windows.Forms.RadioButton();
       this.transactionExpense = new System.Windows.Forms.RadioButton();
-      this.transactionRecuring = new System.Windows.Forms.CheckBox();
+      this.confirmAmount = new System.Windows.Forms.CheckBox();
       this.groupBox1.SuspendLayout();
       this.panel1.SuspendLayout();
       this.SuspendLayout();
       // 
       // groupBox1
       // 
-      this.groupBox1.Controls.Add(this.transactionRecuring);
+      this.groupBox1.Controls.Add(this.confirmAmount);
+      this.groupBox1.Controls.Add(this.transactionRecurring);
       this.groupBox1.Controls.Add(this.transactionProcessAsNew);
       this.groupBox1.Controls.Add(this.panel1);
       this.groupBox1.Controls.Add(this.label3);
@@ -103,6 +105,16 @@ namespace BoozeHoundBooks
       this.groupBox1.Size = new System.Drawing.Size(334, 347);
       this.groupBox1.TabIndex = 4;
       this.groupBox1.TabStop = false;
+      // 
+      // transactionRecurring
+      // 
+      this.transactionRecurring.AutoSize = true;
+      this.transactionRecurring.Location = new System.Drawing.Point(56, 275);
+      this.transactionRecurring.Name = "transactionRecurring";
+      this.transactionRecurring.Size = new System.Drawing.Size(72, 17);
+      this.transactionRecurring.TabIndex = 15;
+      this.transactionRecurring.Text = "Recurring";
+      this.transactionRecurring.UseVisualStyleBackColor = true;
       // 
       // transactionProcessAsNew
       // 
@@ -382,15 +394,15 @@ namespace BoozeHoundBooks
       this.transactionExpense.CheckedChanged += new System.EventHandler(this.TransactionExpenseClick);
       this.transactionExpense.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TransactionTypeKeyPress);
       // 
-      // transactionRecuring
+      // confirmAmount
       // 
-      this.transactionRecuring.AutoSize = true;
-      this.transactionRecuring.Location = new System.Drawing.Point(56, 275);
-      this.transactionRecuring.Name = "transactionRecuring";
-      this.transactionRecuring.Size = new System.Drawing.Size(69, 17);
-      this.transactionRecuring.TabIndex = 15;
-      this.transactionRecuring.Text = "Recuring";
-      this.transactionRecuring.UseVisualStyleBackColor = true;
+      this.confirmAmount.AutoSize = true;
+      this.confirmAmount.Location = new System.Drawing.Point(135, 275);
+      this.confirmAmount.Name = "confirmAmount";
+      this.confirmAmount.Size = new System.Drawing.Size(100, 17);
+      this.confirmAmount.TabIndex = 27;
+      this.confirmAmount.Text = "Confirm Amount";
+      this.confirmAmount.UseVisualStyleBackColor = true;
       // 
       // KTransactionForm
       // 
@@ -443,6 +455,7 @@ namespace BoozeHoundBooks
     private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.RadioButton actionLoan;
     private System.Windows.Forms.RadioButton actionRepayment;
-    private System.Windows.Forms.CheckBox transactionRecuring;
-	}
+    private System.Windows.Forms.CheckBox transactionRecurring;
+    private System.Windows.Forms.CheckBox confirmAmount;
+  }
 }

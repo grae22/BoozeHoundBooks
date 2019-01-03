@@ -1766,7 +1766,7 @@ namespace BoozeHoundBooks
         bool nextPeriodContainsRecurringTransactions =
           m_activeBook
             .GetTransactionsForPeriod(nextPeriod)
-            .Any(t => t.IsRecuring());
+            .Any(t => t.IsRecurring());
 
         if (nextPeriodContainsRecurringTransactions)
         {
@@ -1787,18 +1787,19 @@ namespace BoozeHoundBooks
 
         m_activeBook
           .GetTransactionsForPeriod(currentPeriod)
-          .Where(t => t.IsRecuring())
+          .Where(t => t.IsRecurring())
           .ToList()
           .ForEach(t =>
           {
             m_activeBook.CreateTransaction(
               t.GetAccount(),
               t.GetContraAccount(),
-              t.GetAmount(),
+              t.IsRecurringConfirmAmount() ? 0 : t.GetAmount(),
               t.GetDate().AddMonths(1),
               t.GetDescription(),
               true,
-              true);
+              true,
+              t.IsRecurringConfirmAmount());
 
             transactionsCreatedCount++;
           });
