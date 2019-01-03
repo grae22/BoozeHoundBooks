@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Xml;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Reflection;
@@ -61,8 +60,8 @@ namespace BoozeHoundBooks
     private String m_description;
     private byte m_type;
     private KAccount m_parent;
-    private ArrayList m_children = new ArrayList();
-    private ArrayList m_transaction = new ArrayList(100);
+    private List<KAccount> m_children = new List<KAccount>();
+    private List<KTransaction> m_transaction = new List<KTransaction>();
     private decimal m_balance = 0m;
     private int m_iconId = -1;
     private Color m_colour = Color.FromName(c_noColourName);
@@ -70,7 +69,6 @@ namespace BoozeHoundBooks
     private KScaledImage m_icon;
     private bool m_treeNodeExpanded;
     private TreeNode m_treeNode;
-    private KGraph m_graph;
     private string m_lastTransactionContraName;
     private bool m_hideInTree;
 
@@ -182,9 +180,6 @@ namespace BoozeHoundBooks
           UpdateBalance(trans.GetAmount(), trans.GetTransactionType());
         }
       }
-
-      // set up graph
-      m_graph = new KGraph(m_name, m_colour);
     }
 
     //---------------------------------------------------------------
@@ -223,9 +218,6 @@ namespace BoozeHoundBooks
       {
         parent.AddChild(this);
       }
-
-      // set up graph
-      m_graph = new KGraph(m_name, m_colour);
     }
 
     //---------------------------------------------------------------
@@ -578,7 +570,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public ArrayList GetChildren(bool recurse)
+    public IEnumerable<KAccount> GetChildren(bool recurse)
     {
       // just return this account's children
       if (recurse == false)
@@ -587,13 +579,13 @@ namespace BoozeHoundBooks
       }
 
       // compile a list of all children
-      ArrayList list = new ArrayList();
+      List<KAccount> list = new List<KAccount>();
 
       foreach (KAccount a in m_children)
       {
         list.Add(a);
 
-        ArrayList list2 = a.GetChildren(true);
+        IEnumerable<KAccount> list2 = a.GetChildren(true);
 
         foreach (KAccount a2 in list2)
         {
@@ -649,9 +641,6 @@ namespace BoozeHoundBooks
 
       // update balance
       UpdateBalance(amount, type);
-
-      // refresh the graph
-      RefreshGraph();
     }
 
     //---------------------------------------------------------------
@@ -677,14 +666,11 @@ namespace BoozeHoundBooks
           a.DeleteTransaction(id, true);
         }
       }
-
-      // refresh the graph
-      RefreshGraph();
     }
 
     //---------------------------------------------------------------
 
-    public ArrayList GetTransactions()
+    public IEnumerable<KTransaction> GetTransactions()
     {
       return m_transaction;
     }
@@ -1034,25 +1020,6 @@ namespace BoozeHoundBooks
         if (e != null) // just to kill warnings (unused var)
           m_icon = null;
       }
-    }
-
-    //---------------------------------------------------------------
-
-    private void RefreshGraph()
-    {
-/*      Point p = new Point();
-      
-      foreach ( KTransaction trans in m_transaction )
-      {
-        p.X = ( trans.GetDate().Year * 366 ) +
-              ( trans.GetDate().Month * 31 ) +
-              ( trans.GetDate().Day );
-        
-        p.Y = GetBalance( (int)trans.GetAmount();
-        
-        m_graph.AddPoint( p );
-      }
-*/
     }
 
     //---------------------------------------------------------------

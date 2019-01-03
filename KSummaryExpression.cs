@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace BoozeHoundBooks
@@ -19,7 +20,7 @@ namespace BoozeHoundBooks
 
     private String m_name;
     private String m_description;
-    private ArrayList m_field = new ArrayList();
+    private List<KField> m_field = new List<KField>();
 
     //-------------------------------------------------------------------------
 
@@ -266,7 +267,7 @@ namespace BoozeHoundBooks
                 // and calc the value.
                 case KField.OperatorType.OpenBracket:
 
-                  ArrayList temp = new ArrayList();
+                  var temp = new List<KField>();
                   int bracketCount = 1;
 
                   // loop until we get to the closing bracket
@@ -413,7 +414,7 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    public ArrayList Fields
+    public IEnumerable<KField> Fields
     {
       get { return m_field; }
     }

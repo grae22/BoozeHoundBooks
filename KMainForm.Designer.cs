@@ -90,6 +90,8 @@ namespace BoozeHoundBooks
       this.viewTo = new System.Windows.Forms.DateTimePicker();
       this.viewFrom = new System.Windows.Forms.DateTimePicker();
       this.transactionCountLbl = new System.Windows.Forms.Label();
+      this.transactionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.generateRecurringTransactions = new System.Windows.Forms.ToolStripMenuItem();
       this.topMenu.SuspendLayout();
       this.mainPanel.SuspendLayout();
       this.panel1.SuspendLayout();
@@ -114,7 +116,8 @@ namespace BoozeHoundBooks
             this.viewMenu,
             this.accountMenu,
             this.periodMenu,
-            this.summaryExpressionMenu});
+            this.summaryExpressionMenu,
+            this.transactionsToolStripMenuItem});
       this.topMenu.Location = new System.Drawing.Point(0, 0);
       this.topMenu.Name = "topMenu";
       this.topMenu.Size = new System.Drawing.Size(1089, 24);
@@ -196,14 +199,14 @@ namespace BoozeHoundBooks
       // addAccount
       // 
       this.addAccount.Name = "addAccount";
-      this.addAccount.Size = new System.Drawing.Size(144, 22);
+      this.addAccount.Size = new System.Drawing.Size(180, 22);
       this.addAccount.Text = "&Add Account";
       this.addAccount.Click += new System.EventHandler(this.AddAccountClick);
       // 
       // editAccount
       // 
       this.editAccount.Name = "editAccount";
-      this.editAccount.Size = new System.Drawing.Size(144, 22);
+      this.editAccount.Size = new System.Drawing.Size(180, 22);
       this.editAccount.Text = "&Edit Account";
       this.editAccount.Click += new System.EventHandler(this.EditAccountClick);
       // 
@@ -623,6 +626,21 @@ namespace BoozeHoundBooks
       this.transactionCountLbl.TabIndex = 7;
       this.transactionCountLbl.Text = "Transactions: x";
       // 
+      // transactionsToolStripMenuItem
+      // 
+      this.transactionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.generateRecurringTransactions});
+      this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
+      this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+      this.transactionsToolStripMenuItem.Text = "&Transactions";
+      // 
+      // generateRecurringTransactions
+      // 
+      this.generateRecurringTransactions.Name = "generateRecurringTransactions";
+      this.generateRecurringTransactions.Size = new System.Drawing.Size(180, 22);
+      this.generateRecurringTransactions.Text = "&Generate Recurring";
+      this.generateRecurringTransactions.Click += new System.EventHandler(this.generateRecurringTransactions_Click);
+      // 
       // KMainForm
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -709,5 +727,7 @@ namespace BoozeHoundBooks
     private System.Windows.Forms.DataGridViewTextBoxColumn Description;
     private System.Windows.Forms.CheckBox viewBudget;
     private System.Windows.Forms.CheckBox viewCurrentVsPriorPeriod;
+    private System.Windows.Forms.ToolStripMenuItem transactionsToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem generateRecurringTransactions;
   }
 }

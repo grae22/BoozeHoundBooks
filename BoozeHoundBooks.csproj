@@ -94,7 +94,6 @@
       <DependentUpon>KAdjustmentForm.cs</DependentUpon>
     </Compile>
     <Compile Include="KCompressedFileWriter.cs" />
-    <Compile Include="KGraph.cs" />
     <Compile Include="KInputBox.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
@@ -541,7 +542,7 @@ namespace BoozeHoundBooks
         }
 
         // add accounts
-        ArrayList retryAccountName = new ArrayList();
+        var retryAccountName = new List<string>();
 
         foreach (KAccount a in m_activeBook.GetAccountList())
         {
@@ -1364,9 +1365,9 @@ namespace BoozeHoundBooks
         uint id = uint.Parse((String) transactionGrid.SelectedCells[0].Value);
 
         // get the transaction object
-        ArrayList list = m_activeBook.GetTransaction(id);
+        IEnumerable<KTransaction> list = m_activeBook.GetTransaction(id);
 
-        if (list.Count == 0)
+        if (!list.Any())
         {
           ErrorMsg("Transaction not found.",
             "Error");
@@ -1375,31 +1376,34 @@ namespace BoozeHoundBooks
         }
 
         // normal transaction?
-        if (((KTransaction) list[0]).IsAdjustment() == false)
+        if (list.First().IsAdjustment() == false)
         {
           // should have 2 parts (double entry)
-          if (list.Count != 2)
+          int count = list.ToList().Count;
+
+          if (count != 2)
           {
-            ErrorMsg(list.Count + " transaction parts found for this transaction (should be 2).",
+            ErrorMsg(
+              $"{count} transaction parts found for this transaction (should be 2).",
               "Error");
 
             return;
           }
 
           // do dialog
-          Object[] trans = list.ToArray();
+          KTransaction[] trans = list.ToArray();
           KTransaction debit;
           KTransaction credit;
 
-          if (((KTransaction) trans[0]).GetTransactionType() == KTransaction.TransactionType.c_debit)
+          if (trans[0].GetTransactionType() == KTransaction.TransactionType.c_debit)
           {
-            debit = (KTransaction) trans[0];
-            credit = (KTransaction) trans[1];
+            debit = trans[0];
+            credit = trans[1];
           }
           else
           {
-            debit = (KTransaction) trans[1];
-            credit = (KTransaction) trans[0];
+            debit = trans[1];
+            credit = trans[0];
           }
 
           KTransactionForm dlg = new KTransactionForm(m_activeBook, debit, credit);
@@ -1410,19 +1414,19 @@ namespace BoozeHoundBooks
         else
         {
           // should have 1 part only (single adjustment entry)
-          if (list.Count != 1)
+          int count = list.ToList().Count();
+
+          if (count != 1)
           {
-            ErrorMsg(list.Count + " transaction parts found for this transaction (should be 1).",
+            ErrorMsg(
+              $"{count} transaction parts found for this transaction (should be 1).",
               "Error");
 
             return;
           }
 
           // do dialog
-          Object[] trans = list.ToArray();
-          KTransaction transaction = (KTransaction) trans[0];
-
-          KAdjustmentForm dlg = new KAdjustmentForm(m_activeBook, transaction);
+          KAdjustmentForm dlg = new KAdjustmentForm(m_activeBook, list.First());
 
           dlg.ShowDialog(this);
         }
@@ -1703,6 +1707,24 @@ namespace BoozeHoundBooks
         }
 
         transactionGrid.EndEdit();
+      }
+      catch (Exception ex)
+      {
+        KMain.HandleException(ex, true);
+      }
+    }
+
+    //---------------------------------------------------------------
+
+    private void generateRecurringTransactions_Click(object sender, EventArgs e)
+    {
+      try
+      {
+        foreach (KAccount account in m_activeBook.GetAccountList())
+        {
+          account
+            .GetTransactions();
+        }
       }
       catch (Exception ex)
       {

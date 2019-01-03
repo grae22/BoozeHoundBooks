@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace BoozeHoundBooks
@@ -185,7 +186,7 @@ namespace BoozeHoundBooks
         }
 
         // does the parent account have transactions?
-        if (parent.GetTransactions().Count > 0)
+        if (parent.GetTransactions().Any())
         {
           DialogResult r =
             KMainForm.ConfirmMsg("The parent account you have selected has transactions.\n\n" +

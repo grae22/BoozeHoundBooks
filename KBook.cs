@@ -327,7 +327,7 @@ namespace BoozeHoundBooks
       }
 
       // does the parent have transactiosn? move them to the new account
-      if (parent.GetTransactions().Count > 0)
+      if (parent.GetTransactions().Any())
       {
         foreach (KTransaction t in parent.GetTransactions())
         {
@@ -471,9 +471,9 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public ArrayList GetTransaction(uint id)
+    public IEnumerable<KTransaction> GetTransaction(uint id)
     {
-      ArrayList list = new ArrayList(2);
+      var list = new List<KTransaction>();
 
       // loop through accounts
       foreach (KAccount account in m_account)
