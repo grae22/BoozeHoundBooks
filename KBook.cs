@@ -10,14 +10,10 @@ namespace BoozeHoundBooks
 {
   public class KBook
   {
-    // class constants ----------------------------------------------
+    //---------------------------------------------------------------
 
-    // settings
     public const String c_setting_setTransactionGridBg = "SetTransactionGridBg";
-
     public const String c_setting_setTransactionGridBgWithAccount = "SetTransactionGridBgWithAccount";
-
-    // class vars ---------------------------------------------------
 
     private String m_path;
     private List<KAccount> m_account = new List<KAccount>();
@@ -691,6 +687,50 @@ namespace BoozeHoundBooks
     public Size GetTransactionGridIconSize()
     {
       return m_transactionGridIconSize;
+    }
+
+    //---------------------------------------------------------------
+
+    public Dictionary<KAccount, Dictionary<KPeriod, OpeningAndClosingBalances>> GetAccountBalancesByPeriod(bool useBudget)
+    {
+      var balances = new Dictionary<KAccount, Dictionary<KPeriod, OpeningAndClosingBalances>>();
+
+      m_account.ForEach(a => balances.Add(a, new Dictionary<KPeriod, OpeningAndClosingBalances>()));
+
+      KPeriod previousPeriod = null;
+
+      foreach (var period in m_period)
+      {
+        foreach (var account in m_account)
+        {
+          decimal openingBalance = 0;
+          decimal closingBalance = 0;
+          
+          if (account.GetAccountType() != KAccount.c_bank &&
+              account.GetAccountType() != KAccount.c_debt &&
+              account.GetAccountType() != KAccount.c_credit)
+          {
+            closingBalance = account.GetBalance(period.GetStart(), period.GetEnd(), useBudget);
+          }
+          else
+          {
+            closingBalance = account.GetBalance(period.GetEnd(), useBudget);
+          }
+          
+          if (previousPeriod != null)
+          {
+            openingBalance = balances[account][previousPeriod].ClosingBalance;
+          }
+
+          var periodBalances = new OpeningAndClosingBalances(openingBalance, closingBalance);
+
+          balances[account].Add(period, periodBalances);
+        }
+
+        previousPeriod = period;
+      }
+
+      return balances;
     }
 
     //---------------------------------------------------------------
