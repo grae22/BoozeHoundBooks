@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Windows.Forms;
 using System.Drawing.Imaging;
 using System.Linq;
+using System.Text;
 
 namespace BoozeHoundBooks
 {
@@ -56,7 +57,23 @@ namespace BoozeHoundBooks
     // class static vars --------------------------------------------
 
     // class vars ---------------------------------------------------
-    private String m_name;
+    private String Name
+    {
+      get
+      {
+        return __name;
+      }
+
+      set
+      {
+        _nameHasChanged = true;
+        __name = value;
+      }
+    }
+
+    private string __name;
+    private bool _nameHasChanged;
+    private string _cachedQualifiedName;
 
     private String m_description;
     private byte m_type;
@@ -86,7 +103,7 @@ namespace BoozeHoundBooks
       // name
       if (element.HasAttribute(c_attrib_name))
       {
-        m_name = element.GetAttribute(c_attrib_name);
+        Name = element.GetAttribute(c_attrib_name);
       }
       else
       {
@@ -194,7 +211,7 @@ namespace BoozeHoundBooks
       Color colour,
       bool hideInTree)
     {
-      m_name = name;
+      Name = name;
       m_description = description;
       m_type = GetTypeIdFromName(typeName);
       m_parent = parent;
@@ -227,7 +244,7 @@ namespace BoozeHoundBooks
     {
       if (IsMasterAccount())
       {
-        return m_name;
+        return Name;
       }
       else
       {
@@ -243,8 +260,8 @@ namespace BoozeHoundBooks
 
         //parents = parents.Trim( c_accountLevelSeparator );
 
-        //return m_name + "  (" + parents + ")";
-        return parents + m_name;
+        //return Name + "  (" + parents + ")";
+        return parents + Name;
       }
     }
 
@@ -288,7 +305,7 @@ namespace BoozeHoundBooks
     {
       // account xml
       // name
-      element.SetAttribute(c_attrib_name, m_name);
+      element.SetAttribute(c_attrib_name, Name);
 
       // description
       if (m_description.Equals("") == false)
@@ -348,39 +365,60 @@ namespace BoozeHoundBooks
 
     public String GetAccountName()
     {
-      return m_name;
+      return Name;
     }
 
     //---------------------------------------------------------------
 
     public void SetAccountName(String name)
     {
-      m_name = name;
+      Name = name;
     }
 
     //---------------------------------------------------------------
 
     public String GetQualifiedAccountName(char separator)
     {
+      if (!_nameHasChanged)
+      {
+        return _cachedQualifiedName;
+      }
+
       // no parents, just return name
       if (m_parent == null)
       {
-        return m_name;
+        _cachedQualifiedName = Name;
+        _nameHasChanged = false;
+        return Name;
       }
 
       // has parents, create a qualified name
-      String name = "";
-      KAccount p = m_parent;
+      var name = new StringBuilder();
+      KAccount parent = m_parent;
+      var nameStack = new Stack<string>();
 
-      do
+      nameStack.Push(Name);
+
+      while (parent != null)
       {
-        //name = p.GetAccountName() + c_accountLevelSeparator + name;
-        name = p.GetAccountName() + separator + name;
+        nameStack.Push(parent.GetAccountName());
+        parent = parent.GetParent();
+      }
 
-        p = p.GetParent();
-      } while (p != null);
+      while (nameStack.Any())
+      {
+        name.Append(nameStack.Pop());
 
-      return name + m_name;
+        if (nameStack.Any())
+        {
+          name.Append(separator);
+        }
+      }
+
+      _cachedQualifiedName = name.ToString();
+      _nameHasChanged = false;
+
+      return _cachedQualifiedName;
     }
 
     //---------------------------------------------------------------

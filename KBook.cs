@@ -70,7 +70,9 @@ namespace BoozeHoundBooks
       doc.Load(m_path);
 
       // load settings
-      XmlNodeList settingList = doc.GetElementsByTagName("Setting");
+      var settingList = doc
+        .SelectNodes("Book/Settings/Setting")
+        .OfType<XmlElement>();
 
       foreach (XmlElement settingNode in settingList)
       {
@@ -78,7 +80,9 @@ namespace BoozeHoundBooks
       }
 
       // load periods
-      XmlNodeList periodList = doc.GetElementsByTagName("Period");
+      var periodList = doc
+        .SelectNodes("Book/PeriodList/Period")
+        .OfType<XmlElement>();
 
       foreach (XmlElement periodNode in periodList)
       {
@@ -88,11 +92,13 @@ namespace BoozeHoundBooks
       }
 
       // load accounts
-      XmlNodeList accList = doc.GetElementsByTagName("MasterAccount");
+      var accounts = doc
+        .SelectNodes("Book/AccountList/MasterAccount")
+        .OfType<XmlElement>();
 
-      foreach (XmlElement accNode in accList)
+      foreach (XmlElement account in accounts)
       {
-        LoadAccountFromXml(accNode, null);
+        LoadAccountFromXml(account, null);
       }
 
       // update account transactions with contra-accounts
@@ -104,9 +110,11 @@ namespace BoozeHoundBooks
       }
 
       // load summary fields
-      XmlNodeList summaryExpressionList = doc.GetElementsByTagName("SummaryExpression");
+      var summaryExpression = doc
+        .SelectNodes("Book/SummaryExpressionList/SummaryExpression")
+        .OfType<XmlElement>();
 
-      foreach (XmlElement e in summaryExpressionList)
+      foreach (XmlElement e in summaryExpression)
       {
         KSummaryExpression expression = new KSummaryExpression(e, this);
 

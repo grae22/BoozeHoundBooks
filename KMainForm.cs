@@ -506,7 +506,7 @@ namespace BoozeHoundBooks
         }
 
         // hide tree
-        accountTree.Hide();
+        accountTree.SuspendLayout();
 
         // clear tree
         accountTree.Nodes.Clear();
@@ -911,7 +911,7 @@ namespace BoozeHoundBooks
           MessageBox.Show("retryAccountName.Count > 0");
 
         // show tree
-        accountTree.Show();
+        accountTree.ResumeLayout();
 
         // restore the selected item?
         if (rememberSelected &&
@@ -1058,15 +1058,9 @@ namespace BoozeHoundBooks
             continue;
           }
 
-          // is budget trans? special description
-          String extraDesc = "";
-
-          if (trans.IsBudget)
-          {
-            extraDesc = "[BUDGET] ";
-          }
-
           // add transaction row to grid
+          transactionGrid.SuspendLayout();
+
           Object[] row =
           {
             trans.GetId().ToString(),
@@ -1078,7 +1072,7 @@ namespace BoozeHoundBooks
             trans.GetAccount().ToString(),
             trans.GetContraAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
             trans.GetContraAccount().ToString(),
-            extraDesc + trans.GetDescription()
+            trans.GetDescription()
           };
 
           int rowNum = transactionGrid.Rows.Add(row);
@@ -1113,6 +1107,8 @@ namespace BoozeHoundBooks
 
         // select nothing
         transactionGrid.ClearSelection();
+
+        transactionGrid.ResumeLayout();
       }
       catch (Exception ex)
       {
