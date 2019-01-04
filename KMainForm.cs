@@ -547,10 +547,10 @@ namespace BoozeHoundBooks
 
         var versusPriorPeriods = new List<KPeriod>();
 
+        accountBalancesByPeriod = m_activeBook.GetAccountBalancesByPeriod(viewBudget.Checked);
+
         if (currentVsAvgPriorBalance.SelectedIndex > 0)
         {
-          accountBalancesByPeriod = m_activeBook.GetAccountBalancesByPeriod(viewBudget.Checked);
-
           var priorPeriodCount = int.Parse(currentVsAvgPriorBalance.Text);
 
           var periodList = m_activeBook.GetPeriodList().ToList();
@@ -612,7 +612,14 @@ namespace BoozeHoundBooks
                   priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
                 }
 
-                bal = a.GetBalance(start, end, viewBudget.Checked);
+                if (viewByPeriod.Checked)
+                {
+                  bal = accountBalancesByPeriod[a][selectedPeriod].ClosingBalance;
+                }
+                else
+                {
+                  bal = a.GetBalance(start, end, viewBudget.Checked);
+                }
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
@@ -650,7 +657,14 @@ namespace BoozeHoundBooks
                   priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
                 }
 
-                bal = a.GetBalance(end, viewBudget.Checked);
+                if (viewByPeriod.Checked)
+                {
+                  bal = accountBalancesByPeriod[a][selectedPeriod].ClosingBalance;
+                }
+                else
+                {
+                  bal = a.GetBalance(end, viewBudget.Checked);
+                }
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
@@ -757,7 +771,14 @@ namespace BoozeHoundBooks
                   priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
                 }
 
-                bal = a.GetBalance(start, end, viewBudget.Checked);
+                if (viewByPeriod.Checked)
+                {
+                  bal = accountBalancesByPeriod[a][selectedPeriod].ClosingBalance;
+                }
+                else
+                {
+                  bal = a.GetBalance(start, end, viewBudget.Checked);
+                }
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
@@ -795,7 +816,14 @@ namespace BoozeHoundBooks
                   priorPeriodBalPrefix = (balanceDelta > 0 ? "+" : "");
                 }
 
-                bal = a.GetBalance(end, viewBudget.Checked);
+                if (viewByPeriod.Checked)
+                {
+                  bal = accountBalancesByPeriod[a][selectedPeriod].ClosingBalance;
+                }
+                else
+                {
+                  bal = a.GetBalance(end, viewBudget.Checked);
+                }
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
