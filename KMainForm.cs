@@ -1404,18 +1404,7 @@ namespace BoozeHoundBooks
         }
 
         // do transaction dialog
-        switch (account.GetAccountType())
-        {
-          case KAccount.c_bank:
-          case KAccount.c_income:
-          case KAccount.c_expense:
-          case KAccount.c_debt:
-          case KAccount.c_credit:
-
-            KTransactionForm d1 = new KTransactionForm(m_activeBook, account, defaultDate.Value);
-            d1.ShowDialog(this);
-            break;
-        }
+        new KTransactionForm(m_activeBook, account, defaultDate.Value).ShowDialog(this);
 
         // update form
         PopulateAccountTree(true);
@@ -1866,9 +1855,23 @@ namespace BoozeHoundBooks
           .ToList()
           .ForEach(t =>
           {
+            KAccount debitAccount;
+            KAccount creditAccount;
+
+            if (t.GetTransactionType() == KTransaction.TransactionType.c_credit)
+            {
+              debitAccount = t.GetContraAccount();
+              creditAccount = t.GetAccount();
+            }
+            else
+            {
+              debitAccount = t.GetAccount();
+              creditAccount = t.GetContraAccount();
+            }
+
             m_activeBook.CreateTransaction(
-              t.GetAccount(),
-              t.GetContraAccount(),
+              debitAccount,
+              creditAccount,
               t.IsRecurringConfirmAmount() ? 0 : t.GetAmount(),
               t.GetDate().AddMonths(1),
               t.GetDescription(),

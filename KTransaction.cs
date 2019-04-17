@@ -20,17 +20,17 @@ namespace BoozeHoundBooks
     public bool IsBudget { get; set; }
 
     // xml constants ------------------------------------------------
-    private const String c_attrib_id = "Id";
+    private const string c_attrib_id = "Id";
 
-    private const String c_attrib_type = "Type";
-    private const String c_attrib_contra = "Contra";
-    private const String c_attrib_amount = "Amount";
-    private const String c_attrib_date = "Date";
-    private const String c_attrib_description = "Description";
-    private const String c_attrib_adjustment = "Adjustment";
-    private const String c_attrib_budget = "Budget";
-    private const String c_attrib_recurring = "Recurring";
-    private const String c_attrib_recurringConfirmAmount = "RecurringConfirmAmount";
+    private const string c_attrib_type = "Type";
+    private const string c_attrib_contra = "Contra";
+    private const string c_attrib_amount = "Amount";
+    private const string c_attrib_date = "Date";
+    private const string c_attrib_description = "Description";
+    private const string c_attrib_adjustment = "Adjustment";
+    private const string c_attrib_budget = "Budget";
+    private const string c_attrib_recurring = "Recurring";
+    private const string c_attrib_recurringConfirmAmount = "RecurringConfirmAmount";
 
     // class vars ---------------------------------------------------
     private uint m_id;
@@ -38,11 +38,11 @@ namespace BoozeHoundBooks
     private TransactionType m_type;
     private KAccount m_account;
     private KAccount m_contraAccount;
-    private String m_contraQualifiedAccountName;
+    private string m_contraQualifiedAccountName;
     private decimal m_amount;
     private DateTime m_date;
     private KPeriod m_period;
-    private String m_description;
+    private string m_description;
     private bool m_isAdjustment;
     private bool m_isRecurring;
     private bool m_isRecurringConfirmAmount;
