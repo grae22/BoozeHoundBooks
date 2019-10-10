@@ -1072,7 +1072,7 @@ namespace BoozeHoundBooks
             trans.GetAccount().ToString(),
             trans.GetContraAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
             trans.GetContraAccount().ToString(),
-            trans.GetDescription()
+            trans.IsAdjustment() ? $"### ADJ ### : {trans.GetDescription()}" : trans.GetDescription()
           };
 
           int rowNum = transactionGrid.Rows.Add(row);
