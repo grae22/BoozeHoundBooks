@@ -48,7 +48,7 @@ namespace BoozeHoundBooks
         // init components
         InitializeComponent();
 
-        this.Text = this.Text + " (v." + KMain.c_build + ")";
+        this.Text = $"{this.Text} (v{KMain.c_build}{KMain.c_buildRevision})";
 
         // view by date pickers
         DateTime now = DateTime.Now;
