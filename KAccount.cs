@@ -21,7 +21,7 @@ namespace BoozeHoundBooks
     public const char c_accountLevelSeparator = '>';
 
     public const char c_accountLevelSeparatorInFile = '|';
-    public const String c_noColourName = "White";
+    public const string c_noColourName = "White";
 
     // account types
     public const byte c_unknown = 0;
@@ -33,7 +33,7 @@ namespace BoozeHoundBooks
     public const byte c_credit = 5;
 
     // account type names
-    public static readonly String[] m_accountTypeName =
+    public static readonly string[] m_accountTypeName =
     {
       "Unknown",
       "Bank",
@@ -44,20 +44,19 @@ namespace BoozeHoundBooks
     };
 
     // xml attrib constants
-    private const String c_attrib_name = "Name";
+    private const string c_attrib_name = "Name";
 
-    private const String c_attrib_description = "Description";
-    private const String c_attrib_type = "AccountType"; // type name (not id)
-    private const String c_attrib_icon = "Icon";
-    private const String c_attrib_colour = "Colour";
-    private const String c_attrib_treeNodeExpanded = "TreeNodeExpanded";
-    private const String c_attrib_lastTransContraName = "LastTransactionContra";
-    private const String c_attrib_hideInTree = "HideInTree";
+    private const string c_attrib_description = "Description";
+    private const string c_attrib_type = "AccountType"; // type name (not id)
+    private const string c_attrib_colour = "Colour";
+    private const string c_attrib_treeNodeExpanded = "TreeNodeExpanded";
+    private const string c_attrib_lastTransContraName = "LastTransactionContra";
+    private const string c_attrib_hideInTree = "HideInTree";
 
     // class static vars --------------------------------------------
 
     // class vars ---------------------------------------------------
-    private String Name
+    private string Name
     {
       get
       {
@@ -75,20 +74,18 @@ namespace BoozeHoundBooks
     private bool _nameHasChanged;
     private string _cachedQualifiedName;
 
-    private String m_description;
+    private string m_description;
     private byte m_type;
     private KAccount m_parent;
     private List<KAccount> m_children = new List<KAccount>();
     private List<KTransaction> m_transaction = new List<KTransaction>();
-    private decimal m_balance = 0m;
     private int m_iconId = -1;
     private Color m_colour = Color.FromName(c_noColourName);
-    private String m_iconName;
+    private string m_iconName;
     private KScaledImage m_icon;
     private bool m_treeNodeExpanded;
     private TreeNode m_treeNode;
     private string m_lastTransactionContraName;
-    private bool m_hideInTree;
 
     //---------------------------------------------------------------
 
@@ -173,7 +170,7 @@ namespace BoozeHoundBooks
       // hide in tree
       if (element.HasAttribute(c_attrib_hideInTree))
       {
-        m_hideInTree = bool.Parse(element.Attributes[c_attrib_hideInTree].Value);
+        HideInTree = bool.Parse(element.Attributes[c_attrib_hideInTree].Value);
       }
 
       // parent
@@ -194,8 +191,6 @@ namespace BoozeHoundBooks
           KTransaction trans = new KTransaction(e, this, periods);
 
           m_transaction.Add(trans);
-
-          UpdateBalance(trans.GetAmount(), trans.GetTransactionType());
         }
       }
     }
@@ -218,7 +213,7 @@ namespace BoozeHoundBooks
       m_colour = colour;
       m_iconName = null;
       m_treeNodeExpanded = true;
-      m_hideInTree = hideInTree;
+      HideInTree = hideInTree;
 
       // create the icon from resource
       try
@@ -246,23 +241,19 @@ namespace BoozeHoundBooks
       {
         return Name;
       }
-      else
+
+      var parents = string.Empty;
+      KAccount p = m_parent;
+
+      do
       {
-        String parents = "";
-        KAccount p = m_parent;
+        parents = $"{p.GetAccountName()} {c_accountLevelSeparator} {parents}";
 
-        do
-        {
-          parents = p.GetAccountName() + " " + c_accountLevelSeparator + " " + parents;
+        p = p.GetParent();
 
-          p = p.GetParent();
-        } while (p != null);
+      } while (p != null);
 
-        //parents = parents.Trim( c_accountLevelSeparator );
-
-        //return Name + "  (" + parents + ")";
-        return parents + Name;
-      }
+      return $"{parents}{Name}";
     }
 
     //---------------------------------------------------------------
@@ -341,7 +332,7 @@ namespace BoozeHoundBooks
       }
 
       // hide in tree
-      element.SetAttribute(c_attrib_hideInTree, m_hideInTree.ToString());
+      element.SetAttribute(c_attrib_hideInTree, HideInTree.ToString());
 
       // transactions
       foreach (KTransaction trans in m_transaction)
@@ -480,31 +471,6 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public void UpdateBalance(decimal amount, KTransaction.TransactionType type)
-    {
-      // update balance
-      if (type == KTransaction.TransactionType.c_debit)
-      {
-        m_balance -= amount;
-      }
-      else
-      {
-        m_balance += amount;
-      }
-
-      // update master account's balance
-      if (m_parent != null)
-      {
-        m_parent.UpdateBalance(amount, type);
-      }
-      else
-      {
-        return;
-      }
-    }
-
-    //---------------------------------------------------------------
-    
     public decimal GetBalance(DateTime date, bool includeBudget)
     {
       // add up account's transactions
@@ -681,7 +647,7 @@ namespace BoozeHoundBooks
       }
 
       // update balance
-      UpdateBalance(amount, type);
+      //UpdateBalance(amount, type);
     }
 
     //---------------------------------------------------------------
@@ -950,12 +916,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public bool HideInTree
-    {
-      get { return m_hideInTree; }
-
-      set { m_hideInTree = value; }
-    }
+    public bool HideInTree { get; set; }
 
     //---------------------------------------------------------------
 
