@@ -1100,7 +1100,7 @@ namespace BoozeHoundBooks
             trans.IsBudget,
             trans.GetDate().ToString("yyyy/MM/dd"),
             KMain.m_resourceManager.m_dayOfWeek[(int) trans.GetDate().DayOfWeek].GetImage(m_activeBook.GetTransactionGridIconSize()),
-            trans.GetSignedAmount().ToString("C"),
+            trans.GetSignedAmount().ToString("N"),
             trans.GetAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
             trans.GetAccount().ToString(),
             trans.GetContraAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),

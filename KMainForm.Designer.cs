@@ -36,11 +36,15 @@ namespace BoozeHoundBooks
 		/// </summary>
 		private void InitializeComponent()
 		{
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
       System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
       System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
       System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KMainForm));
       this.topMenu = new System.Windows.Forms.MenuStrip();
       this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -68,16 +72,6 @@ namespace BoozeHoundBooks
       this.panel3 = new System.Windows.Forms.Panel();
       this.summaryExpressionGrid = new System.Windows.Forms.DataGridView();
       this.transactionGrid = new System.Windows.Forms.DataGridView();
-      this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.Budget = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-      this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.DayOfWeekIcon = new System.Windows.Forms.DataGridViewImageColumn();
-      this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.AccountIcon = new System.Windows.Forms.DataGridViewImageColumn();
-      this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.ContraIcon = new System.Windows.Forms.DataGridViewImageColumn();
-      this.Contra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.panel2 = new System.Windows.Forms.Panel();
       this.label2 = new System.Windows.Forms.Label();
       this.currentVsAvgPriorBalance = new System.Windows.Forms.ComboBox();
@@ -96,6 +90,16 @@ namespace BoozeHoundBooks
       this.SummaryNameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.ValueCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.Unused = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.Budget = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+      this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.DayOfWeekIcon = new System.Windows.Forms.DataGridViewImageColumn();
+      this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.AccountIcon = new System.Windows.Forms.DataGridViewImageColumn();
+      this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ContraIcon = new System.Windows.Forms.DataGridViewImageColumn();
+      this.Contra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.topMenu.SuspendLayout();
       this.mainPanel.SuspendLayout();
       this.panel1.SuspendLayout();
@@ -353,6 +357,8 @@ namespace BoozeHoundBooks
       // 
       this.summaryExpressionGrid.AllowUserToAddRows = false;
       this.summaryExpressionGrid.AllowUserToDeleteRows = false;
+      dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(230)))), ((int)(((byte)(230)))), ((int)(((byte)(255)))));
+      this.summaryExpressionGrid.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
       this.summaryExpressionGrid.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
       this.summaryExpressionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
       this.summaryExpressionGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -395,85 +401,6 @@ namespace BoozeHoundBooks
       this.transactionGrid.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.transactionGrid_CellMouseUp);
       this.transactionGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.transactionGrid_CellValueChanged);
       this.transactionGrid.DoubleClick += new System.EventHandler(this.transactionGrid_DoubleClick);
-      // 
-      // Id
-      // 
-      this.Id.HeaderText = "Id";
-      this.Id.Name = "Id";
-      this.Id.ReadOnly = true;
-      this.Id.Visible = false;
-      // 
-      // Budget
-      // 
-      this.Budget.FillWeight = 5F;
-      this.Budget.HeaderText = "Budget";
-      this.Budget.Name = "Budget";
-      // 
-      // Date
-      // 
-      this.Date.FillWeight = 15F;
-      this.Date.HeaderText = "Date";
-      this.Date.Name = "Date";
-      this.Date.ReadOnly = true;
-      // 
-      // DayOfWeekIcon
-      // 
-      this.DayOfWeekIcon.FillWeight = 5.543147F;
-      this.DayOfWeekIcon.HeaderText = "";
-      this.DayOfWeekIcon.Name = "DayOfWeekIcon";
-      this.DayOfWeekIcon.ReadOnly = true;
-      this.DayOfWeekIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-      this.DayOfWeekIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-      // 
-      // Amount
-      // 
-      dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-      dataGridViewCellStyle3.Format = "C2";
-      dataGridViewCellStyle3.NullValue = null;
-      this.Amount.DefaultCellStyle = dataGridViewCellStyle3;
-      this.Amount.FillWeight = 15F;
-      this.Amount.HeaderText = "Amount";
-      this.Amount.Name = "Amount";
-      this.Amount.ReadOnly = true;
-      // 
-      // AccountIcon
-      // 
-      this.AccountIcon.FillWeight = 4.619289F;
-      this.AccountIcon.HeaderText = "";
-      this.AccountIcon.Name = "AccountIcon";
-      this.AccountIcon.ReadOnly = true;
-      // 
-      // Account
-      // 
-      dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.Account.DefaultCellStyle = dataGridViewCellStyle4;
-      this.Account.FillWeight = 20F;
-      this.Account.HeaderText = "Account";
-      this.Account.Name = "Account";
-      this.Account.ReadOnly = true;
-      // 
-      // ContraIcon
-      // 
-      this.ContraIcon.FillWeight = 4.619289F;
-      this.ContraIcon.HeaderText = "";
-      this.ContraIcon.Name = "ContraIcon";
-      this.ContraIcon.ReadOnly = true;
-      // 
-      // Contra
-      // 
-      dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.Contra.DefaultCellStyle = dataGridViewCellStyle5;
-      this.Contra.FillWeight = 20F;
-      this.Contra.HeaderText = "Contra";
-      this.Contra.Name = "Contra";
-      this.Contra.ReadOnly = true;
-      // 
-      // Description
-      // 
-      this.Description.FillWeight = 25F;
-      this.Description.HeaderText = "Description";
-      this.Description.Name = "Description";
-      this.Description.ReadOnly = true;
       // 
       // panel2
       // 
@@ -652,6 +579,8 @@ namespace BoozeHoundBooks
       // SummaryNameCol
       // 
       this.SummaryNameCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+      dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+      this.SummaryNameCol.DefaultCellStyle = dataGridViewCellStyle2;
       this.SummaryNameCol.FillWeight = 20F;
       this.SummaryNameCol.HeaderText = "Summary";
       this.SummaryNameCol.Name = "SummaryNameCol";
@@ -660,9 +589,9 @@ namespace BoozeHoundBooks
       // ValueCol
       // 
       this.ValueCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-      dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-      dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-      this.ValueCol.DefaultCellStyle = dataGridViewCellStyle1;
+      dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+      dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+      this.ValueCol.DefaultCellStyle = dataGridViewCellStyle3;
       this.ValueCol.FillWeight = 10F;
       this.ValueCol.HeaderText = "Value";
       this.ValueCol.Name = "ValueCol";
@@ -671,12 +600,98 @@ namespace BoozeHoundBooks
       // Unused
       // 
       this.Unused.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-      dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-      this.Unused.DefaultCellStyle = dataGridViewCellStyle2;
+      dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+      this.Unused.DefaultCellStyle = dataGridViewCellStyle4;
       this.Unused.FillWeight = 70F;
       this.Unused.HeaderText = "";
       this.Unused.Name = "Unused";
       this.Unused.ReadOnly = true;
+      // 
+      // Id
+      // 
+      this.Id.HeaderText = "Id";
+      this.Id.Name = "Id";
+      this.Id.ReadOnly = true;
+      this.Id.Visible = false;
+      // 
+      // Budget
+      // 
+      this.Budget.FillWeight = 5F;
+      this.Budget.HeaderText = "Budget";
+      this.Budget.Name = "Budget";
+      // 
+      // Date
+      // 
+      dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+      dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+      this.Date.DefaultCellStyle = dataGridViewCellStyle5;
+      this.Date.FillWeight = 7.5F;
+      this.Date.HeaderText = "Date";
+      this.Date.Name = "Date";
+      this.Date.ReadOnly = true;
+      // 
+      // DayOfWeekIcon
+      // 
+      this.DayOfWeekIcon.FillWeight = 2.5F;
+      this.DayOfWeekIcon.HeaderText = "";
+      this.DayOfWeekIcon.Name = "DayOfWeekIcon";
+      this.DayOfWeekIcon.ReadOnly = true;
+      this.DayOfWeekIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+      this.DayOfWeekIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+      // 
+      // Amount
+      // 
+      dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+      dataGridViewCellStyle6.NullValue = null;
+      dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+      this.Amount.DefaultCellStyle = dataGridViewCellStyle6;
+      this.Amount.FillWeight = 10F;
+      this.Amount.HeaderText = "Amount";
+      this.Amount.Name = "Amount";
+      this.Amount.ReadOnly = true;
+      // 
+      // AccountIcon
+      // 
+      this.AccountIcon.FillWeight = 2.5F;
+      this.AccountIcon.HeaderText = "";
+      this.AccountIcon.Name = "AccountIcon";
+      this.AccountIcon.ReadOnly = true;
+      // 
+      // Account
+      // 
+      dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+      this.Account.DefaultCellStyle = dataGridViewCellStyle7;
+      this.Account.FillWeight = 25F;
+      this.Account.HeaderText = "Account";
+      this.Account.Name = "Account";
+      this.Account.ReadOnly = true;
+      // 
+      // ContraIcon
+      // 
+      this.ContraIcon.FillWeight = 2.5F;
+      this.ContraIcon.HeaderText = "";
+      this.ContraIcon.Name = "ContraIcon";
+      this.ContraIcon.ReadOnly = true;
+      // 
+      // Contra
+      // 
+      dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+      this.Contra.DefaultCellStyle = dataGridViewCellStyle8;
+      this.Contra.FillWeight = 25F;
+      this.Contra.HeaderText = "Contra";
+      this.Contra.Name = "Contra";
+      this.Contra.ReadOnly = true;
+      // 
+      // Description
+      // 
+      dataGridViewCellStyle9.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
+      this.Description.DefaultCellStyle = dataGridViewCellStyle9;
+      this.Description.FillWeight = 20F;
+      this.Description.HeaderText = "Description";
+      this.Description.Name = "Description";
+      this.Description.ReadOnly = true;
       // 
       // KMainForm
       // 
@@ -750,16 +765,6 @@ namespace BoozeHoundBooks
     private System.Windows.Forms.Button deleteTransaction;
     private System.Windows.Forms.Label transactionCountLbl;
     private System.Windows.Forms.ToolStripMenuItem showHiddenAccountsToolStripMenuItem;
-    private System.Windows.Forms.DataGridViewTextBoxColumn Id;
-    private System.Windows.Forms.DataGridViewCheckBoxColumn Budget;
-    private System.Windows.Forms.DataGridViewTextBoxColumn Date;
-    private System.Windows.Forms.DataGridViewImageColumn DayOfWeekIcon;
-    private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
-    private System.Windows.Forms.DataGridViewImageColumn AccountIcon;
-    private System.Windows.Forms.DataGridViewTextBoxColumn Account;
-    private System.Windows.Forms.DataGridViewImageColumn ContraIcon;
-    private System.Windows.Forms.DataGridViewTextBoxColumn Contra;
-    private System.Windows.Forms.DataGridViewTextBoxColumn Description;
     private System.Windows.Forms.CheckBox viewBudget;
     private System.Windows.Forms.ToolStripMenuItem transactionsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem generateRecurringTransactions;
@@ -768,5 +773,15 @@ namespace BoozeHoundBooks
         private System.Windows.Forms.DataGridViewTextBoxColumn SummaryNameCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn ValueCol;
         private System.Windows.Forms.DataGridViewTextBoxColumn Unused;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Id;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn Budget;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Date;
+        private System.Windows.Forms.DataGridViewImageColumn DayOfWeekIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Amount;
+        private System.Windows.Forms.DataGridViewImageColumn AccountIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Account;
+        private System.Windows.Forms.DataGridViewImageColumn ContraIcon;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Contra;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Description;
     }
 }
