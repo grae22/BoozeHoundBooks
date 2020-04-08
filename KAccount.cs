@@ -804,8 +804,16 @@ namespace BoozeHoundBooks
 
     // Start date can be null.
 
-    public bool HasBudgetTransactions(DateTime start, DateTime end, bool useStart)
+    public void HasBudgetTransactions(
+      DateTime start,
+      DateTime end,
+      bool useStart,
+      out bool hasBudgetTransactions,
+      out bool hasOverdueBudgetTransactions)
     {
+      hasBudgetTransactions = false;
+      hasOverdueBudgetTransactions = false;
+
       // check this account's transactions
       foreach (KTransaction t in m_transaction)
       {
@@ -826,21 +834,37 @@ namespace BoozeHoundBooks
             continue;
           }
 
-          return true;
+          hasBudgetTransactions = true;
+          hasOverdueBudgetTransactions = date.Date < DateTime.Now;
+        }
+
+        if (hasOverdueBudgetTransactions)
+        {
+          return;
         }
       }
 
       // check children
+      var hasChildGotBudgetTransactions = false;
+      var hasChildGotOverdueBudgetTransactions = false;
+
       foreach (KAccount a in m_children)
       {
-        if (a.HasBudgetTransactions(start, end, useStart))
+        a.HasBudgetTransactions(
+          start,
+          end,
+          useStart,
+          out hasChildGotBudgetTransactions,
+          out hasChildGotOverdueBudgetTransactions);
+
+        if (hasChildGotOverdueBudgetTransactions)
         {
-          return true;
+          break;
         }
       }
 
-      // none found
-      return false;
+      hasBudgetTransactions |= hasChildGotBudgetTransactions;
+      hasOverdueBudgetTransactions |= hasChildGotOverdueBudgetTransactions;
     }
 
     //---------------------------------------------------------------

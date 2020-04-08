@@ -26,7 +26,8 @@ namespace BoozeHoundBooks
     private const String c_setting_windowH = "WindowH";
 
     // colours
-    private Color c_col_budget = Color.Blue;
+    private Color c_col_budget = Color.DarkSlateBlue;
+    private Color c_col_budgetOverdue = Color.Blue;
 
     private Color c_col_negativeBalance = Color.LightCoral;
     private Color c_col_significantNegativeBalance = Color.OrangeRed;
@@ -584,7 +585,8 @@ namespace BoozeHoundBooks
           if (a.GetParent() == null)
           {
             TreeNode node;
-            bool hasBudgetTrans = false;
+            var hasBudgetTrans = false;
+            var hasOverdueBudgetTrans = false;
 
             // don't add 'unknown' type
             if (accountType != KAccount.c_unknown)
@@ -634,7 +636,12 @@ namespace BoozeHoundBooks
 
                 a.SetTreeNode(node);
 
-                hasBudgetTrans = a.HasBudgetTransactions(start, end, true);
+                a.HasBudgetTransactions(
+                  start,
+                  end,
+                  true,
+                  out hasBudgetTrans,
+                  out hasOverdueBudgetTrans);
               }
               // view account balance
               else
@@ -679,13 +686,18 @@ namespace BoozeHoundBooks
 
                 a.SetTreeNode(node);
 
-                hasBudgetTrans = a.HasBudgetTransactions(start, end, false);
+                a.HasBudgetTransactions(
+                  start,
+                  end,
+                  false,
+                  out hasBudgetTrans,
+                  out hasOverdueBudgetTrans);
               }
 
               // has budget transactions?
               if (viewBudget.Checked && hasBudgetTrans)
               {
-                node.ForeColor = c_col_budget;
+                node.ForeColor = hasOverdueBudgetTrans ? c_col_budgetOverdue : c_col_budget;
               }
 
               // 'negative' balance?
@@ -745,7 +757,8 @@ namespace BoozeHoundBooks
             if (list.Length == 1) // found it?
             {
               TreeNode node;
-              bool hasBudgetTrans = false;
+              var hasBudgetTrans = false;
+              var hasOverdueBudgetTrans = false;
 
               // add current account to master account node
               // non-cumulative accounts
@@ -793,7 +806,12 @@ namespace BoozeHoundBooks
 
                 a.SetTreeNode(node);
 
-                hasBudgetTrans = a.HasBudgetTransactions(start, end, true);
+                a.HasBudgetTransactions(
+                  start,
+                  end,
+                  true,
+                  out hasBudgetTrans,
+                  out hasOverdueBudgetTrans);
               }
               // view account balance
               else
@@ -838,13 +856,18 @@ namespace BoozeHoundBooks
 
                 a.SetTreeNode(node);
 
-                hasBudgetTrans = a.HasBudgetTransactions(start, end, false);
+                a.HasBudgetTransactions(
+                  start,
+                  end,
+                  false,
+                  out hasBudgetTrans,
+                  out hasOverdueBudgetTrans);
               }
 
               // has budget transactions?
               if (viewBudget.Checked && hasBudgetTrans)
               {
-                node.ForeColor = c_col_budget;
+                node.ForeColor = hasOverdueBudgetTrans ? c_col_budgetOverdue : c_col_budget;
               }
 
               // 'negative' balance?
@@ -1082,7 +1105,7 @@ namespace BoozeHoundBooks
           // is a budget transaction, change forecolour
           if (trans.IsBudget)
           {
-            transactionGrid.Rows[rowNum].DefaultCellStyle.ForeColor = c_col_budget;
+            transactionGrid.Rows[rowNum].DefaultCellStyle.ForeColor = GetBudgetFontColour(trans.GetDate());
           }
 
           // set the row background colour with contra account colour?
@@ -1917,6 +1940,13 @@ namespace BoozeHoundBooks
       {
         KMain.HandleException(ex, true);
       }
+    }
+
+    //---------------------------------------------------------------
+
+    private Color GetBudgetFontColour(DateTime transactionDate)
+    {
+      return DateTime.Now > transactionDate ? c_col_budgetOverdue : c_col_budget;
     }
 
     //---------------------------------------------------------------
