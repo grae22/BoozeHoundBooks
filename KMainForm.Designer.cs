@@ -36,9 +36,11 @@ namespace BoozeHoundBooks
 		/// </summary>
 		private void InitializeComponent()
 		{
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
       System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
       System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-      System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(KMainForm));
       this.topMenu = new System.Windows.Forms.MenuStrip();
       this.fileMenu = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,8 +67,6 @@ namespace BoozeHoundBooks
       this.splitContainerVert = new System.Windows.Forms.SplitContainer();
       this.panel3 = new System.Windows.Forms.Panel();
       this.summaryExpressionGrid = new System.Windows.Forms.DataGridView();
-      this.SummaryNameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.ValueCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.transactionGrid = new System.Windows.Forms.DataGridView();
       this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.Budget = new System.Windows.Forms.DataGridViewCheckBoxColumn();
@@ -79,6 +79,7 @@ namespace BoozeHoundBooks
       this.Contra = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.panel2 = new System.Windows.Forms.Panel();
+      this.label2 = new System.Windows.Forms.Label();
       this.currentVsAvgPriorBalance = new System.Windows.Forms.ComboBox();
       this.viewBudget = new System.Windows.Forms.CheckBox();
       this.label1 = new System.Windows.Forms.Label();
@@ -92,7 +93,9 @@ namespace BoozeHoundBooks
       this.viewTo = new System.Windows.Forms.DateTimePicker();
       this.viewFrom = new System.Windows.Forms.DateTimePicker();
       this.transactionCountLbl = new System.Windows.Forms.Label();
-      this.label2 = new System.Windows.Forms.Label();
+      this.SummaryNameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ValueCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.Unused = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.topMenu.SuspendLayout();
       this.mainPanel.SuspendLayout();
       this.panel1.SuspendLayout();
@@ -354,7 +357,8 @@ namespace BoozeHoundBooks
       this.summaryExpressionGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
       this.summaryExpressionGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.SummaryNameCol,
-            this.ValueCol});
+            this.ValueCol,
+            this.Unused});
       this.summaryExpressionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
       this.summaryExpressionGrid.Location = new System.Drawing.Point(0, 0);
       this.summaryExpressionGrid.Name = "summaryExpressionGrid";
@@ -364,20 +368,6 @@ namespace BoozeHoundBooks
       this.summaryExpressionGrid.TabIndex = 0;
       this.summaryExpressionGrid.Click += new System.EventHandler(this.summaryExpressionGrid_Click);
       this.summaryExpressionGrid.DoubleClick += new System.EventHandler(this.SummaryExpressionGridDoubleClick);
-      // 
-      // SummaryNameCol
-      // 
-      this.SummaryNameCol.FillWeight = 60F;
-      this.SummaryNameCol.HeaderText = "Summary";
-      this.SummaryNameCol.Name = "SummaryNameCol";
-      this.SummaryNameCol.ReadOnly = true;
-      // 
-      // ValueCol
-      // 
-      this.ValueCol.FillWeight = 40F;
-      this.ValueCol.HeaderText = "Value";
-      this.ValueCol.Name = "ValueCol";
-      this.ValueCol.ReadOnly = true;
       // 
       // transactionGrid
       // 
@@ -437,10 +427,10 @@ namespace BoozeHoundBooks
       // 
       // Amount
       // 
-      dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-      dataGridViewCellStyle1.Format = "C2";
-      dataGridViewCellStyle1.NullValue = null;
-      this.Amount.DefaultCellStyle = dataGridViewCellStyle1;
+      dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+      dataGridViewCellStyle3.Format = "C2";
+      dataGridViewCellStyle3.NullValue = null;
+      this.Amount.DefaultCellStyle = dataGridViewCellStyle3;
       this.Amount.FillWeight = 15F;
       this.Amount.HeaderText = "Amount";
       this.Amount.Name = "Amount";
@@ -455,8 +445,8 @@ namespace BoozeHoundBooks
       // 
       // Account
       // 
-      dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.Account.DefaultCellStyle = dataGridViewCellStyle2;
+      dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.Account.DefaultCellStyle = dataGridViewCellStyle4;
       this.Account.FillWeight = 20F;
       this.Account.HeaderText = "Account";
       this.Account.Name = "Account";
@@ -471,8 +461,8 @@ namespace BoozeHoundBooks
       // 
       // Contra
       // 
-      dataGridViewCellStyle3.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.Contra.DefaultCellStyle = dataGridViewCellStyle3;
+      dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.Contra.DefaultCellStyle = dataGridViewCellStyle5;
       this.Contra.FillWeight = 20F;
       this.Contra.HeaderText = "Contra";
       this.Contra.Name = "Contra";
@@ -505,6 +495,16 @@ namespace BoozeHoundBooks
       this.panel2.Name = "panel2";
       this.panel2.Size = new System.Drawing.Size(1105, 25);
       this.panel2.TabIndex = 6;
+      // 
+      // label2
+      // 
+      this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+      this.label2.AutoSize = true;
+      this.label2.Location = new System.Drawing.Point(632, 7);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(87, 13);
+      this.label2.TabIndex = 31;
+      this.label2.Text = "Vs Prior Period(s)";
       // 
       // currentVsAvgPriorBalance
       // 
@@ -649,15 +649,34 @@ namespace BoozeHoundBooks
       this.transactionCountLbl.TabIndex = 7;
       this.transactionCountLbl.Text = "Transactions: x";
       // 
-      // label2
+      // SummaryNameCol
       // 
-      this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-      this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(632, 7);
-      this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(87, 13);
-      this.label2.TabIndex = 31;
-      this.label2.Text = "Vs Prior Period(s)";
+      this.SummaryNameCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+      this.SummaryNameCol.FillWeight = 20F;
+      this.SummaryNameCol.HeaderText = "Summary";
+      this.SummaryNameCol.Name = "SummaryNameCol";
+      this.SummaryNameCol.ReadOnly = true;
+      // 
+      // ValueCol
+      // 
+      this.ValueCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+      dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+      dataGridViewCellStyle1.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+      this.ValueCol.DefaultCellStyle = dataGridViewCellStyle1;
+      this.ValueCol.FillWeight = 10F;
+      this.ValueCol.HeaderText = "Value";
+      this.ValueCol.Name = "ValueCol";
+      this.ValueCol.ReadOnly = true;
+      // 
+      // Unused
+      // 
+      this.Unused.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+      dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+      this.Unused.DefaultCellStyle = dataGridViewCellStyle2;
+      this.Unused.FillWeight = 70F;
+      this.Unused.HeaderText = "";
+      this.Unused.Name = "Unused";
+      this.Unused.ReadOnly = true;
       // 
       // KMainForm
       // 
@@ -697,8 +716,6 @@ namespace BoozeHoundBooks
     }
 		private System.Windows.Forms.DateTimePicker defaultDate;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.DataGridViewTextBoxColumn ValueCol;
-		private System.Windows.Forms.DataGridViewTextBoxColumn SummaryNameCol;
 		private System.Windows.Forms.DataGridView summaryExpressionGrid;
 		private System.Windows.Forms.ToolStripMenuItem addSummaryExpressionItem;
 		private System.Windows.Forms.ToolStripMenuItem summaryExpressionMenu;
@@ -748,5 +765,8 @@ namespace BoozeHoundBooks
     private System.Windows.Forms.ToolStripMenuItem generateRecurringTransactions;
     private System.Windows.Forms.ComboBox currentVsAvgPriorBalance;
     private System.Windows.Forms.Label label2;
-  }
+        private System.Windows.Forms.DataGridViewTextBoxColumn SummaryNameCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ValueCol;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Unused;
+    }
 }

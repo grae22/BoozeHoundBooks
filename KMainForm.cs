@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
+using System.Globalization;
 using System.Windows.Forms;
 using System.IO;
 using System.Linq;
@@ -37,8 +38,8 @@ namespace BoozeHoundBooks
 
     // class vars ---------------------------------------------------
 
-    private KBook m_activeBook = null;
-    private bool m_allowAccountTreeAndTransactionGridRefresh = false;
+    private KBook m_activeBook;
+    private bool m_allowAccountTreeAndTransactionGridRefresh;
 
     //---------------------------------------------------------------
 
@@ -65,6 +66,15 @@ namespace BoozeHoundBooks
         {
           OpenBook(bookPath);
         }
+
+        // Set the number format.
+        var culture = new CultureInfo("en-ZA", false);
+
+        culture.NumberFormat.NumberDecimalSeparator = ".";
+        culture.NumberFormat.NumberGroupSeparator = ",";
+        culture.NumberFormat.NumberGroupSizes = new[] { 3 };
+
+        CultureInfo.CurrentCulture = culture;
       }
       catch (Exception ex)
       {
@@ -625,8 +635,8 @@ namespace BoozeHoundBooks
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
-                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
-                    $" ( {bal:0.00} )";
+                    $" ( {bal:N} ) {priorPeriodBalPrefix}{balanceDelta:N}" :
+                    $" ( {bal:N} )";
 
                 node =
                   accountTree.Nodes.Add(a.GetQualifiedAccountName(),
@@ -675,8 +685,8 @@ namespace BoozeHoundBooks
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
-                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
-                    $" ( {bal:0.00} )";
+                    $" ( {bal:N} ) {priorPeriodBalPrefix}{balanceDelta:N}" :
+                    $" ( {bal:N} )";
 
                 node =
                   accountTree.Nodes.Add(a.GetQualifiedAccountName(),
@@ -795,8 +805,8 @@ namespace BoozeHoundBooks
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
-                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
-                    $" ( {bal:0.00} )";
+                    $" ( {bal:N} ) {priorPeriodBalPrefix}{balanceDelta:N}" :
+                    $" ( {bal:N} )";
 
                 node =
                   list[0].Nodes.Add(a.GetQualifiedAccountName(),
@@ -845,8 +855,8 @@ namespace BoozeHoundBooks
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
-                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
-                    $" ( {bal:0.00} )";
+                    $" ( {bal:N} ) {priorPeriodBalPrefix}{balanceDelta:N}" :
+                    $" ( {bal:N} )";
 
                 node =
                   list[0].Nodes.Add(a.GetQualifiedAccountName(),
@@ -1627,7 +1637,7 @@ namespace BoozeHoundBooks
           Object[] cols =
           {
             expression.GetName(),
-            $"{expression.CalculateValue(start, end, viewBudget.Checked):0.00}"
+            $"{expression.CalculateValue(start, end, viewBudget.Checked):N}"
           };
 
           summaryExpressionGrid.Rows.Add(cols);
