@@ -43,6 +43,8 @@ namespace BoozeHoundBooks
       "Credit"
     };
 
+    public TreeNode TreeNode => m_treeNode;
+
     // xml attrib constants
     private const string c_attrib_name = "Name";
 

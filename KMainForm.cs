@@ -293,7 +293,7 @@ namespace BoozeHoundBooks
         m_activeBook = new KBook(path, false);
 
         // update form
-        PopulateAccountTree(false);
+        PopulateAccountTree(false, true);
         PopulateViewPeriodBox(true);
         PopulateSummaryExpressionGrid();
 
@@ -387,7 +387,7 @@ namespace BoozeHoundBooks
         }
 
         // udate form
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, true);
 
         BringToFront();
       }
@@ -442,7 +442,7 @@ namespace BoozeHoundBooks
         }
 
         // udate form
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, true);
 
         BringToFront();
       }
@@ -493,7 +493,9 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void PopulateAccountTree(bool rememberSelected)
+    void PopulateAccountTree(
+      bool rememberSelected,
+      bool rebuildTree)
     {
       try
       {
@@ -520,7 +522,10 @@ namespace BoozeHoundBooks
         accountTree.SuspendLayout();
 
         // clear tree
-        accountTree.Nodes.Clear();
+        if (rebuildTree)
+        {
+          accountTree.Nodes.Clear();
+        }
 
         // get viewing end date
         DateTime start = DateTime.MinValue;
@@ -638,13 +643,20 @@ namespace BoozeHoundBooks
                     $" ( {bal:N} ) {priorPeriodBalPrefix}{balanceDelta:N}" :
                     $" ( {bal:N} )";
 
-                node =
-                  accountTree.Nodes.Add(a.GetQualifiedAccountName(),
-                    $"{a.GetAccountName()} {balText}",
-                    a.GetIconId(),
-                    a.GetIconId());
+                if (rebuildTree)
+                {
+                  node =
+                    accountTree.Nodes.Add(a.GetQualifiedAccountName(),
+                      $"{a.GetAccountName()} {balText}",
+                      a.GetIconId(),
+                      a.GetIconId());
 
-                a.SetTreeNode(node);
+                  a.SetTreeNode(node);
+                }
+                else
+                {
+                  a.TreeNode.Text = $"{a.GetAccountName()} {balText}";
+                }
 
                 a.HasBudgetTransactions(
                   start,
@@ -688,13 +700,20 @@ namespace BoozeHoundBooks
                     $" ( {bal:N} ) {priorPeriodBalPrefix}{balanceDelta:N}" :
                     $" ( {bal:N} )";
 
-                node =
-                  accountTree.Nodes.Add(a.GetQualifiedAccountName(),
-                    $"{a.GetAccountName()} {balText}",
-                    a.GetIconId(),
-                    a.GetIconId());
+                if (rebuildTree)
+                {
+                  node =
+                    accountTree.Nodes.Add(a.GetQualifiedAccountName(),
+                      $"{a.GetAccountName()} {balText}",
+                      a.GetIconId(),
+                      a.GetIconId());
 
-                a.SetTreeNode(node);
+                    a.SetTreeNode(node);
+                }
+                else
+                {
+                  a.TreeNode.Text = $"{a.GetAccountName()} {balText}";
+                }
 
                 a.HasBudgetTransactions(
                   start,
@@ -705,10 +724,18 @@ namespace BoozeHoundBooks
               }
 
               // has budget transactions?
+              Color textColour;
+
               if (viewBudget.Checked && hasBudgetTrans)
               {
-                node.ForeColor = hasOverdueBudgetTrans ? c_col_budgetOverdue : c_col_budget;
+                textColour = hasOverdueBudgetTrans ? c_col_budgetOverdue : c_col_budget;
               }
+              else
+              {
+                textColour = Color.Black;
+              }
+
+              a.TreeNode.ForeColor = textColour;
 
               // 'negative' balance?
               if (versusPriorPeriods.Count == 0)
@@ -721,7 +748,7 @@ namespace BoozeHoundBooks
                       accountType == KAccount.c_expense ||
                       accountType == KAccount.c_credit)))
                 {
-                  node.BackColor = c_col_negativeBalance;
+                  a.TreeNode.BackColor = c_col_negativeBalance;
                 }
               }
               else
@@ -738,7 +765,7 @@ namespace BoozeHoundBooks
                   {
                     bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > Math.Abs(bal) * 0.2m);
 
-                    node.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
+                    a.TreeNode.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
                   }
                 }
                 else if ((balanceDelta > 0.0m &&
@@ -753,7 +780,7 @@ namespace BoozeHoundBooks
                   {
                     bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > Math.Abs(bal) * 0.2m);
 
-                    node.BackColor = isBalanceDeltaSignificant ? c_col_significantPositiveBalance : c_col_positiveBalance;
+                    a.TreeNode.BackColor = isBalanceDeltaSignificant ? c_col_significantPositiveBalance : c_col_positiveBalance;
                   }
                 }
               }
@@ -808,13 +835,20 @@ namespace BoozeHoundBooks
                     $" ( {bal:N} ) {priorPeriodBalPrefix}{balanceDelta:N}" :
                     $" ( {bal:N} )";
 
-                node =
-                  list[0].Nodes.Add(a.GetQualifiedAccountName(),
-                    $"{a.GetAccountName()} {balText}",
-                    a.GetIconId(),
-                    a.GetIconId());
+                if (rebuildTree || a.TreeNode == null)
+                {
+                  node =
+                    list[0].Nodes.Add(a.GetQualifiedAccountName(),
+                      $"{a.GetAccountName()} {balText}",
+                      a.GetIconId(),
+                      a.GetIconId());
 
-                a.SetTreeNode(node);
+                  a.SetTreeNode(node);
+                }
+                else
+                {
+                  a.TreeNode.Text = $"{a.GetAccountName()} {balText}";
+                }
 
                 a.HasBudgetTransactions(
                   start,
@@ -858,13 +892,20 @@ namespace BoozeHoundBooks
                     $" ( {bal:N} ) {priorPeriodBalPrefix}{balanceDelta:N}" :
                     $" ( {bal:N} )";
 
-                node =
-                  list[0].Nodes.Add(a.GetQualifiedAccountName(),
-                    $"{a.GetAccountName()} {balText}",
-                    a.GetIconId(),
-                    a.GetIconId());
+                if (rebuildTree)
+                {
+                  node =
+                    list[0].Nodes.Add(a.GetQualifiedAccountName(),
+                      $"{a.GetAccountName()} {balText}",
+                      a.GetIconId(),
+                      a.GetIconId());
 
-                a.SetTreeNode(node);
+                  a.SetTreeNode(node);
+                }
+                else
+                {
+                  a.TreeNode.Text = $"{a.GetAccountName()} {balText}";
+                }
 
                 a.HasBudgetTransactions(
                   start,
@@ -875,10 +916,18 @@ namespace BoozeHoundBooks
               }
 
               // has budget transactions?
+              Color textColour;
+
               if (viewBudget.Checked && hasBudgetTrans)
               {
-                node.ForeColor = hasOverdueBudgetTrans ? c_col_budgetOverdue : c_col_budget;
+                textColour = hasOverdueBudgetTrans ? c_col_budgetOverdue : c_col_budget;
               }
+              else
+              {
+                textColour = Color.Black;
+              }
+
+              a.TreeNode.ForeColor = textColour;
 
               // 'negative' balance?
               if (versusPriorPeriods.Count == 0)
@@ -891,7 +940,7 @@ namespace BoozeHoundBooks
                       accountType == KAccount.c_expense ||
                       accountType == KAccount.c_credit)))
                 {
-                  node.BackColor = c_col_negativeBalance;
+                  a.TreeNode.BackColor = c_col_negativeBalance;
                 }
               }
               else
@@ -908,7 +957,7 @@ namespace BoozeHoundBooks
                   {
                     bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > Math.Abs(bal) * 0.2m);
 
-                    node.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
+                    a.TreeNode.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
                   }
                 }
                 else if ((balanceDelta > 0.0m &&
@@ -923,7 +972,7 @@ namespace BoozeHoundBooks
                   {
                     bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > Math.Abs(bal) * 0.2m);
 
-                    node.BackColor = isBalanceDeltaSignificant ? c_col_significantPositiveBalance : c_col_positiveBalance;
+                    a.TreeNode.BackColor = isBalanceDeltaSignificant ? c_col_significantPositiveBalance : c_col_positiveBalance;
                   }
                 }
               }
@@ -1218,7 +1267,7 @@ namespace BoozeHoundBooks
           return;
         }
 
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, false);
         PopulateAccountTransactionGrid();
         PopulateSummaryExpressionGrid();
       }
@@ -1301,7 +1350,7 @@ namespace BoozeHoundBooks
     {
       try
       {
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, false);
         PopulateAccountTransactionGrid();
         PopulateSummaryExpressionGrid();
       }
@@ -1317,7 +1366,7 @@ namespace BoozeHoundBooks
     {
       try
       {
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, false);
       }
       catch (Exception ex)
       {
@@ -1392,7 +1441,7 @@ namespace BoozeHoundBooks
         m_activeBook.Save();
 
         // refresh form
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, false);
         PopulateSummaryExpressionGrid();
       }
       catch (Exception ex)
@@ -1411,7 +1460,7 @@ namespace BoozeHoundBooks
 
         dlg.ShowDialog(this);
 
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, false);
         PopulateSummaryExpressionGrid();
 
         BringToFront();
@@ -1440,7 +1489,7 @@ namespace BoozeHoundBooks
         new KTransactionForm(m_activeBook, account, defaultDate.Value).ShowDialog(this);
 
         // update form
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, false);
         PopulateAccountTransactionGrid();
         PopulateSummaryExpressionGrid();
 
@@ -1529,7 +1578,7 @@ namespace BoozeHoundBooks
         }
 
         // update form
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, false);
         PopulateAccountTransactionGrid();
         PopulateSummaryExpressionGrid();
 
@@ -1700,7 +1749,7 @@ namespace BoozeHoundBooks
     {
       try
       {
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, true);
         PopulateAccountTransactionGrid();
         PopulateSummaryExpressionGrid();
       }
@@ -1780,7 +1829,7 @@ namespace BoozeHoundBooks
 
         m_activeBook.Save();
 
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, false);
         PopulateAccountTransactionGrid();
       }
       catch (Exception ex)
@@ -1944,7 +1993,7 @@ namespace BoozeHoundBooks
     {
       try
       {
-        PopulateAccountTree(true);
+        PopulateAccountTree(true, false);
       }
       catch (Exception ex)
       {
