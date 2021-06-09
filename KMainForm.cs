@@ -750,6 +750,10 @@ namespace BoozeHoundBooks
                 {
                   a.TreeNode.BackColor = c_col_negativeBalance;
                 }
+                else
+                {
+                  a.TreeNode.BackColor = Color.Transparent;
+                }
               }
               else
               {
@@ -767,6 +771,10 @@ namespace BoozeHoundBooks
 
                     a.TreeNode.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
                   }
+                  else
+                  {
+                    a.TreeNode.BackColor = Color.Transparent;
+                  }
                 }
                 else if ((balanceDelta > 0.0m &&
                           (accountType == KAccount.c_bank)) ||
@@ -781,6 +789,10 @@ namespace BoozeHoundBooks
                     bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > Math.Abs(bal) * 0.2m);
 
                     a.TreeNode.BackColor = isBalanceDeltaSignificant ? c_col_significantPositiveBalance : c_col_positiveBalance;
+                  }
+                  else
+                  {
+                    a.TreeNode.BackColor = Color.Transparent;
                   }
                 }
               }
@@ -942,6 +954,10 @@ namespace BoozeHoundBooks
                 {
                   a.TreeNode.BackColor = c_col_negativeBalance;
                 }
+                else
+                {
+                  a.TreeNode.BackColor = Color.Transparent;
+                }
               }
               else
               {
@@ -959,6 +975,10 @@ namespace BoozeHoundBooks
 
                     a.TreeNode.BackColor = isBalanceDeltaSignificant ? c_col_significantNegativeBalance : c_col_negativeBalance;
                   }
+                  else
+                  {
+                    a.TreeNode.BackColor = Color.Transparent;
+                  }
                 }
                 else if ((balanceDelta > 0.0m &&
                           (accountType == KAccount.c_bank)) ||
@@ -973,6 +993,10 @@ namespace BoozeHoundBooks
                     bool isBalanceDeltaSignificant = (Math.Abs(balanceDelta) > Math.Abs(bal) * 0.2m);
 
                     a.TreeNode.BackColor = isBalanceDeltaSignificant ? c_col_significantPositiveBalance : c_col_positiveBalance;
+                  }
+                  else
+                  {
+                    a.TreeNode.BackColor = Color.Transparent;
                   }
                 }
               }
@@ -1442,6 +1466,7 @@ namespace BoozeHoundBooks
 
         // refresh form
         PopulateAccountTree(true, false);
+        PopulateAccountTransactionGrid();
         PopulateSummaryExpressionGrid();
       }
       catch (Exception ex)
@@ -1461,6 +1486,7 @@ namespace BoozeHoundBooks
         dlg.ShowDialog(this);
 
         PopulateAccountTree(true, false);
+        PopulateAccountTransactionGrid();
         PopulateSummaryExpressionGrid();
 
         BringToFront();

@@ -71,7 +71,20 @@ namespace BoozeHoundBooks
       this.splitContainerVert = new System.Windows.Forms.SplitContainer();
       this.panel3 = new System.Windows.Forms.Panel();
       this.summaryExpressionGrid = new System.Windows.Forms.DataGridView();
+      this.SummaryNameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ValueCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.Unused = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.transactionGrid = new System.Windows.Forms.DataGridView();
+      this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.Budget = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+      this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.DayOfWeekIcon = new System.Windows.Forms.DataGridViewImageColumn();
+      this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.AccountIcon = new System.Windows.Forms.DataGridViewImageColumn();
+      this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.ContraIcon = new System.Windows.Forms.DataGridViewImageColumn();
+      this.Contra = new System.Windows.Forms.DataGridViewTextBoxColumn();
+      this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.panel2 = new System.Windows.Forms.Panel();
       this.label2 = new System.Windows.Forms.Label();
       this.currentVsAvgPriorBalance = new System.Windows.Forms.ComboBox();
@@ -87,19 +100,6 @@ namespace BoozeHoundBooks
       this.viewTo = new System.Windows.Forms.DateTimePicker();
       this.viewFrom = new System.Windows.Forms.DateTimePicker();
       this.transactionCountLbl = new System.Windows.Forms.Label();
-      this.SummaryNameCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.ValueCol = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.Unused = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.Id = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.Budget = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-      this.Date = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.DayOfWeekIcon = new System.Windows.Forms.DataGridViewImageColumn();
-      this.Amount = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.AccountIcon = new System.Windows.Forms.DataGridViewImageColumn();
-      this.Account = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.ContraIcon = new System.Windows.Forms.DataGridViewImageColumn();
-      this.Contra = new System.Windows.Forms.DataGridViewTextBoxColumn();
-      this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
       this.topMenu.SuspendLayout();
       this.mainPanel.SuspendLayout();
       this.panel1.SuspendLayout();
@@ -119,6 +119,7 @@ namespace BoozeHoundBooks
       // 
       // topMenu
       // 
+      this.topMenu.ImageScalingSize = new System.Drawing.Size(20, 20);
       this.topMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileMenu,
             this.viewMenu,
@@ -128,7 +129,7 @@ namespace BoozeHoundBooks
             this.transactionsToolStripMenuItem});
       this.topMenu.Location = new System.Drawing.Point(0, 0);
       this.topMenu.Name = "topMenu";
-      this.topMenu.Size = new System.Drawing.Size(1121, 24);
+      this.topMenu.Size = new System.Drawing.Size(1495, 28);
       this.topMenu.TabIndex = 0;
       this.topMenu.Text = "topMenu";
       // 
@@ -138,20 +139,20 @@ namespace BoozeHoundBooks
             this.newBook,
             this.openBook});
       this.fileMenu.Name = "fileMenu";
-      this.fileMenu.Size = new System.Drawing.Size(37, 20);
+      this.fileMenu.Size = new System.Drawing.Size(46, 24);
       this.fileMenu.Text = "&File";
       // 
       // newBook
       // 
       this.newBook.Name = "newBook";
-      this.newBook.Size = new System.Drawing.Size(133, 22);
+      this.newBook.Size = new System.Drawing.Size(166, 26);
       this.newBook.Text = "&New Book";
       this.newBook.Click += new System.EventHandler(this.NewBookClick);
       // 
       // openBook
       // 
       this.openBook.Name = "openBook";
-      this.openBook.Size = new System.Drawing.Size(133, 22);
+      this.openBook.Size = new System.Drawing.Size(166, 26);
       this.openBook.Text = "&Open Book";
       this.openBook.Click += new System.EventHandler(this.OpenBookClick);
       // 
@@ -163,14 +164,14 @@ namespace BoozeHoundBooks
             this.toolStripSeparator2,
             this.showHiddenAccountsToolStripMenuItem});
       this.viewMenu.Name = "viewMenu";
-      this.viewMenu.Size = new System.Drawing.Size(44, 20);
+      this.viewMenu.Size = new System.Drawing.Size(55, 24);
       this.viewMenu.Text = "&View";
       // 
       // viewTransactionGridBGAccount
       // 
       this.viewTransactionGridBGAccount.CheckOnClick = true;
       this.viewTransactionGridBGAccount.Name = "viewTransactionGridBGAccount";
-      this.viewTransactionGridBGAccount.Size = new System.Drawing.Size(357, 22);
+      this.viewTransactionGridBGAccount.Size = new System.Drawing.Size(443, 26);
       this.viewTransactionGridBGAccount.Text = "Use Account colours for Transaction Grid background";
       this.viewTransactionGridBGAccount.CheckedChanged += new System.EventHandler(this.ViewTransactionGridBGCheckedChanged);
       // 
@@ -178,20 +179,20 @@ namespace BoozeHoundBooks
       // 
       this.viewTransactionGridBGContra.CheckOnClick = true;
       this.viewTransactionGridBGContra.Name = "viewTransactionGridBGContra";
-      this.viewTransactionGridBGContra.Size = new System.Drawing.Size(357, 22);
+      this.viewTransactionGridBGContra.Size = new System.Drawing.Size(443, 26);
       this.viewTransactionGridBGContra.Text = "Use Contra colours for Transaction Grid background";
       this.viewTransactionGridBGContra.CheckedChanged += new System.EventHandler(this.ViewTransactionGridBGCheckedChanged);
       // 
       // toolStripSeparator2
       // 
       this.toolStripSeparator2.Name = "toolStripSeparator2";
-      this.toolStripSeparator2.Size = new System.Drawing.Size(354, 6);
+      this.toolStripSeparator2.Size = new System.Drawing.Size(440, 6);
       // 
       // showHiddenAccountsToolStripMenuItem
       // 
       this.showHiddenAccountsToolStripMenuItem.CheckOnClick = true;
       this.showHiddenAccountsToolStripMenuItem.Name = "showHiddenAccountsToolStripMenuItem";
-      this.showHiddenAccountsToolStripMenuItem.Size = new System.Drawing.Size(357, 22);
+      this.showHiddenAccountsToolStripMenuItem.Size = new System.Drawing.Size(443, 26);
       this.showHiddenAccountsToolStripMenuItem.Text = "Show Hidden Accounts";
       this.showHiddenAccountsToolStripMenuItem.CheckedChanged += new System.EventHandler(this.showHiddenAccountsToolStripMenuItem_CheckedChanged);
       // 
@@ -201,20 +202,20 @@ namespace BoozeHoundBooks
             this.addAccount,
             this.editAccount});
       this.accountMenu.Name = "accountMenu";
-      this.accountMenu.Size = new System.Drawing.Size(69, 20);
+      this.accountMenu.Size = new System.Drawing.Size(83, 24);
       this.accountMenu.Text = "&Accounts";
       // 
       // addAccount
       // 
       this.addAccount.Name = "addAccount";
-      this.addAccount.Size = new System.Drawing.Size(144, 22);
+      this.addAccount.Size = new System.Drawing.Size(178, 26);
       this.addAccount.Text = "&Add Account";
       this.addAccount.Click += new System.EventHandler(this.AddAccountClick);
       // 
       // editAccount
       // 
       this.editAccount.Name = "editAccount";
-      this.editAccount.Size = new System.Drawing.Size(144, 22);
+      this.editAccount.Size = new System.Drawing.Size(178, 26);
       this.editAccount.Text = "&Edit Account";
       this.editAccount.Click += new System.EventHandler(this.EditAccountClick);
       // 
@@ -223,13 +224,13 @@ namespace BoozeHoundBooks
       this.periodMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editPeriods});
       this.periodMenu.Name = "periodMenu";
-      this.periodMenu.Size = new System.Drawing.Size(58, 20);
+      this.periodMenu.Size = new System.Drawing.Size(71, 24);
       this.periodMenu.Text = "&Periods";
       // 
       // editPeriods
       // 
       this.editPeriods.Name = "editPeriods";
-      this.editPeriods.Size = new System.Drawing.Size(136, 22);
+      this.editPeriods.Size = new System.Drawing.Size(170, 26);
       this.editPeriods.Text = "&Edit Periods";
       this.editPeriods.Click += new System.EventHandler(this.EditPeriodsClick);
       // 
@@ -238,13 +239,13 @@ namespace BoozeHoundBooks
       this.summaryExpressionMenu.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.addSummaryExpressionItem});
       this.summaryExpressionMenu.Name = "summaryExpressionMenu";
-      this.summaryExpressionMenu.Size = new System.Drawing.Size(103, 20);
+      this.summaryExpressionMenu.Size = new System.Drawing.Size(127, 24);
       this.summaryExpressionMenu.Text = "&Summary Fields";
       // 
       // addSummaryExpressionItem
       // 
       this.addSummaryExpressionItem.Name = "addSummaryExpressionItem";
-      this.addSummaryExpressionItem.Size = new System.Drawing.Size(124, 22);
+      this.addSummaryExpressionItem.Size = new System.Drawing.Size(156, 26);
       this.addSummaryExpressionItem.Text = "&Add Field";
       this.addSummaryExpressionItem.Click += new System.EventHandler(this.AddSummaryExpressionItemClick);
       // 
@@ -253,13 +254,13 @@ namespace BoozeHoundBooks
       this.transactionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.generateRecurringTransactions});
       this.transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
-      this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(85, 20);
+      this.transactionsToolStripMenuItem.Size = new System.Drawing.Size(104, 24);
       this.transactionsToolStripMenuItem.Text = "&Transactions";
       // 
       // generateRecurringTransactions
       // 
       this.generateRecurringTransactions.Name = "generateRecurringTransactions";
-      this.generateRecurringTransactions.Size = new System.Drawing.Size(175, 22);
+      this.generateRecurringTransactions.Size = new System.Drawing.Size(219, 26);
       this.generateRecurringTransactions.Text = "&Generate Recurring";
       this.generateRecurringTransactions.Click += new System.EventHandler(this.generateRecurringTransactions_Click);
       // 
@@ -272,31 +273,34 @@ namespace BoozeHoundBooks
       this.mainPanel.Controls.Add(this.panel2, 0, 0);
       this.mainPanel.Controls.Add(this.transactionCountLbl, 0, 2);
       this.mainPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.mainPanel.Location = new System.Drawing.Point(0, 24);
+      this.mainPanel.Location = new System.Drawing.Point(0, 28);
+      this.mainPanel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.mainPanel.Name = "mainPanel";
-      this.mainPanel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 10);
+      this.mainPanel.Padding = new System.Windows.Forms.Padding(7, 0, 7, 12);
       this.mainPanel.RowCount = 3;
-      this.mainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
+      this.mainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
       this.mainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-      this.mainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-      this.mainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-      this.mainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
-      this.mainPanel.Size = new System.Drawing.Size(1121, 642);
+      this.mainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+      this.mainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+      this.mainPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 25F));
+      this.mainPanel.Size = new System.Drawing.Size(1495, 792);
       this.mainPanel.TabIndex = 1;
       // 
       // panel1
       // 
       this.panel1.Controls.Add(this.splitContainerHoriz);
       this.panel1.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.panel1.Location = new System.Drawing.Point(8, 34);
+      this.panel1.Location = new System.Drawing.Point(11, 42);
+      this.panel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(1105, 575);
+      this.panel1.Size = new System.Drawing.Size(1473, 709);
       this.panel1.TabIndex = 5;
       // 
       // splitContainerHoriz
       // 
       this.splitContainerHoriz.Dock = System.Windows.Forms.DockStyle.Fill;
       this.splitContainerHoriz.Location = new System.Drawing.Point(0, 0);
+      this.splitContainerHoriz.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.splitContainerHoriz.Name = "splitContainerHoriz";
       // 
       // splitContainerHoriz.Panel1
@@ -306,8 +310,9 @@ namespace BoozeHoundBooks
       // splitContainerHoriz.Panel2
       // 
       this.splitContainerHoriz.Panel2.Controls.Add(this.splitContainerVert);
-      this.splitContainerHoriz.Size = new System.Drawing.Size(1105, 575);
-      this.splitContainerHoriz.SplitterDistance = 291;
+      this.splitContainerHoriz.Size = new System.Drawing.Size(1473, 709);
+      this.splitContainerHoriz.SplitterDistance = 387;
+      this.splitContainerHoriz.SplitterWidth = 5;
       this.splitContainerHoriz.TabIndex = 0;
       // 
       // accountTree
@@ -317,8 +322,9 @@ namespace BoozeHoundBooks
       this.accountTree.Indent = 27;
       this.accountTree.ItemHeight = 20;
       this.accountTree.Location = new System.Drawing.Point(0, 0);
+      this.accountTree.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.accountTree.Name = "accountTree";
-      this.accountTree.Size = new System.Drawing.Size(291, 575);
+      this.accountTree.Size = new System.Drawing.Size(387, 709);
       this.accountTree.TabIndex = 2;
       this.accountTree.AfterCollapse += new System.Windows.Forms.TreeViewEventHandler(this.accountTree_AfterCollapse);
       this.accountTree.AfterExpand += new System.Windows.Forms.TreeViewEventHandler(this.accountTree_AfterExpand);
@@ -329,6 +335,7 @@ namespace BoozeHoundBooks
       // 
       this.splitContainerVert.Dock = System.Windows.Forms.DockStyle.Fill;
       this.splitContainerVert.Location = new System.Drawing.Point(0, 0);
+      this.splitContainerVert.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.splitContainerVert.Name = "splitContainerVert";
       this.splitContainerVert.Orientation = System.Windows.Forms.Orientation.Horizontal;
       // 
@@ -339,8 +346,9 @@ namespace BoozeHoundBooks
       // splitContainerVert.Panel2
       // 
       this.splitContainerVert.Panel2.Controls.Add(this.transactionGrid);
-      this.splitContainerVert.Size = new System.Drawing.Size(810, 575);
-      this.splitContainerVert.SplitterDistance = 145;
+      this.splitContainerVert.Size = new System.Drawing.Size(1081, 709);
+      this.splitContainerVert.SplitterDistance = 178;
+      this.splitContainerVert.SplitterWidth = 5;
       this.splitContainerVert.TabIndex = 0;
       // 
       // panel3
@@ -349,8 +357,9 @@ namespace BoozeHoundBooks
       this.panel3.Controls.Add(this.summaryExpressionGrid);
       this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
       this.panel3.Location = new System.Drawing.Point(0, 0);
+      this.panel3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.panel3.Name = "panel3";
-      this.panel3.Size = new System.Drawing.Size(810, 145);
+      this.panel3.Size = new System.Drawing.Size(1081, 178);
       this.panel3.TabIndex = 0;
       // 
       // summaryExpressionGrid
@@ -367,13 +376,49 @@ namespace BoozeHoundBooks
             this.Unused});
       this.summaryExpressionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
       this.summaryExpressionGrid.Location = new System.Drawing.Point(0, 0);
+      this.summaryExpressionGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.summaryExpressionGrid.Name = "summaryExpressionGrid";
       this.summaryExpressionGrid.ReadOnly = true;
+      this.summaryExpressionGrid.RowHeadersWidth = 51;
       this.summaryExpressionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-      this.summaryExpressionGrid.Size = new System.Drawing.Size(808, 143);
+      this.summaryExpressionGrid.Size = new System.Drawing.Size(1079, 176);
       this.summaryExpressionGrid.TabIndex = 0;
       this.summaryExpressionGrid.Click += new System.EventHandler(this.summaryExpressionGrid_Click);
       this.summaryExpressionGrid.DoubleClick += new System.EventHandler(this.SummaryExpressionGridDoubleClick);
+      // 
+      // SummaryNameCol
+      // 
+      this.SummaryNameCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+      dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
+      this.SummaryNameCol.DefaultCellStyle = dataGridViewCellStyle2;
+      this.SummaryNameCol.FillWeight = 20F;
+      this.SummaryNameCol.HeaderText = "Summary";
+      this.SummaryNameCol.MinimumWidth = 6;
+      this.SummaryNameCol.Name = "SummaryNameCol";
+      this.SummaryNameCol.ReadOnly = true;
+      // 
+      // ValueCol
+      // 
+      this.ValueCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+      dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+      dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
+      this.ValueCol.DefaultCellStyle = dataGridViewCellStyle3;
+      this.ValueCol.FillWeight = 10F;
+      this.ValueCol.HeaderText = "Value";
+      this.ValueCol.MinimumWidth = 6;
+      this.ValueCol.Name = "ValueCol";
+      this.ValueCol.ReadOnly = true;
+      // 
+      // Unused
+      // 
+      this.Unused.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
+      dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+      this.Unused.DefaultCellStyle = dataGridViewCellStyle4;
+      this.Unused.FillWeight = 70F;
+      this.Unused.HeaderText = "";
+      this.Unused.MinimumWidth = 6;
+      this.Unused.Name = "Unused";
+      this.Unused.ReadOnly = true;
       // 
       // transactionGrid
       // 
@@ -394,13 +439,111 @@ namespace BoozeHoundBooks
             this.Description});
       this.transactionGrid.Dock = System.Windows.Forms.DockStyle.Fill;
       this.transactionGrid.Location = new System.Drawing.Point(0, 0);
+      this.transactionGrid.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.transactionGrid.Name = "transactionGrid";
+      this.transactionGrid.RowHeadersWidth = 51;
       this.transactionGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-      this.transactionGrid.Size = new System.Drawing.Size(810, 426);
+      this.transactionGrid.Size = new System.Drawing.Size(1081, 526);
       this.transactionGrid.TabIndex = 8;
       this.transactionGrid.CellMouseUp += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.transactionGrid_CellMouseUp);
       this.transactionGrid.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.transactionGrid_CellValueChanged);
       this.transactionGrid.DoubleClick += new System.EventHandler(this.transactionGrid_DoubleClick);
+      // 
+      // Id
+      // 
+      this.Id.HeaderText = "Id";
+      this.Id.MinimumWidth = 6;
+      this.Id.Name = "Id";
+      this.Id.ReadOnly = true;
+      this.Id.Visible = false;
+      // 
+      // Budget
+      // 
+      this.Budget.FillWeight = 5F;
+      this.Budget.HeaderText = "Budget";
+      this.Budget.MinimumWidth = 6;
+      this.Budget.Name = "Budget";
+      // 
+      // Date
+      // 
+      dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+      dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+      this.Date.DefaultCellStyle = dataGridViewCellStyle5;
+      this.Date.FillWeight = 7.5F;
+      this.Date.HeaderText = "Date";
+      this.Date.MinimumWidth = 6;
+      this.Date.Name = "Date";
+      this.Date.ReadOnly = true;
+      // 
+      // DayOfWeekIcon
+      // 
+      this.DayOfWeekIcon.FillWeight = 2.5F;
+      this.DayOfWeekIcon.HeaderText = "";
+      this.DayOfWeekIcon.MinimumWidth = 6;
+      this.DayOfWeekIcon.Name = "DayOfWeekIcon";
+      this.DayOfWeekIcon.ReadOnly = true;
+      this.DayOfWeekIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+      this.DayOfWeekIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+      // 
+      // Amount
+      // 
+      dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
+      dataGridViewCellStyle6.NullValue = null;
+      dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+      this.Amount.DefaultCellStyle = dataGridViewCellStyle6;
+      this.Amount.FillWeight = 10F;
+      this.Amount.HeaderText = "Amount";
+      this.Amount.MinimumWidth = 6;
+      this.Amount.Name = "Amount";
+      this.Amount.ReadOnly = true;
+      // 
+      // AccountIcon
+      // 
+      this.AccountIcon.FillWeight = 2.5F;
+      this.AccountIcon.HeaderText = "";
+      this.AccountIcon.MinimumWidth = 6;
+      this.AccountIcon.Name = "AccountIcon";
+      this.AccountIcon.ReadOnly = true;
+      // 
+      // Account
+      // 
+      dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+      this.Account.DefaultCellStyle = dataGridViewCellStyle7;
+      this.Account.FillWeight = 25F;
+      this.Account.HeaderText = "Account";
+      this.Account.MinimumWidth = 6;
+      this.Account.Name = "Account";
+      this.Account.ReadOnly = true;
+      // 
+      // ContraIcon
+      // 
+      this.ContraIcon.FillWeight = 2.5F;
+      this.ContraIcon.HeaderText = "";
+      this.ContraIcon.MinimumWidth = 6;
+      this.ContraIcon.Name = "ContraIcon";
+      this.ContraIcon.ReadOnly = true;
+      // 
+      // Contra
+      // 
+      dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
+      this.Contra.DefaultCellStyle = dataGridViewCellStyle8;
+      this.Contra.FillWeight = 25F;
+      this.Contra.HeaderText = "Contra";
+      this.Contra.MinimumWidth = 6;
+      this.Contra.Name = "Contra";
+      this.Contra.ReadOnly = true;
+      // 
+      // Description
+      // 
+      dataGridViewCellStyle9.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
+      this.Description.DefaultCellStyle = dataGridViewCellStyle9;
+      this.Description.FillWeight = 20F;
+      this.Description.HeaderText = "Description";
+      this.Description.MinimumWidth = 6;
+      this.Description.Name = "Description";
+      this.Description.ReadOnly = true;
       // 
       // panel2
       // 
@@ -418,18 +561,20 @@ namespace BoozeHoundBooks
       this.panel2.Controls.Add(this.viewTo);
       this.panel2.Controls.Add(this.viewFrom);
       this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.panel2.Location = new System.Drawing.Point(8, 3);
+      this.panel2.Location = new System.Drawing.Point(11, 4);
+      this.panel2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.panel2.Name = "panel2";
-      this.panel2.Size = new System.Drawing.Size(1105, 25);
+      this.panel2.Size = new System.Drawing.Size(1473, 30);
       this.panel2.TabIndex = 6;
       // 
       // label2
       // 
       this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(632, 7);
+      this.label2.Location = new System.Drawing.Point(843, 9);
+      this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(87, 13);
+      this.label2.Size = new System.Drawing.Size(120, 17);
       this.label2.TabIndex = 31;
       this.label2.Text = "Vs Prior Period(s)";
       // 
@@ -445,10 +590,13 @@ namespace BoozeHoundBooks
             "6",
             "12",
             "18",
-            "24"});
-      this.currentVsAvgPriorBalance.Location = new System.Drawing.Point(725, 3);
+            "24",
+            "60",
+            "120"});
+      this.currentVsAvgPriorBalance.Location = new System.Drawing.Point(967, 4);
+      this.currentVsAvgPriorBalance.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.currentVsAvgPriorBalance.Name = "currentVsAvgPriorBalance";
-      this.currentVsAvgPriorBalance.Size = new System.Drawing.Size(50, 21);
+      this.currentVsAvgPriorBalance.Size = new System.Drawing.Size(65, 24);
       this.currentVsAvgPriorBalance.TabIndex = 30;
       this.currentVsAvgPriorBalance.SelectedIndexChanged += new System.EventHandler(this.currentVsAvgPriorBalance_SelectedIndexChanged);
       // 
@@ -456,9 +604,10 @@ namespace BoozeHoundBooks
       // 
       this.viewBudget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
       this.viewBudget.Appearance = System.Windows.Forms.Appearance.Button;
-      this.viewBudget.Location = new System.Drawing.Point(781, 2);
+      this.viewBudget.Location = new System.Drawing.Point(1041, 2);
+      this.viewBudget.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.viewBudget.Name = "viewBudget";
-      this.viewBudget.Size = new System.Drawing.Size(58, 23);
+      this.viewBudget.Size = new System.Drawing.Size(77, 28);
       this.viewBudget.TabIndex = 28;
       this.viewBudget.Text = "Budget";
       this.viewBudget.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -469,9 +618,10 @@ namespace BoozeHoundBooks
       // 
       this.label1.AutoSize = true;
       this.label1.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-      this.label1.Location = new System.Drawing.Point(464, 9);
+      this.label1.Location = new System.Drawing.Point(619, 11);
+      this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(65, 13);
+      this.label1.Size = new System.Drawing.Size(85, 17);
       this.label1.TabIndex = 27;
       this.label1.Text = "Default date";
       this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -479,17 +629,19 @@ namespace BoozeHoundBooks
       // defaultDate
       // 
       this.defaultDate.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-      this.defaultDate.Location = new System.Drawing.Point(538, 5);
+      this.defaultDate.Location = new System.Drawing.Point(717, 6);
+      this.defaultDate.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.defaultDate.Name = "defaultDate";
-      this.defaultDate.Size = new System.Drawing.Size(85, 20);
+      this.defaultDate.Size = new System.Drawing.Size(112, 22);
       this.defaultDate.TabIndex = 26;
       // 
       // viewByDateTo
       // 
-      this.viewByDateTo.Location = new System.Drawing.Point(312, 4);
+      this.viewByDateTo.Location = new System.Drawing.Point(416, 5);
+      this.viewByDateTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.viewByDateTo.Name = "viewByDateTo";
       this.viewByDateTo.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-      this.viewByDateTo.Size = new System.Drawing.Size(42, 24);
+      this.viewByDateTo.Size = new System.Drawing.Size(56, 30);
       this.viewByDateTo.TabIndex = 25;
       this.viewByDateTo.Text = "To";
       this.viewByDateTo.UseVisualStyleBackColor = true;
@@ -497,10 +649,11 @@ namespace BoozeHoundBooks
       // 
       // viewByDateFrom
       // 
-      this.viewByDateFrom.Location = new System.Drawing.Point(156, 4);
+      this.viewByDateFrom.Location = new System.Drawing.Point(208, 5);
+      this.viewByDateFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.viewByDateFrom.Name = "viewByDateFrom";
       this.viewByDateFrom.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-      this.viewByDateFrom.Size = new System.Drawing.Size(59, 24);
+      this.viewByDateFrom.Size = new System.Drawing.Size(79, 30);
       this.viewByDateFrom.TabIndex = 24;
       this.viewByDateFrom.Text = "From";
       this.viewByDateFrom.UseVisualStyleBackColor = true;
@@ -508,10 +661,11 @@ namespace BoozeHoundBooks
       // 
       // viewByPeriod
       // 
-      this.viewByPeriod.Location = new System.Drawing.Point(0, 4);
+      this.viewByPeriod.Location = new System.Drawing.Point(0, 5);
+      this.viewByPeriod.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.viewByPeriod.Name = "viewByPeriod";
       this.viewByPeriod.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-      this.viewByPeriod.Size = new System.Drawing.Size(59, 24);
+      this.viewByPeriod.Size = new System.Drawing.Size(79, 30);
       this.viewByPeriod.TabIndex = 23;
       this.viewByPeriod.Text = "Period";
       this.viewByPeriod.UseVisualStyleBackColor = true;
@@ -520,9 +674,10 @@ namespace BoozeHoundBooks
       // newAdjustment
       // 
       this.newAdjustment.Anchor = System.Windows.Forms.AnchorStyles.Right;
-      this.newAdjustment.Location = new System.Drawing.Point(857, 2);
+      this.newAdjustment.Location = new System.Drawing.Point(1143, 2);
+      this.newAdjustment.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.newAdjustment.Name = "newAdjustment";
-      this.newAdjustment.Size = new System.Drawing.Size(121, 23);
+      this.newAdjustment.Size = new System.Drawing.Size(161, 28);
       this.newAdjustment.TabIndex = 22;
       this.newAdjustment.Text = "Adjustment";
       this.newAdjustment.UseVisualStyleBackColor = true;
@@ -531,9 +686,10 @@ namespace BoozeHoundBooks
       // deleteTransaction
       // 
       this.deleteTransaction.Anchor = System.Windows.Forms.AnchorStyles.Right;
-      this.deleteTransaction.Location = new System.Drawing.Point(984, 2);
+      this.deleteTransaction.Location = new System.Drawing.Point(1312, 2);
+      this.deleteTransaction.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.deleteTransaction.Name = "deleteTransaction";
-      this.deleteTransaction.Size = new System.Drawing.Size(121, 23);
+      this.deleteTransaction.Size = new System.Drawing.Size(161, 28);
       this.deleteTransaction.TabIndex = 20;
       this.deleteTransaction.Text = "Delete Transaction";
       this.deleteTransaction.UseVisualStyleBackColor = true;
@@ -543,165 +699,53 @@ namespace BoozeHoundBooks
       // 
       this.viewPeriod.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.viewPeriod.FormattingEnabled = true;
-      this.viewPeriod.Location = new System.Drawing.Point(65, 4);
+      this.viewPeriod.Location = new System.Drawing.Point(87, 5);
+      this.viewPeriod.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.viewPeriod.Name = "viewPeriod";
-      this.viewPeriod.Size = new System.Drawing.Size(85, 21);
+      this.viewPeriod.Size = new System.Drawing.Size(112, 24);
       this.viewPeriod.TabIndex = 18;
       this.viewPeriod.SelectedIndexChanged += new System.EventHandler(this.ViewPeriodSelectedIndexChanged);
       // 
       // viewTo
       // 
       this.viewTo.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-      this.viewTo.Location = new System.Drawing.Point(360, 5);
+      this.viewTo.Location = new System.Drawing.Point(480, 6);
+      this.viewTo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.viewTo.Name = "viewTo";
-      this.viewTo.Size = new System.Drawing.Size(85, 20);
+      this.viewTo.Size = new System.Drawing.Size(112, 22);
       this.viewTo.TabIndex = 16;
       this.viewTo.ValueChanged += new System.EventHandler(this.RefreshAccountTreeAndTransactionGrid);
       // 
       // viewFrom
       // 
       this.viewFrom.Format = System.Windows.Forms.DateTimePickerFormat.Short;
-      this.viewFrom.Location = new System.Drawing.Point(221, 5);
+      this.viewFrom.Location = new System.Drawing.Point(295, 6);
+      this.viewFrom.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.viewFrom.Name = "viewFrom";
-      this.viewFrom.Size = new System.Drawing.Size(85, 20);
+      this.viewFrom.Size = new System.Drawing.Size(112, 22);
       this.viewFrom.TabIndex = 15;
       this.viewFrom.ValueChanged += new System.EventHandler(this.RefreshAccountTreeAndTransactionGrid);
       // 
       // transactionCountLbl
       // 
       this.transactionCountLbl.AutoSize = true;
-      this.transactionCountLbl.Location = new System.Drawing.Point(8, 612);
+      this.transactionCountLbl.Location = new System.Drawing.Point(11, 755);
+      this.transactionCountLbl.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.transactionCountLbl.Name = "transactionCountLbl";
-      this.transactionCountLbl.Size = new System.Drawing.Size(79, 13);
+      this.transactionCountLbl.Size = new System.Drawing.Size(104, 17);
       this.transactionCountLbl.TabIndex = 7;
       this.transactionCountLbl.Text = "Transactions: x";
       // 
-      // SummaryNameCol
-      // 
-      this.SummaryNameCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-      dataGridViewCellStyle2.Padding = new System.Windows.Forms.Padding(5, 0, 0, 0);
-      this.SummaryNameCol.DefaultCellStyle = dataGridViewCellStyle2;
-      this.SummaryNameCol.FillWeight = 20F;
-      this.SummaryNameCol.HeaderText = "Summary";
-      this.SummaryNameCol.Name = "SummaryNameCol";
-      this.SummaryNameCol.ReadOnly = true;
-      // 
-      // ValueCol
-      // 
-      this.ValueCol.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-      dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-      dataGridViewCellStyle3.Padding = new System.Windows.Forms.Padding(0, 0, 5, 0);
-      this.ValueCol.DefaultCellStyle = dataGridViewCellStyle3;
-      this.ValueCol.FillWeight = 10F;
-      this.ValueCol.HeaderText = "Value";
-      this.ValueCol.Name = "ValueCol";
-      this.ValueCol.ReadOnly = true;
-      // 
-      // Unused
-      // 
-      this.Unused.AutoSizeMode = System.Windows.Forms.DataGridViewAutoSizeColumnMode.Fill;
-      dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-      this.Unused.DefaultCellStyle = dataGridViewCellStyle4;
-      this.Unused.FillWeight = 70F;
-      this.Unused.HeaderText = "";
-      this.Unused.Name = "Unused";
-      this.Unused.ReadOnly = true;
-      // 
-      // Id
-      // 
-      this.Id.HeaderText = "Id";
-      this.Id.Name = "Id";
-      this.Id.ReadOnly = true;
-      this.Id.Visible = false;
-      // 
-      // Budget
-      // 
-      this.Budget.FillWeight = 5F;
-      this.Budget.HeaderText = "Budget";
-      this.Budget.Name = "Budget";
-      // 
-      // Date
-      // 
-      dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-      dataGridViewCellStyle5.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-      this.Date.DefaultCellStyle = dataGridViewCellStyle5;
-      this.Date.FillWeight = 7.5F;
-      this.Date.HeaderText = "Date";
-      this.Date.Name = "Date";
-      this.Date.ReadOnly = true;
-      // 
-      // DayOfWeekIcon
-      // 
-      this.DayOfWeekIcon.FillWeight = 2.5F;
-      this.DayOfWeekIcon.HeaderText = "";
-      this.DayOfWeekIcon.Name = "DayOfWeekIcon";
-      this.DayOfWeekIcon.ReadOnly = true;
-      this.DayOfWeekIcon.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-      this.DayOfWeekIcon.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-      // 
-      // Amount
-      // 
-      dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleRight;
-      dataGridViewCellStyle6.NullValue = null;
-      dataGridViewCellStyle6.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-      this.Amount.DefaultCellStyle = dataGridViewCellStyle6;
-      this.Amount.FillWeight = 10F;
-      this.Amount.HeaderText = "Amount";
-      this.Amount.Name = "Amount";
-      this.Amount.ReadOnly = true;
-      // 
-      // AccountIcon
-      // 
-      this.AccountIcon.FillWeight = 2.5F;
-      this.AccountIcon.HeaderText = "";
-      this.AccountIcon.Name = "AccountIcon";
-      this.AccountIcon.ReadOnly = true;
-      // 
-      // Account
-      // 
-      dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle7.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-      this.Account.DefaultCellStyle = dataGridViewCellStyle7;
-      this.Account.FillWeight = 25F;
-      this.Account.HeaderText = "Account";
-      this.Account.Name = "Account";
-      this.Account.ReadOnly = true;
-      // 
-      // ContraIcon
-      // 
-      this.ContraIcon.FillWeight = 2.5F;
-      this.ContraIcon.HeaderText = "";
-      this.ContraIcon.Name = "ContraIcon";
-      this.ContraIcon.ReadOnly = true;
-      // 
-      // Contra
-      // 
-      dataGridViewCellStyle8.Font = new System.Drawing.Font("Microsoft Sans Serif", 6.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      dataGridViewCellStyle8.Padding = new System.Windows.Forms.Padding(2, 0, 2, 0);
-      this.Contra.DefaultCellStyle = dataGridViewCellStyle8;
-      this.Contra.FillWeight = 25F;
-      this.Contra.HeaderText = "Contra";
-      this.Contra.Name = "Contra";
-      this.Contra.ReadOnly = true;
-      // 
-      // Description
-      // 
-      dataGridViewCellStyle9.Padding = new System.Windows.Forms.Padding(2, 0, 0, 0);
-      this.Description.DefaultCellStyle = dataGridViewCellStyle9;
-      this.Description.FillWeight = 20F;
-      this.Description.HeaderText = "Description";
-      this.Description.Name = "Description";
-      this.Description.ReadOnly = true;
-      // 
       // KMainForm
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(1121, 666);
+      this.ClientSize = new System.Drawing.Size(1495, 820);
       this.Controls.Add(this.mainPanel);
       this.Controls.Add(this.topMenu);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
       this.MainMenuStrip = this.topMenu;
+      this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
       this.Name = "KMainForm";
       this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
       this.Text = "Booze Hound Books";
