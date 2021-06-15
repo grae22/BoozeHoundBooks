@@ -37,6 +37,7 @@ namespace BoozeHoundBooks
 		private void InitializeComponent()
 		{
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.confirmAmount = new System.Windows.Forms.CheckBox();
       this.recurringBox = new System.Windows.Forms.CheckBox();
       this.periodName = new System.Windows.Forms.Label();
       this.cancelButton = new System.Windows.Forms.Button();
@@ -50,7 +51,6 @@ namespace BoozeHoundBooks
       this.label6 = new System.Windows.Forms.Label();
       this.accountBox = new System.Windows.Forms.ComboBox();
       this.label4 = new System.Windows.Forms.Label();
-      this.confirmAmount = new System.Windows.Forms.CheckBox();
       this.groupBox1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -76,6 +76,16 @@ namespace BoozeHoundBooks
       this.groupBox1.Size = new System.Drawing.Size(333, 218);
       this.groupBox1.TabIndex = 6;
       this.groupBox1.TabStop = false;
+      // 
+      // confirmAmount
+      // 
+      this.confirmAmount.AutoSize = true;
+      this.confirmAmount.Location = new System.Drawing.Point(133, 150);
+      this.confirmAmount.Name = "confirmAmount";
+      this.confirmAmount.Size = new System.Drawing.Size(100, 17);
+      this.confirmAmount.TabIndex = 23;
+      this.confirmAmount.Text = "Confirm Amount";
+      this.confirmAmount.UseVisualStyleBackColor = true;
       // 
       // recurringBox
       // 
@@ -155,6 +165,7 @@ namespace BoozeHoundBooks
       this.amountBox.Size = new System.Drawing.Size(77, 20);
       this.amountBox.TabIndex = 3;
       this.amountBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      this.amountBox.Click += new System.EventHandler(this.amountBox_Click);
       this.amountBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AmountBoxKeyPress);
       // 
       // label7
@@ -202,16 +213,6 @@ namespace BoozeHoundBooks
       this.label4.Size = new System.Drawing.Size(47, 13);
       this.label4.TabIndex = 9;
       this.label4.Text = "Account";
-      // 
-      // confirmAmount
-      // 
-      this.confirmAmount.AutoSize = true;
-      this.confirmAmount.Location = new System.Drawing.Point(133, 150);
-      this.confirmAmount.Name = "confirmAmount";
-      this.confirmAmount.Size = new System.Drawing.Size(100, 17);
-      this.confirmAmount.TabIndex = 23;
-      this.confirmAmount.Text = "Confirm Amount";
-      this.confirmAmount.UseVisualStyleBackColor = true;
       // 
       // KAdjustmentForm
       // 

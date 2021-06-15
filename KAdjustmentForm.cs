@@ -341,5 +341,12 @@ namespace BoozeHoundBooks
     }
 
     //--------------------------------------------------------------------------
+
+    private void amountBox_Click(object sender, EventArgs e)
+    {
+      amountBox.SelectAll();
+    }
+
+    //--------------------------------------------------------------------------
   }
 }

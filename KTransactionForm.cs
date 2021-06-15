@@ -781,5 +781,14 @@ namespace BoozeHoundBooks
         }
       }
     }
+
+    //--------------------------------------------------------------------------
+
+    private void transactionAmount_Click(object sender, EventArgs e)
+    {
+      transactionAmount.SelectAll();
+    }
+
+    //--------------------------------------------------------------------------
   }
 }

@@ -37,6 +37,7 @@ namespace BoozeHoundBooks
 		private void InitializeComponent()
 		{
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.confirmAmount = new System.Windows.Forms.CheckBox();
       this.transactionRecurring = new System.Windows.Forms.CheckBox();
       this.transactionProcessAsNew = new System.Windows.Forms.Button();
       this.panel1 = new System.Windows.Forms.Panel();
@@ -65,7 +66,6 @@ namespace BoozeHoundBooks
       this.label1 = new System.Windows.Forms.Label();
       this.transactionIncome = new System.Windows.Forms.RadioButton();
       this.transactionExpense = new System.Windows.Forms.RadioButton();
-      this.confirmAmount = new System.Windows.Forms.CheckBox();
       this.groupBox1.SuspendLayout();
       this.panel1.SuspendLayout();
       this.SuspendLayout();
@@ -105,6 +105,16 @@ namespace BoozeHoundBooks
       this.groupBox1.Size = new System.Drawing.Size(334, 347);
       this.groupBox1.TabIndex = 4;
       this.groupBox1.TabStop = false;
+      // 
+      // confirmAmount
+      // 
+      this.confirmAmount.AutoSize = true;
+      this.confirmAmount.Location = new System.Drawing.Point(135, 275);
+      this.confirmAmount.Name = "confirmAmount";
+      this.confirmAmount.Size = new System.Drawing.Size(100, 17);
+      this.confirmAmount.TabIndex = 27;
+      this.confirmAmount.Text = "Confirm Amount";
+      this.confirmAmount.UseVisualStyleBackColor = true;
       // 
       // transactionRecurring
       // 
@@ -292,6 +302,7 @@ namespace BoozeHoundBooks
       this.transactionAmount.Size = new System.Drawing.Size(77, 20);
       this.transactionAmount.TabIndex = 13;
       this.transactionAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+      this.transactionAmount.Click += new System.EventHandler(this.transactionAmount_Click);
       this.transactionAmount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TransactionAmountKeyPress);
       // 
       // label7
@@ -393,16 +404,6 @@ namespace BoozeHoundBooks
       this.transactionExpense.UseVisualStyleBackColor = true;
       this.transactionExpense.CheckedChanged += new System.EventHandler(this.TransactionExpenseClick);
       this.transactionExpense.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TransactionTypeKeyPress);
-      // 
-      // confirmAmount
-      // 
-      this.confirmAmount.AutoSize = true;
-      this.confirmAmount.Location = new System.Drawing.Point(135, 275);
-      this.confirmAmount.Name = "confirmAmount";
-      this.confirmAmount.Size = new System.Drawing.Size(100, 17);
-      this.confirmAmount.TabIndex = 27;
-      this.confirmAmount.Text = "Confirm Amount";
-      this.confirmAmount.UseVisualStyleBackColor = true;
       // 
       // KTransactionForm
       // 
