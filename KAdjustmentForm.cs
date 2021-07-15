@@ -143,6 +143,11 @@ namespace BoozeHoundBooks
         try
         {
           amount = decimal.Parse(amountBox.Text);
+
+          if (Math.Abs(amount * 100) - (int)Math.Abs(amount * 100) > 0m)
+          {
+            throw new Exception("Amounts smaller than 0.01 are not allowed.");
+          }
         }
         catch (Exception ex)
         {

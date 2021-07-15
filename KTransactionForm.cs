@@ -531,6 +531,11 @@ namespace BoozeHoundBooks
           {
             throw new Exception("Negative amounts not allowed.");
           }
+
+          if ((amount * 100) - (int)(amount * 100) > 0m)
+          {
+            throw new Exception("Amounts smaller than 0.01 are not allowed.");
+          }
         }
         catch (Exception ex)
         {
@@ -611,6 +616,11 @@ namespace BoozeHoundBooks
           if (amount < 0m)
           {
             throw new Exception("Negative amounts not allowed.");
+          }
+
+          if ((amount * 100) - (int)(amount * 100) > 0m)
+          {
+            throw new Exception("Amounts smaller than 0.01 are not allowed.");
           }
         }
         catch (Exception ex)
