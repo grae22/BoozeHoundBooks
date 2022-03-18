@@ -8,7 +8,7 @@ namespace BoozeHoundBooks
     // statics ------------------------------------------------------
 
     public static int c_build = 19;
-    public static string c_buildRevision = ".3";
+    public static string c_buildRevision = ".4";
 
     // constants ----------------------------------------------------
 

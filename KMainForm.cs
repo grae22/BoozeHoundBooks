@@ -36,10 +36,18 @@ namespace BoozeHoundBooks
     private Color c_col_positiveBalance = Color.FromArgb(180, 255, 180);
     private Color c_col_significantPositiveBalance = Color.FromArgb(20, 255, 20);
 
+    // focus
+    enum ComponentWithFocus
+    {
+      AccountTree,
+      SummaryExpressionGrid
+    }
+
     // class vars ---------------------------------------------------
 
     private KBook m_activeBook;
     private bool m_allowAccountTreeAndTransactionGridRefresh;
+    private ComponentWithFocus m_componentWithFocus = ComponentWithFocus.AccountTree;
 
     //---------------------------------------------------------------
 
@@ -1098,6 +1106,8 @@ namespace BoozeHoundBooks
 
     private void accountTree_AfterSelect(object sender, TreeViewEventArgs e)
     {
+      m_componentWithFocus = ComponentWithFocus.AccountTree;
+
       try
       {
         // active book?
@@ -1231,14 +1241,32 @@ namespace BoozeHoundBooks
         // clear box
         transactionGrid.Rows.Clear();
 
-        // populate transaction box if an account is selected
-        if (accountTree.SelectedNode != null)
+        if (m_componentWithFocus == ComponentWithFocus.AccountTree)
         {
-          // get account name
-          String selectedAcc = accountTree.SelectedNode.Name;
+          // populate transaction box if an account is selected
+          if (accountTree.SelectedNode != null)
+          {
+            // get account name
+            String selectedAcc = accountTree.SelectedNode.Name;
 
-          // populate box
-          PopulateAccountTransactionGrid(m_activeBook.GetAccount(selectedAcc));
+            // populate box
+            PopulateAccountTransactionGrid(m_activeBook.GetAccount(selectedAcc));
+          }
+        }
+        else if (m_componentWithFocus == ComponentWithFocus.SummaryExpressionGrid)
+        {
+          String name = (String)summaryExpressionGrid.SelectedRows[0].Cells[0].Value;
+          KSummaryExpression expression = m_activeBook.GetSummaryExpression(name);
+
+          foreach (KSummaryExpression.KField field in expression.Fields)
+          {
+            if (field.IsAccount())
+            {
+              String selectedAcc = field.GetAccount().GetQualifiedAccountName();
+
+              PopulateAccountTransactionGrid(m_activeBook.GetAccount(selectedAcc));
+            }
+          }
         }
       }
       catch (Exception ex)
@@ -1789,30 +1817,18 @@ namespace BoozeHoundBooks
 
     private void summaryExpressionGrid_Click(object sender, EventArgs e)
     {
+      m_componentWithFocus = ComponentWithFocus.SummaryExpressionGrid;
+
       try
       {
         // active book?
-        if (CheckForActiveBook(false) == false &&
-            summaryExpressionGrid.SelectedRows.Count > 0)
+        if (CheckForActiveBook(false) == false ||
+            summaryExpressionGrid.SelectedRows.Count == 0)
         {
           return;
         }
 
-        // populate transaction grid
-        transactionGrid.Rows.Clear();
-
-        String name = (String) summaryExpressionGrid.SelectedRows[0].Cells[0].Value;
-        KSummaryExpression expression = m_activeBook.GetSummaryExpression(name);
-
-        foreach (KSummaryExpression.KField field in expression.Fields)
-        {
-          if (field.IsAccount())
-          {
-            String selectedAcc = field.GetAccount().GetQualifiedAccountName();
-
-            PopulateAccountTransactionGrid(m_activeBook.GetAccount(selectedAcc));
-          }
-        }
+        PopulateAccountTransactionGrid();
       }
       catch (Exception ex)
       {
@@ -2032,6 +2048,25 @@ namespace BoozeHoundBooks
     private Color GetBudgetFontColour(DateTime transactionDate)
     {
       return DateTime.Now > transactionDate ? c_col_budgetOverdue : c_col_budget;
+    }
+
+    //---------------------------------------------------------------
+
+    private void toggleBudgetStatus_Click(object sender, EventArgs e)
+    {
+      foreach (DataGridViewRow r in transactionGrid.Rows)
+      {
+        var transaction = r.Tag as KTransaction;
+
+        if (transactionGrid == null)
+        {
+          continue;
+        }
+
+        transaction.IsBudget = !transaction.IsBudget;
+      }
+
+      PopulateAccountTransactionGrid();
     }
 
     //---------------------------------------------------------------
