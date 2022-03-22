@@ -9,22 +9,22 @@ namespace BoozeHoundBooks
   {
     // xml constants ----------------------------------------------------------
 
-    private const String c_element_expression = "ExpressionField";
+    private const string c_element_expression = "ExpressionField";
 
-    private const String c_attrib_name = "Name";
-    private const String c_attrib_description = "Description";
-    private const String c_attrib_type = "Type";
-    private const String c_attrib_value = "Value";
+    private const string c_attrib_name = "Name";
+    private const string c_attrib_description = "Description";
+    private const string c_attrib_type = "Type";
+    private const string c_attrib_value = "Value";
 
     // class vars -------------------------------------------------------------
 
-    private String m_name;
-    private String m_description;
+    private string m_name;
+    private string m_description;
     private List<KField> m_field = new List<KField>();
 
     //-------------------------------------------------------------------------
 
-    public KSummaryExpression(String name, String description)
+    public KSummaryExpression(string name, string description)
     {
       m_name = name;
       m_description = description;
@@ -45,8 +45,8 @@ namespace BoozeHoundBooks
       {
         XmlElement fieldXml = (XmlElement) fields.Current;
 
-        String type = fieldXml.GetAttribute(c_attrib_type);
-        String val = fieldXml.GetAttribute(c_attrib_value);
+        string type = fieldXml.GetAttribute(c_attrib_type);
+        string val = fieldXml.GetAttribute(c_attrib_value);
 
         KField.FieldType fieldType = KField.GetFieldTypeFromText(type);
 
@@ -89,10 +89,10 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    override public String ToString()
+    override public string ToString()
     {
       IEnumerator fields = m_field.GetEnumerator();
-      String s = "";
+      string s = "";
 
       while (fields.MoveNext())
       {
@@ -114,8 +114,8 @@ namespace BoozeHoundBooks
 
       // loop through fields
       IEnumerator fields = m_field.GetEnumerator();
-      String fieldType = "";
-      String fieldVal = "";
+      string fieldType = "";
+      string fieldVal = "";
 
       while (fields.MoveNext())
       {
@@ -179,7 +179,7 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    public bool BuildExpression(out String returnMessage)
+    public bool BuildExpression(out string returnMessage)
     {
       try
       {
@@ -400,14 +400,14 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    public String GetName()
+    public string GetName()
     {
       return m_name;
     }
 
     //-------------------------------------------------------------------------
 
-    public String GetDescription()
+    public string GetDescription()
     {
       return m_description;
     }
@@ -502,7 +502,7 @@ namespace BoozeHoundBooks
 
       //-----------------------------------------------------------------------
 
-      override public String ToString()
+      override public string ToString()
       {
         switch (m_fieldType)
         {
@@ -521,18 +521,18 @@ namespace BoozeHoundBooks
 
       //-----------------------------------------------------------------------
 
-      public static String GetFieldTypeText(FieldType type)
+      public static string GetFieldTypeText(FieldType type)
       {
         return m_fieldTypeText[(int) type];
       }
 
       //-----------------------------------------------------------------------
 
-      public static FieldType GetFieldTypeFromText(String type)
+      public static FieldType GetFieldTypeFromText(string type)
       {
         int i = 0;
 
-        foreach (String s in m_fieldTypeText)
+        foreach (string s in m_fieldTypeText)
         {
           if (s.Equals(type))
           {
@@ -548,18 +548,18 @@ namespace BoozeHoundBooks
 
       //-----------------------------------------------------------------------
 
-      public static String GetOperatorTypeText(OperatorType type)
+      public static string GetOperatorTypeText(OperatorType type)
       {
         return m_operatorTypeText[(int) type];
       }
 
       //-----------------------------------------------------------------------
 
-      public static OperatorType GetOperatorTypeFromText(String type)
+      public static OperatorType GetOperatorTypeFromText(string type)
       {
         int i = 0;
 
-        foreach (String s in m_operatorTypeText)
+        foreach (string s in m_operatorTypeText)
         {
           if (s.Equals(type))
           {

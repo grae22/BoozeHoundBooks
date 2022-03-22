@@ -15,16 +15,16 @@ namespace BoozeHoundBooks
     // constants ----------------------------------------------------
 
     // settings
-    private const String c_setting_accountTreeWidth = "AccountTreeWidth";
+    private const string c_setting_accountTreeWidth = "AccountTreeWidth";
 
-    private const String c_setting_transactionGridHeight = "TransactionGridHeight";
-    private const String c_setting_viewByPeriod = "ViewByPeriod";
-    private const String c_setting_viewByDateFrom = "ViewByDateFrom";
-    private const String c_setting_viewByDateTo = "ViewByDateTo";
-    private const String c_setting_windowX = "WindowX";
-    private const String c_setting_windowY = "WindowY";
-    private const String c_setting_windowW = "WindowW";
-    private const String c_setting_windowH = "WindowH";
+    private const string c_setting_transactionGridHeight = "TransactionGridHeight";
+    private const string c_setting_viewByPeriod = "ViewByPeriod";
+    private const string c_setting_viewByDateFrom = "ViewByDateFrom";
+    private const string c_setting_viewByDateTo = "ViewByDateTo";
+    private const string c_setting_windowX = "WindowX";
+    private const string c_setting_windowY = "WindowY";
+    private const string c_setting_windowW = "WindowW";
+    private const string c_setting_windowH = "WindowH";
 
     // colours
     private Color c_col_budget = Color.DarkSlateBlue;
@@ -51,14 +51,14 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public KMainForm(String bookPath)
+    public KMainForm(string bookPath)
     {
       try
       {
         // init components
         InitializeComponent();
 
-        this.Text = $"{this.Text} (v{KMain.c_build}{KMain.c_buildRevision})";
+        this.Text = $"{this.Text} (v{KMain.c_build}.{KMain.c_buildRevision})";
 
         // view by date pickers
         DateTime now = DateTime.Now;
@@ -168,7 +168,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public static void ErrorMsg(String message, String header)
+    public static void ErrorMsg(string message, string header)
     {
       MessageBox.Show(message,
         header,
@@ -178,7 +178,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public static void InfoMsg(String message, String header)
+    public static void InfoMsg(string message, string header)
     {
       MessageBox.Show(message,
         header,
@@ -188,7 +188,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public static void WarningMsg(String message, String header)
+    public static void WarningMsg(string message, string header)
     {
       MessageBox.Show(message,
         header,
@@ -198,7 +198,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public static DialogResult ConfirmMsg(String message, String header)
+    public static DialogResult ConfirmMsg(string message, string header)
     {
       return MessageBox.Show(message,
         header,
@@ -208,7 +208,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void NewBookClick(object sender, System.EventArgs e)
+    void NewBookClick(object sender, EventArgs e)
     {
       try
       {
@@ -231,8 +231,8 @@ namespace BoozeHoundBooks
         }
 
         // get file name & path
-        String name = KCommon.GetFilenameFromPath(dlg.FileName);
-        String path = dlg.FileName;
+        string name = KCommon.GetFilenameFromPath(dlg.FileName);
+        string path = dlg.FileName;
 
         // delete file if it exists
         if (File.Exists(path))
@@ -255,7 +255,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void OpenBookClick(object sender, System.EventArgs e)
+    void OpenBookClick(object sender, EventArgs e)
     {
       try
       {
@@ -277,7 +277,7 @@ namespace BoozeHoundBooks
         }
 
         // get file path
-        String path = dlg.FileName;
+        string path = dlg.FileName;
 
         // open the book
         OpenBook(path);
@@ -290,12 +290,12 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    private void OpenBook(String path)
+    private void OpenBook(string path)
     {
       try
       {
         // get name
-        String name = KCommon.GetFilenameFromPath(path);
+        string name = KCommon.GetFilenameFromPath(path);
 
         // setup new book
         m_activeBook = new KBook(path, false);
@@ -306,7 +306,7 @@ namespace BoozeHoundBooks
         PopulateSummaryExpressionGrid();
 
         // apply settings
-        String value;
+        string value;
 
         // set transaction grid bg
         viewTransactionGridBGAccount.Checked = false;
@@ -368,7 +368,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void AddAccountClick(object sender, System.EventArgs e)
+    void AddAccountClick(object sender, EventArgs e)
     {
       try
       {
@@ -462,7 +462,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void EditPeriodsClick(object sender, System.EventArgs e)
+    void EditPeriodsClick(object sender, EventArgs e)
     {
       try
       {
@@ -518,7 +518,7 @@ namespace BoozeHoundBooks
         accountTree.ImageList.ImageSize = m_activeBook.GetAccountTreeIconSize();
 
         // remember selected?
-        String selected = null;
+        string selected = null;
 
         if (rememberSelected &&
             accountTree.SelectedNode != null)
@@ -1117,7 +1117,7 @@ namespace BoozeHoundBooks
         }
 
         // get account name
-        String selectedAcc = accountTree.SelectedNode.Name;
+        string selectedAcc = accountTree.SelectedNode.Name;
 
         // clear box
         transactionGrid.Rows.Clear();
@@ -1247,7 +1247,7 @@ namespace BoozeHoundBooks
           if (accountTree.SelectedNode != null)
           {
             // get account name
-            String selectedAcc = accountTree.SelectedNode.Name;
+            string selectedAcc = accountTree.SelectedNode.Name;
 
             // populate box
             PopulateAccountTransactionGrid(m_activeBook.GetAccount(selectedAcc));
@@ -1255,14 +1255,14 @@ namespace BoozeHoundBooks
         }
         else if (m_componentWithFocus == ComponentWithFocus.SummaryExpressionGrid)
         {
-          String name = (String)summaryExpressionGrid.SelectedRows[0].Cells[0].Value;
+          string name = (string)summaryExpressionGrid.SelectedRows[0].Cells[0].Value;
           KSummaryExpression expression = m_activeBook.GetSummaryExpression(name);
 
           foreach (KSummaryExpression.KField field in expression.Fields)
           {
             if (field.IsAccount())
             {
-              String selectedAcc = field.GetAccount().GetQualifiedAccountName();
+              string selectedAcc = field.GetAccount().GetQualifiedAccountName();
 
               PopulateAccountTransactionGrid(m_activeBook.GetAccount(selectedAcc));
             }
@@ -1488,7 +1488,7 @@ namespace BoozeHoundBooks
         }
 
         // delete it
-        m_activeBook.DeleteTransaction(uint.Parse((String) transactionGrid.SelectedRows[0].Cells[0].Value));
+        m_activeBook.DeleteTransaction(uint.Parse((string)transactionGrid.SelectedRows[0].Cells[0].Value));
 
         m_activeBook.Save();
 
@@ -1505,7 +1505,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void NewAdjustmentClick(object sender, System.EventArgs e)
+    void NewAdjustmentClick(object sender, EventArgs e)
     {
       try
       {
@@ -1527,7 +1527,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    void AccountTreeDoubleClick(object sender, System.EventArgs e)
+    void AccountTreeDoubleClick(object sender, EventArgs e)
     {
       try
       {
@@ -1562,7 +1562,7 @@ namespace BoozeHoundBooks
       try
       {
         // get the transaction id
-        uint id = uint.Parse((String) transactionGrid.SelectedCells[0].Value);
+        uint id = uint.Parse((string)transactionGrid.SelectedCells[0].Value);
 
         // get the transaction object
         IEnumerable<KTransaction> list = m_activeBook.GetTransaction(id);
@@ -1657,7 +1657,7 @@ namespace BoozeHoundBooks
         }
 
         // get account name
-        String accountName = e.Node.Name;
+        string accountName = e.Node.Name;
 
         KAccount account = m_activeBook.GetAccount(accountName);
 
@@ -1682,7 +1682,7 @@ namespace BoozeHoundBooks
         }
 
         // get account name
-        String accountName = e.Node.Name;
+        string accountName = e.Node.Name;
 
         KAccount account = m_activeBook.GetAccount(accountName);
 
@@ -1737,7 +1737,7 @@ namespace BoozeHoundBooks
         {
           KSummaryExpression expression = (KSummaryExpression) expressions.Current;
 
-          Object[] cols =
+          object[] cols =
           {
             expression.GetName(),
             $"{expression.CalculateValue(start, end, viewBudget.Checked):N}"
@@ -1778,7 +1778,7 @@ namespace BoozeHoundBooks
     {
       try
       {
-        String name = (String) summaryExpressionGrid.SelectedRows[0].Cells[0].Value;
+        var name = (string)summaryExpressionGrid.SelectedRows[0].Cells[0].Value;
 
         KSummaryExpression expression = m_activeBook.GetSummaryExpression(name);
 

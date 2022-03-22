@@ -736,7 +736,7 @@ namespace BoozeHoundBooks
     private void transactionDate_ValueChanged(object sender, EventArgs e)
     {
       // find period
-      String s = _book.GetPeriodName(transactionDate.Value);
+      string s = _book.GetPeriodName(transactionDate.Value);
 
       if (s != null)
       {

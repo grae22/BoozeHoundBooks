@@ -316,7 +316,7 @@ namespace BoozeHoundBooks
     private void DateBox_ValueChanged(object sender, EventArgs e)
     {
       // find period
-      String s = _book.GetPeriodName(dateBox.Value);
+      string s = _book.GetPeriodName(dateBox.Value);
 
       if (s != null)
       {

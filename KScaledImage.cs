@@ -29,7 +29,7 @@ namespace BoozeHoundBooks
       }
 
       // already have a scaled image of the specified width & height?
-      String key = size.Width + "," + size.Height;
+      string key = size.Width + "," + size.Height;
 
       if (m_scaledImage.Contains(key))
       {

@@ -8,7 +8,7 @@ namespace BoozeHoundBooks
   {
     // statics ----------------------------------------------------------------
 
-    public const String c_resourcePath = "BoozeHoundBooks.Resources.";
+    public const string c_resourcePath = "BoozeHoundBooks.Resources.";
 
     // class vars -------------------------------------------------------------
 

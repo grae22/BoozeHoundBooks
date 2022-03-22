@@ -6,10 +6,10 @@ namespace BoozeHoundBooks
   public class KPeriod : IComparable
   {
     // xml attribs --------------------------------------------------
-    private const String c_attrib_id = "Id";
+    private const string c_attrib_id = "Id";
 
-    private const String c_attrib_start = "Start";
-    private const String c_attrib_end = "End";
+    private const string c_attrib_start = "Start";
+    private const string c_attrib_end = "End";
 
     // static class vars --------------------------------------------
     private static ushort m_nextId = 1;

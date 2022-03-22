@@ -324,21 +324,21 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    public String GetName()
+    public string GetName()
     {
       return nameBox.Text;
     }
 
     //-------------------------------------------------------------------------
 
-    public String GetDescription()
+    public string GetDescription()
     {
       return descriptionBox.Text;
     }
 
     //-------------------------------------------------------------------------
 
-    public String GetAccountType()
+    public string GetAccountType()
     {
       return typeBox.Text;
     }

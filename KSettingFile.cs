@@ -9,12 +9,12 @@ namespace BoozeHoundBooks
   {
     // class vars -------------------------------------------------------------
 
-    private String m_filename;
+    private string m_filename;
     private Hashtable m_setting = new Hashtable(10);
 
     //-------------------------------------------------------------------------
 
-    public KSettingFile(String filename)
+    public KSettingFile(string filename)
     {
       // init class vars
       m_filename = filename;
@@ -35,8 +35,8 @@ namespace BoozeHoundBooks
       foreach (XmlElement e in settingList)
       {
         // setup an object for the setting
-        String type = e.GetAttribute("Type");
-        String value = e.GetAttribute("Value");
+        string type = e.GetAttribute("Type");
+        string value = e.GetAttribute("Value");
 
         Object ob;
 
@@ -138,7 +138,7 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    public void SetSetting(String name, Object value)
+    public void SetSetting(string name, Object value)
     {
       if (m_setting.ContainsKey(name))
       {
@@ -150,7 +150,7 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    public Object GetSetting(String name, Object defaultValue)
+    public Object GetSetting(string name, Object defaultValue)
     {
       // setting exists?
       if (m_setting.ContainsKey(name))

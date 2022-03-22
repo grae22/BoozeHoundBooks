@@ -9,9 +9,9 @@ namespace BoozeHoundBooks
   {
     //---------------------------------------------------------------
 
-    public static String GetFilenameFromPath(String path)
+    public static string GetFilenameFromPath(string path)
     {
-      String name = path;
+      string name = path;
 
       // find the last path separator
       int lastBackSlash = path.LastIndexOf("\\");
@@ -52,14 +52,14 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public static String GetRgbString(Color colour)
+    public static string GetRgbString(Color colour)
     {
       return colour.R + "," + colour.G + "," + colour.B;
     }
 
     //---------------------------------------------------------------
 
-    public static Color GetColourFromRgbString(String rgb)
+    public static Color GetColourFromRgbString(string rgb)
     {
       Color col = Color.Black;
       String[] s = rgb.Split(',');
@@ -74,7 +74,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public static Image CreateImageFromResource(Assembly assembly, String resourceName)
+    public static Image CreateImageFromResource(Assembly assembly, string resourceName)
     {
       Stream stream = assembly.GetManifestResourceStream(resourceName);
 
@@ -90,7 +90,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public static bool IsNumeric(String text)
+    public static bool IsNumeric(string text)
     {
       try
       {

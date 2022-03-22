@@ -201,9 +201,9 @@ namespace BoozeHoundBooks
 
     // Creating a new account.
 
-    public KAccount(String name,
-      String description,
-      String typeName,
+    public KAccount(string name,
+      string description,
+      string typeName,
       KAccount parent,
       Color colour,
       bool hideInTree)
@@ -237,7 +237,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    override public String ToString()
+    override public string ToString()
     {
       if (IsMasterAccount())
       {
@@ -276,7 +276,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public static byte GetTypeIdFromName(String name)
+    public static byte GetTypeIdFromName(string name)
     {
       // loop through type names to find the type id
       for (byte i = 0; i < m_accountTypeName.Length; i++)
@@ -356,21 +356,21 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public String GetAccountName()
+    public string GetAccountName()
     {
       return Name;
     }
 
     //---------------------------------------------------------------
 
-    public void SetAccountName(String name)
+    public void SetAccountName(string name)
     {
       Name = name;
     }
 
     //---------------------------------------------------------------
 
-    public String GetQualifiedAccountName(char separator)
+    public string GetQualifiedAccountName(char separator)
     {
       if (!_nameHasChanged)
       {
@@ -416,21 +416,21 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public String GetQualifiedAccountName()
+    public string GetQualifiedAccountName()
     {
       return GetQualifiedAccountName(c_accountLevelSeparator);
     }
 
     //---------------------------------------------------------------
 
-    public String GetDescription()
+    public string GetDescription()
     {
       return m_description;
     }
 
     //---------------------------------------------------------------
 
-    public void SetDescription(String description)
+    public void SetDescription(string description)
     {
       m_description = description;
     }
@@ -451,7 +451,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public String GetAccountTypeName()
+    public string GetAccountTypeName()
     {
       return m_accountTypeName[(int) m_type];
     }
@@ -618,7 +618,7 @@ namespace BoozeHoundBooks
       decimal amount,
       DateTime date,
       KPeriod period,
-      String description,
+      string description,
       bool isAdjustment,
       bool isBudgetTransaction,
       bool setLastTransactionContra,
@@ -724,7 +724,7 @@ namespace BoozeHoundBooks
       // loop through transactions
       foreach (KTransaction t in m_transaction)
       {
-        String accName = t.GetContraQualifiedAccountName();
+        string accName = t.GetContraQualifiedAccountName();
 
         // loop through accounts looking for account
         foreach (KAccount a in accounts)

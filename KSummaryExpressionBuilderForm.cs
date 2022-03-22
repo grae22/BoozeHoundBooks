@@ -87,7 +87,7 @@ namespace BoozeHoundBooks
       try
       {
         // no name?
-        String name = nameBox.Text;
+        string name = nameBox.Text;
 
         if (name.Equals(""))
         {
@@ -154,7 +154,7 @@ namespace BoozeHoundBooks
         }
 
         // check the expression
-        String msg;
+        string msg;
 
         if (m_expression.BuildExpression(out msg) == false)
         {

@@ -183,7 +183,7 @@ namespace BoozeHoundBooks
       decimal amount,
       DateTime date,
       KPeriod period,
-      String description,
+      string description,
       bool isAdjustment,
       bool isBudgetTransaction,
       bool isRecurring,
@@ -289,7 +289,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public String GetContraQualifiedAccountName()
+    public string GetContraQualifiedAccountName()
     {
       if (m_contraAccount == null)
       {
@@ -333,7 +333,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public String GetDescription()
+    public string GetDescription()
     {
       return m_description;
     }

@@ -9,11 +9,11 @@ namespace BoozeHoundBooks
 
     private bool m_numeric;
     private bool m_allowBlank;
-    private String m_value;
+    private string m_value;
 
     //-------------------------------------------------------------------------
 
-    public KInputBox(String title, String text, bool allowBlank, bool numeric)
+    public KInputBox(string title, string text, bool allowBlank, bool numeric)
     {
       InitializeComponent();
 
@@ -61,7 +61,7 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    public String GetInputText()
+    public string GetInputText()
     {
       return m_value;
     }

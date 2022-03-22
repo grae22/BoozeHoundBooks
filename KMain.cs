@@ -8,11 +8,11 @@ namespace BoozeHoundBooks
     // statics ------------------------------------------------------
 
     public static int c_build = 19;
-    public static string c_buildRevision = ".4";
+    public static int c_buildRevision = 4;
 
     // constants ----------------------------------------------------
 
-    private String c_settingsFilename = "settings";
+    private string c_settingsFilename = "settings";
 
     // class vars ---------------------------------------------------
 
@@ -27,7 +27,7 @@ namespace BoozeHoundBooks
       try
       {
         // args
-        String bookPath = "";
+        string bookPath = string.Empty;
 
         if (args.Length > 0)
         {
@@ -45,7 +45,7 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    public KMain(String bookPath)
+    public KMain(string bookPath)
     {
       try
       {
@@ -73,8 +73,11 @@ namespace BoozeHoundBooks
       // message
       if (msgBox)
       {
-        System.Windows.Forms.MessageBox.Show(ex.Message + System.Environment.NewLine + System.Environment.NewLine +
-                                             ex.Source,
+        MessageBox.Show(
+          ex.Message +
+            Environment.NewLine +
+            Environment.NewLine +
+            ex.Source,
           "Error",
           MessageBoxButtons.OK,
           MessageBoxIcon.Error);
@@ -83,9 +86,9 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    public static void SimpleMsgBox(String msg, String header)
+    public static void SimpleMsgBox(string msg, string header)
     {
-      System.Windows.Forms.MessageBox.Show(msg, header);
+      MessageBox.Show(msg, header);
     }
 
     //-------------------------------------------------------------------------

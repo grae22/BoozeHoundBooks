@@ -12,10 +12,10 @@ namespace BoozeHoundBooks
   {
     //---------------------------------------------------------------
 
-    public const String c_setting_setTransactionGridBg = "SetTransactionGridBg";
-    public const String c_setting_setTransactionGridBgWithAccount = "SetTransactionGridBgWithAccount";
+    public const string c_setting_setTransactionGridBg = "SetTransactionGridBg";
+    public const string c_setting_setTransactionGridBgWithAccount = "SetTransactionGridBgWithAccount";
 
-    private String m_path;
+    private string m_path;
     private List<KAccount> m_account = new List<KAccount>();
     private List<KPeriod> m_period = new List<KPeriod>();
     private Hashtable m_setting = new Hashtable(10);
@@ -26,7 +26,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public KBook(String path, bool newBook)
+    public KBook(string path, bool newBook)
     {
       // set class vars
       m_path = path;
@@ -37,7 +37,7 @@ namespace BoozeHoundBooks
       // create base account types
       if (newBook)
       {
-        foreach (String s in KAccount.m_accountTypeName)
+        foreach (string s in KAccount.m_accountTypeName)
         {
           KAccount acc = new KAccount(s, s, s, null, Color.FromName(KAccount.c_noColourName), false);
 
@@ -307,8 +307,8 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public void CreateAccount(String name,
-      String description,
+    public void CreateAccount(string name,
+      string description,
       KAccount parent,
       Color colour,
       bool hideInTree)
@@ -364,7 +364,7 @@ namespace BoozeHoundBooks
       KAccount creditAccount,
       decimal amount,
       DateTime date,
-      String description,
+      string description,
       bool isBudgetTransaction,
       bool isRecurring,
       bool isRecurringConfirmAmount)
@@ -426,7 +426,7 @@ namespace BoozeHoundBooks
       KTransaction.TransactionType transactionType,
       decimal amount,
       DateTime date,
-      String description,
+      string description,
       bool budgetTransaction,
       bool isRecurring,
       bool isRecurringConfirmAmount)
@@ -547,7 +547,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public KAccount GetAccount(String qualifiedName)
+    public KAccount GetAccount(string qualifiedName)
     {
       // look for account with specified name
       foreach (KAccount acc in m_account)
@@ -578,7 +578,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public String GetPeriodName(DateTime date)
+    public string GetPeriodName(DateTime date)
     {
       // look for period for specified date
       foreach (KPeriod p in m_period)
@@ -609,7 +609,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public KSummaryExpression GetSummaryExpression(String name)
+    public KSummaryExpression GetSummaryExpression(string name)
     {
       IEnumerator expressions = m_summaryExpression.GetEnumerator();
 
@@ -635,7 +635,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public String GetSetting(String name)
+    public string GetSetting(string name)
     {
       // doesn't exist?
       if (m_setting.Contains(name) == false)
@@ -659,7 +659,7 @@ namespace BoozeHoundBooks
 
     //---------------------------------------------------------------
 
-    public void SetSetting(String name, String value)
+    public void SetSetting(string name, string value)
     {
       if (m_setting.Contains(name))
       {
