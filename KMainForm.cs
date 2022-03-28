@@ -2054,19 +2054,44 @@ namespace BoozeHoundBooks
 
     private void toggleBudgetStatus_Click(object sender, EventArgs e)
     {
-      foreach (DataGridViewRow r in transactionGrid.Rows)
+      try
       {
-        var transaction = r.Tag as KTransaction;
-
-        if (transactionGrid == null)
+        foreach (DataGridViewRow r in transactionGrid.Rows)
         {
-          continue;
+          var transaction = r.Tag as KTransaction;
+
+          if (transactionGrid == null)
+          {
+            continue;
+          }
+
+          transaction.IsBudget = !transaction.IsBudget;
+
+          var contraTransaction =
+            transaction
+              .GetContraAccount()
+              .GetTransactions()
+              .Cast<KTransaction>()
+              .FirstOrDefault(t => t.GetId() == transaction.GetId());
+
+          if (contraTransaction == null)
+          {
+            throw new Exception("Contra transaction not found.");
+          }
+
+          contraTransaction.IsBudget = transaction.IsBudget;
         }
 
-        transaction.IsBudget = !transaction.IsBudget;
-      }
+        m_activeBook.Save();
 
-      PopulateAccountTransactionGrid();
+        PopulateAccountTree(true, false);
+        PopulateAccountTransactionGrid();
+        PopulateSummaryExpressionGrid();
+      }
+      catch (Exception ex)
+      {
+        KMain.HandleException(ex, true);
+      }
     }
 
     //---------------------------------------------------------------
