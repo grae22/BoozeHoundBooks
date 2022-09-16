@@ -87,6 +87,10 @@ namespace BoozeHoundBooks
       // hide 'process as new' by default
       transactionProcessAsNew.Hide();
 
+      // multiply amount
+      multiplyAmount.Text = 
+        $"{((decimal)KMain.m_appSetting.GetSetting("DefaultTransactionMultiplyAmount", 1.15M)):0.##}";
+
       // load complete
       _formLoading = false;
     }
@@ -197,6 +201,10 @@ namespace BoozeHoundBooks
       // recurring
       transactionRecurring.Checked = debit.IsRecurring();
       confirmAmount.Checked = debit.IsRecurringConfirmAmount();
+
+      // multiply amount
+      multiplyAmount.Text =
+        $"{((decimal)KMain.m_appSetting.GetSetting("DefaultTransactionMultiplyAmount", 1.15M)):0.##}";
 
       // load complete
       _formLoading = false;
@@ -797,6 +805,23 @@ namespace BoozeHoundBooks
     private void transactionAmount_Click(object sender, EventArgs e)
     {
       transactionAmount.SelectAll();
+    }
+
+    //--------------------------------------------------------------------------
+
+    private void multiply_Click(object sender, EventArgs e)
+    {
+      if (!decimal.TryParse(transactionAmount.Text, out decimal amountValue))
+      {
+        return;
+      }
+
+      if (!decimal.TryParse(multiplyAmount.Text, out decimal multiplyValue))
+      {
+        return;
+      }
+
+      transactionAmount.Text = $"{(amountValue * multiplyValue):0.##}";
     }
 
     //--------------------------------------------------------------------------

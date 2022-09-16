@@ -37,6 +37,8 @@ namespace BoozeHoundBooks
 		private void InitializeComponent()
 		{
       this.groupBox1 = new System.Windows.Forms.GroupBox();
+      this.multiplyAmount = new System.Windows.Forms.TextBox();
+      this.multiply = new System.Windows.Forms.Button();
       this.confirmAmount = new System.Windows.Forms.CheckBox();
       this.transactionRecurring = new System.Windows.Forms.CheckBox();
       this.transactionProcessAsNew = new System.Windows.Forms.Button();
@@ -72,6 +74,8 @@ namespace BoozeHoundBooks
       // 
       // groupBox1
       // 
+      this.groupBox1.Controls.Add(this.multiplyAmount);
+      this.groupBox1.Controls.Add(this.multiply);
       this.groupBox1.Controls.Add(this.confirmAmount);
       this.groupBox1.Controls.Add(this.transactionRecurring);
       this.groupBox1.Controls.Add(this.transactionProcessAsNew);
@@ -106,13 +110,31 @@ namespace BoozeHoundBooks
       this.groupBox1.TabIndex = 4;
       this.groupBox1.TabStop = false;
       // 
+      // multiplyAmount
+      // 
+      this.multiplyAmount.Location = new System.Drawing.Point(209, 226);
+      this.multiplyAmount.Name = "multiplyAmount";
+      this.multiplyAmount.Size = new System.Drawing.Size(39, 20);
+      this.multiplyAmount.TabIndex = 15;
+      this.multiplyAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+      // 
+      // multiply
+      // 
+      this.multiply.Location = new System.Drawing.Point(149, 226);
+      this.multiply.Name = "multiply";
+      this.multiply.Size = new System.Drawing.Size(45, 20);
+      this.multiply.TabIndex = 14;
+      this.multiply.Text = "X";
+      this.multiply.UseVisualStyleBackColor = true;
+      this.multiply.Click += new System.EventHandler(this.multiply_Click);
+      // 
       // confirmAmount
       // 
       this.confirmAmount.AutoSize = true;
       this.confirmAmount.Location = new System.Drawing.Point(135, 275);
       this.confirmAmount.Name = "confirmAmount";
       this.confirmAmount.Size = new System.Drawing.Size(100, 17);
-      this.confirmAmount.TabIndex = 27;
+      this.confirmAmount.TabIndex = 18;
       this.confirmAmount.Text = "Confirm Amount";
       this.confirmAmount.UseVisualStyleBackColor = true;
       // 
@@ -122,7 +144,7 @@ namespace BoozeHoundBooks
       this.transactionRecurring.Location = new System.Drawing.Point(56, 275);
       this.transactionRecurring.Name = "transactionRecurring";
       this.transactionRecurring.Size = new System.Drawing.Size(72, 17);
-      this.transactionRecurring.TabIndex = 15;
+      this.transactionRecurring.TabIndex = 17;
       this.transactionRecurring.Text = "Recurring";
       this.transactionRecurring.UseVisualStyleBackColor = true;
       // 
@@ -131,7 +153,7 @@ namespace BoozeHoundBooks
       this.transactionProcessAsNew.Location = new System.Drawing.Point(8, 312);
       this.transactionProcessAsNew.Name = "transactionProcessAsNew";
       this.transactionProcessAsNew.Size = new System.Drawing.Size(108, 23);
-      this.transactionProcessAsNew.TabIndex = 18;
+      this.transactionProcessAsNew.TabIndex = 20;
       this.transactionProcessAsNew.Text = "Process as New";
       this.transactionProcessAsNew.UseVisualStyleBackColor = true;
       this.transactionProcessAsNew.Click += new System.EventHandler(this.TransactionProcessAsNewClick);
@@ -218,7 +240,7 @@ namespace BoozeHoundBooks
       this.transactionCancel.Location = new System.Drawing.Point(254, 312);
       this.transactionCancel.Name = "transactionCancel";
       this.transactionCancel.Size = new System.Drawing.Size(64, 23);
-      this.transactionCancel.TabIndex = 17;
+      this.transactionCancel.TabIndex = 21;
       this.transactionCancel.Text = "Cancel";
       this.transactionCancel.UseVisualStyleBackColor = true;
       this.transactionCancel.Click += new System.EventHandler(this.TransactionCancelClick);
@@ -229,7 +251,7 @@ namespace BoozeHoundBooks
       this.transactionBudget.Location = new System.Drawing.Point(56, 252);
       this.transactionBudget.Name = "transactionBudget";
       this.transactionBudget.Size = new System.Drawing.Size(119, 17);
-      this.transactionBudget.TabIndex = 14;
+      this.transactionBudget.TabIndex = 16;
       this.transactionBudget.Text = "Budget Transaction";
       this.transactionBudget.UseVisualStyleBackColor = true;
       // 
@@ -290,7 +312,7 @@ namespace BoozeHoundBooks
       this.transactionProcess.Location = new System.Drawing.Point(170, 312);
       this.transactionProcess.Name = "transactionProcess";
       this.transactionProcess.Size = new System.Drawing.Size(78, 23);
-      this.transactionProcess.TabIndex = 16;
+      this.transactionProcess.TabIndex = 19;
       this.transactionProcess.Text = "Process";
       this.transactionProcess.UseVisualStyleBackColor = true;
       this.transactionProcess.Click += new System.EventHandler(this.TransactionProcessClick);
@@ -458,5 +480,7 @@ namespace BoozeHoundBooks
     private System.Windows.Forms.RadioButton actionRepayment;
     private System.Windows.Forms.CheckBox transactionRecurring;
     private System.Windows.Forms.CheckBox confirmAmount;
+    private System.Windows.Forms.TextBox multiplyAmount;
+    private System.Windows.Forms.Button multiply;
   }
 }

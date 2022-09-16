@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Xml;
 using System.IO;
+using System.Collections.Generic;
 
 namespace BoozeHoundBooks
 {
@@ -9,8 +10,8 @@ namespace BoozeHoundBooks
   {
     // class vars -------------------------------------------------------------
 
-    private string m_filename;
-    private Hashtable m_setting = new Hashtable(10);
+    private readonly string m_filename;
+    private readonly Dictionary<string, object> m_setting = new Dictionary<string, object>();
 
     //-------------------------------------------------------------------------
 
@@ -35,73 +36,78 @@ namespace BoozeHoundBooks
       foreach (XmlElement e in settingList)
       {
         // setup an object for the setting
+        string name = e.GetAttribute("Name");
         string type = e.GetAttribute("Type");
         string value = e.GetAttribute("Value");
 
-        Object ob;
-
-//		    ob = (Type.GetType( type ))value;
-
         if (type.Equals(typeof(String).FullName)) // String
         {
-          ob = value;
+          m_setting.Add(name, value);
         }
         else if (type.Equals(typeof(bool).FullName)) // bool
         {
-          ob = bool.Parse(value);
+          bool ob = bool.Parse(value);
+          m_setting.Add(name, ob);
         }
         else if (type.Equals(typeof(char).FullName)) // char
         {
-          ob = char.Parse(value);
+          char ob = char.Parse(value);
+          m_setting.Add(name, ob);
         }
         else if (type.Equals(typeof(byte).FullName)) // byte
         {
-          ob = byte.Parse(value);
+          byte ob = byte.Parse(value);
+          m_setting.Add(name, ob);
         }
         else if (type.Equals(typeof(short).FullName)) // short
         {
-          ob = short.Parse(value);
+          short ob = short.Parse(value);
+          m_setting.Add(name, ob);
         }
         else if (type.Equals(typeof(ushort).FullName)) // ushort
         {
-          ob = ushort.Parse(value);
+          ushort ob = ushort.Parse(value);
+          m_setting.Add(name, ob);
         }
         else if (type.Equals(typeof(int).FullName)) // int
         {
-          ob = int.Parse(value);
+          int ob = int.Parse(value);
+          m_setting.Add(name, ob);
         }
         else if (type.Equals(typeof(uint).FullName)) // uint
         {
-          ob = uint.Parse(value);
+          uint ob = uint.Parse(value);
+          m_setting.Add(name, ob);
         }
         else if (type.Equals(typeof(long).FullName)) // long
         {
-          ob = long.Parse(value);
+          long ob = long.Parse(value);
+          m_setting.Add(name, ob);
         }
         else if (type.Equals(typeof(ulong).FullName)) // ulong
         {
-          ob = ulong.Parse(value);
+          ulong ob = ulong.Parse(value);
+          m_setting.Add(name, ob);
         }
         else if (type.Equals(typeof(float).FullName)) // float
         {
-          ob = float.Parse(value);
+          float ob = float.Parse(value);
+          m_setting.Add(name, ob);
         }
         else if (type.Equals(typeof(double).FullName)) // double
         {
-          ob = double.Parse(value);
+          double ob = double.Parse(value);
+          m_setting.Add(name, ob);
         }
-        else if (type.Equals(typeof(double).FullName)) // decimal
+        else if (type.Equals(typeof(decimal).FullName)) // decimal
         {
-          ob = decimal.Parse(value);
+          decimal ob = decimal.Parse(value);
+          m_setting.Add(name, ob);
         }
         else
         {
           throw new Exception("KSettingFile.KSettingFile() : '" + e.GetAttribute("Name") + "' has unknown type.");
         }
-
-        // add to the settings list
-        m_setting.Add(e.GetAttribute("Name"),
-          ob);
       }
     }
 
@@ -138,11 +144,12 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    public void SetSetting(string name, Object value)
+    public void SetSetting(string name, object value)
     {
       if (m_setting.ContainsKey(name))
       {
-        m_setting.Remove(name);
+        m_setting[name] = value;
+        return;
       }
 
       m_setting.Add(name, value);
@@ -150,22 +157,15 @@ namespace BoozeHoundBooks
 
     //-------------------------------------------------------------------------
 
-    public Object GetSetting(string name, Object defaultValue)
+    public object GetSetting(string name, object defaultValue)
     {
       // setting exists?
       if (m_setting.ContainsKey(name))
       {
-        // find the setting and return the value
-        IDictionaryEnumerator settingEnum = m_setting.GetEnumerator();
-
-        while (settingEnum.MoveNext())
-        {
-          if (settingEnum.Key.Equals(name))
-          {
-            return settingEnum.Value;
-          }
-        }
+        return m_setting[name];
       }
+
+      SetSetting(name, defaultValue);
 
       // setting doesn't exist, return default value
       return defaultValue;
