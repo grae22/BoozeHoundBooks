@@ -1,5 +1,0 @@
-o When loading book with the File-Open, account tree icons don't show.
-o Adj transactions shouldn't have contra-accounts.
-o Renaming summary fields doesn't work.
-
-o [FIXED] Editing adjustments - loads incorrect sign for amount.

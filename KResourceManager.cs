@@ -1,6 +1,4 @@
-﻿using System;
-using System.Reflection;
-using System.Drawing;
+﻿using System.Reflection;
 
 namespace BoozeHoundBooks
 {
@@ -8,7 +6,7 @@ namespace BoozeHoundBooks
   {
     // statics ----------------------------------------------------------------
 
-    public const string c_resourcePath = "BoozeHoundBooks.Resources.";
+    public static string c_resourcePath = string.Empty;// "BoozeHoundBooks.Icons.";
 
     // class vars -------------------------------------------------------------
 
@@ -25,25 +23,25 @@ namespace BoozeHoundBooks
         // day of week icons
         Image img;
 
-        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DaySunday.gif");
+        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DaySunday");
         m_dayOfWeek[0] = new KScaledImage(img);
 
-        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DayMonday.gif");
+        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DayMonday");
         m_dayOfWeek[1] = new KScaledImage(img);
 
-        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DayTuesday.gif");
+        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DayTuesday");
         m_dayOfWeek[2] = new KScaledImage(img);
 
-        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DayWednesday.gif");
+        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DayWednesday");
         m_dayOfWeek[3] = new KScaledImage(img);
 
-        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DayThursday.gif");
+        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DayThursday");
         m_dayOfWeek[4] = new KScaledImage(img);
 
-        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DayFriday.gif");
+        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DayFriday");
         m_dayOfWeek[5] = new KScaledImage(img);
 
-        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DaySaturday.gif");
+        img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DaySaturday");
         m_dayOfWeek[6] = new KScaledImage(img);
       }
       catch (Exception ex)

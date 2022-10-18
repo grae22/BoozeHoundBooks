@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using System.Xml;
 
 namespace BoozeHoundBooks
@@ -392,9 +390,9 @@ namespace BoozeHoundBooks
         // return the value
         return value;
       }
-      catch (Exception ex)
+      catch
       {
-        throw ex;
+        throw;
       }
     }
 

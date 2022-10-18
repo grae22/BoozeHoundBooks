@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Xml;
-using System.IO;
-using System.Collections.Generic;
 
 namespace BoozeHoundBooks
 {

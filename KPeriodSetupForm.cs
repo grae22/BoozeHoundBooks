@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace BoozeHoundBooks
+﻿namespace BoozeHoundBooks
 {
   public partial class KPeriodSetupForm
   {

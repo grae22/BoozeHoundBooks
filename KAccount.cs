@@ -1,11 +1,6 @@
-﻿using System;
-using System.Xml;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Xml;
 using System.Reflection;
-using System.Windows.Forms;
 using System.Drawing.Imaging;
-using System.Linq;
 using System.Text;
 
 namespace BoozeHoundBooks
@@ -962,30 +957,30 @@ namespace BoozeHoundBooks
               return;
 
             case c_bank:
-              m_iconName = KResourceManager.c_resourcePath + "Bank.gif";
+              m_iconName = KResourceManager.c_resourcePath + "Bank";
               break;
 
             case c_income:
-              m_iconName = KResourceManager.c_resourcePath + "Income.gif";
+              m_iconName = KResourceManager.c_resourcePath + "Income";
               break;
 
             case c_expense:
-              m_iconName = KResourceManager.c_resourcePath + "Expense.gif";
+              m_iconName = KResourceManager.c_resourcePath + "Expense";
               break;
 
             case c_debt:
-              m_iconName = KResourceManager.c_resourcePath + "Debt.gif";
+              m_iconName = KResourceManager.c_resourcePath + "Debt";
               break;
 
             case c_credit:
-              m_iconName = KResourceManager.c_resourcePath + "Credit.gif";
+              m_iconName = KResourceManager.c_resourcePath + "Credit";
               break;
           }
         }
         // not a master account - icon depends on account level
         else
         {
-          m_iconName = KResourceManager.c_resourcePath + "AccountIcon" + GetAccountLevel() + ".gif";
+          m_iconName = KResourceManager.c_resourcePath + "AccountIcon" + GetAccountLevel();
           shiftColours = true;
         }
 

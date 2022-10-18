@@ -1,266 +1,36 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="15.0">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>BoozeHoundBooks</RootNamespace>
-    <AssemblyName>BoozeHoundBooks</AssemblyName>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{B558B8A9-F2DD-470C-AD88-415EE7A22EDC}</ProjectGuid>
-    <FileUpgradeFlags>
-    </FileUpgradeFlags>
-    <OldToolsVersion>3.5</OldToolsVersion>
-    <UpgradeBackupLocation>
-    </UpgradeBackupLocation>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <ManifestCertificateThumbprint>A9DD31185020C0C3758273871BC1C2BCB057183E</ManifestCertificateThumbprint>
-    <ManifestKeyFile>BoozeHoundBooks_TemporaryKey.pfx</ManifestKeyFile>
-    <GenerateManifests>false</GenerateManifests>
-    <TargetZone>LocalIntranet</TargetZone>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
-    <SignManifests>false</SignManifests>
-    <ApplicationIcon>Resources\BoozeHound.ico</ApplicationIcon>
-    <PublishUrl>C:\Code\C#\BoozeHoundBooks\Publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <CreateWebPageOnPublish>false</CreateWebPageOnPublish>
-    <OpenBrowserOnPublish>false</OpenBrowserOnPublish>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
-    <SourceAnalysisOverrideSettingsFile>C:\Documents and Settings\graemeb\Application Data\ICSharpCode/SharpDevelop3.0\Settings.SourceAnalysis</SourceAnalysisOverrideSettingsFile>
-    <SignAssembly>False</SignAssembly>
-    <DelaySign>False</DelaySign>
-    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
-    <AllowUnsafeBlocks>False</AllowUnsafeBlocks>
-    <NoStdLib>False</NoStdLib>
-    <WarningLevel>4</WarningLevel>
-    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
-    <StartArguments>test.bhb</StartArguments>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
-    <OutputPath>bin\Debug\</OutputPath>
-    <Optimize>False</Optimize>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>Full</DebugType>
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-    <StartAction>Project</StartAction>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
-    <OutputPath>bin\Release\</OutputPath>
-    <Optimize>True</Optimize>
-    <DefineConstants>TRACE</DefineConstants>
-    <DebugSymbols>False</DebugSymbols>
-    <DebugType>None</DebugType>
-    <CheckForOverflowUnderflow>False</CheckForOverflowUnderflow>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'AnyCPU' ">
-    <RegisterForComInterop>False</RegisterForComInterop>
-    <GenerateSerializationAssemblies>Auto</GenerateSerializationAssemblies>
-    <BaseAddress>4194304</BaseAddress>
-    <PlatformTarget>x86</PlatformTarget>
-    <FileAlignment>4096</FileAlignment>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
-    <Prefer32Bit>false</Prefer32Bit>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
-    <Prefer32Bit>false</Prefer32Bit>
-    <LangVersion>latest</LangVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %28x64%29|AnyCPU'">
-    <OutputPath>bin\Release %28x64%29\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <FileAlignment>4096</FileAlignment>
-    <DebugType>None</DebugType>
-    <PlatformTarget>x86</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DebugSymbols>true</DebugSymbols>
-    <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
-    <FileAlignment>4096</FileAlignment>
-    <DebugType>Full</DebugType>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <Nullable>disable</Nullable>
+    <UseWindowsForms>true</UseWindowsForms>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Win32Resource></Win32Resource>
     <PlatformTarget>x64</PlatformTarget>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <FileAlignment>4096</FileAlignment>
-    <DebugType>None</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release %28x64%29|x64'">
-    <OutputPath>bin\x64\Release %28x64%29\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <Optimize>true</Optimize>
-    <FileAlignment>4096</FileAlignment>
-    <DebugType>None</DebugType>
-    <PlatformTarget>x64</PlatformTarget>
-    <LangVersion>latest</LangVersion>
-    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
-    <Reference Include="System.IO.Compression, Version=4.1.2.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\System.IO.Compression.4.3.0\lib\net46\System.IO.Compression.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Windows.Forms" />
-    <Reference Include="System.Xml" />
+    <Content Include="resources\BoozeHound.ico" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="KAdjustmentForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="KAdjustmentForm.Designer.cs">
-      <DependentUpon>KAdjustmentForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="KCompressedFileWriter.cs" />
-    <Compile Include="KInputBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="KInputBox.Designer.cs">
-      <DependentUpon>KInputBox.cs</DependentUpon>
-    </Compile>
-    <Compile Include="KMain.cs" />
-    <Compile Include="KResourceManager.cs" />
-    <Compile Include="KScaledImage.cs" />
-    <Compile Include="KMainForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="KMainForm.Designer.cs">
-      <DependentUpon>KMainForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AssemblyInfo.cs" />
-    <Compile Include="OpeningAndClosingBalances.cs" />
-    <EmbeddedResource Include="KAdjustmentForm.resx">
-      <DependentUpon>KAdjustmentForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="KInputBox.resx">
-      <DependentUpon>KInputBox.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="KMainForm.resx">
-      <DependentUpon>KMainForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="KAccount.cs" />
-    <Compile Include="KPeriod.cs" />
-    <Compile Include="KBook.cs" />
-    <Compile Include="KCommon.cs" />
-    <Compile Include="KAccountSetupForm.Designer.cs">
-      <DependentUpon>KAccountSetupForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="KAccountSetupForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <EmbeddedResource Include="KAccountSetupForm.resx">
-      <DependentUpon>KAccountSetupForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="KPeriodSetupForm.Designer.cs">
-      <DependentUpon>KPeriodSetupForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="KPeriodSetupForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <EmbeddedResource Include="KPeriodSetupForm.resx">
-      <DependentUpon>KPeriodSetupForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <Compile Include="KSelectAccountForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="KSelectAccountForm.Designer.cs">
-      <DependentUpon>KSelectAccountForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="KSettingFile.cs" />
-    <Compile Include="KSummaryExpression.cs" />
-    <Compile Include="KSummaryExpressionBuilderForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="KSummaryExpressionBuilderForm.Designer.cs">
-      <DependentUpon>KSummaryExpressionBuilderForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="KTransaction.cs" />
-    <Compile Include="KTransactionForm.Designer.cs">
-      <DependentUpon>KTransactionForm.cs</DependentUpon>
-    </Compile>
-    <Compile Include="KTransactionForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <EmbeddedResource Include="KSelectAccountForm.resx">
-      <DependentUpon>KSelectAccountForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="KSummaryExpressionBuilderForm.resx">
-      <DependentUpon>KSummaryExpressionBuilderForm.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="KTransactionForm.resx">
-      <DependentUpon>KTransactionForm.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Resources\BoozeHound.ico" />
-    <EmbeddedResource Include="Resources\DayFriday.gif" />
-    <EmbeddedResource Include="Resources\DayMonday.gif" />
-    <EmbeddedResource Include="Resources\DaySaturday.gif" />
-    <EmbeddedResource Include="Resources\DaySunday.gif" />
-    <EmbeddedResource Include="Resources\DayThursday.gif" />
-    <EmbeddedResource Include="Resources\DayTuesday.gif" />
-    <EmbeddedResource Include="Resources\DayWednesday.gif" />
-    <EmbeddedResource Include="Resources\Credit.gif" />
-    <EmbeddedResource Include="Resources\Debt.gif" />
+    <PackageReference Include="System.Resources.ResourceManager" Version="4.3.0" />
   </ItemGroup>
+
   <ItemGroup>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 2.0 %28x86%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.0">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.0 %28x86%29</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
+    <Compile Update="Icons.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Icons.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
+
   <ItemGroup>
-    <None Include="app.config" />
-    <None Include="packages.config" />
-    <None Include="Properties\app.manifest" />
+    <EmbeddedResource Update="Icons.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Icons.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\Bank.gif" />
-    <EmbeddedResource Include="Resources\Expense.gif" />
-    <EmbeddedResource Include="Resources\Income.gif" />
-    <EmbeddedResource Include="Resources\AccountIcon2.gif" />
-    <EmbeddedResource Include="Resources\AccountIcon3.gif" />
-    <EmbeddedResource Include="Resources\AccountIcon4.gif" />
-    <EmbeddedResource Include="Resources\AccountIcon5.gif" />
-    <EmbeddedResource Include="Resources\AccountIcon6.gif" />
-    <EmbeddedResource Include="Resources\AccountIcon1.gif" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.Targets" />
+
 </Project>

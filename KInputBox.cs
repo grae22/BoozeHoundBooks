@@ -1,7 +1,4 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace BoozeHoundBooks
+﻿namespace BoozeHoundBooks
 {
   public partial class KInputBox : Form
   {

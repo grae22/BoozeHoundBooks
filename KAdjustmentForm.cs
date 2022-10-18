@@ -1,8 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Windows.Forms;
-
-namespace BoozeHoundBooks
+﻿namespace BoozeHoundBooks
 {
   public partial class KAdjustmentForm
   {

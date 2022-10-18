@@ -1,9 +1,4 @@
-﻿using System;
-using System.Drawing;
-using System.Linq;
-using System.Windows.Forms;
-
-namespace BoozeHoundBooks
+﻿namespace BoozeHoundBooks
 {
   public partial class KAccountSetupForm
   {

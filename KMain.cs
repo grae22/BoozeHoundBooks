@@ -1,14 +1,11 @@
-﻿using System;
-using System.Windows.Forms;
-
-namespace BoozeHoundBooks
+﻿namespace BoozeHoundBooks
 {
   public class KMain
   {
     // statics ------------------------------------------------------
 
-    public static int c_build = 19;
-    public static int c_buildRevision = 5;
+    public static int c_build = 20;
+    public static int c_buildRevision = 0;
 
     // constants ----------------------------------------------------
 

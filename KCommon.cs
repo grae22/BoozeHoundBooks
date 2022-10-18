@@ -1,7 +1,5 @@
-﻿using System;
-using System.Drawing;
-using System.Reflection;
-using System.IO;
+﻿using System.Reflection;
+using System.Resources;
 
 namespace BoozeHoundBooks
 {
@@ -76,16 +74,9 @@ namespace BoozeHoundBooks
 
     public static Image CreateImageFromResource(Assembly assembly, string resourceName)
     {
-      Stream stream = assembly.GetManifestResourceStream(resourceName);
+      var resourceManager = new ResourceManager("BoozeHoundBooks.Icons", assembly);
 
-      if (stream == null)
-      {
-        throw new Exception("KCommon.CreateImageFromResource() : '" + resourceName + "' not found.");
-      }
-
-      Image img = Image.FromStream(stream);
-
-      return img;
+      return resourceManager.GetObject(resourceName) as Image;
     }
 
     //---------------------------------------------------------------
