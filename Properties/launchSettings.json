@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "BoozeHoundBooks": {
+      "commandName": "Project",
+      "commandLineArgs": "test.bhb",
+      "workingDirectory": "bin"
+    }
+  }
+}

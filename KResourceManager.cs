@@ -44,9 +44,9 @@ namespace BoozeHoundBooks
         img = KCommon.CreateImageFromResource(assembly, c_resourcePath + "DaySaturday");
         m_dayOfWeek[6] = new KScaledImage(img);
       }
-      catch (Exception ex)
+      catch
       {
-        throw ex;
+        throw;
       }
     }
 

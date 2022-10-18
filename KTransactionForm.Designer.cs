@@ -105,24 +105,28 @@ namespace BoozeHoundBooks
       this.groupBox1.Controls.Add(this.transactionExpense);
       this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.groupBox1.Location = new System.Drawing.Point(0, 0);
+      this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(334, 347);
+      this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.groupBox1.Size = new System.Drawing.Size(390, 400);
       this.groupBox1.TabIndex = 4;
       this.groupBox1.TabStop = false;
       // 
       // multiplyAmount
       // 
-      this.multiplyAmount.Location = new System.Drawing.Point(209, 226);
+      this.multiplyAmount.Location = new System.Drawing.Point(244, 261);
+      this.multiplyAmount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.multiplyAmount.Name = "multiplyAmount";
-      this.multiplyAmount.Size = new System.Drawing.Size(39, 20);
+      this.multiplyAmount.Size = new System.Drawing.Size(45, 23);
       this.multiplyAmount.TabIndex = 15;
       this.multiplyAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
       // 
       // multiply
       // 
-      this.multiply.Location = new System.Drawing.Point(149, 226);
+      this.multiply.Location = new System.Drawing.Point(174, 261);
+      this.multiply.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.multiply.Name = "multiply";
-      this.multiply.Size = new System.Drawing.Size(45, 20);
+      this.multiply.Size = new System.Drawing.Size(52, 23);
       this.multiply.TabIndex = 14;
       this.multiply.Text = "X";
       this.multiply.UseVisualStyleBackColor = true;
@@ -131,9 +135,10 @@ namespace BoozeHoundBooks
       // confirmAmount
       // 
       this.confirmAmount.AutoSize = true;
-      this.confirmAmount.Location = new System.Drawing.Point(135, 275);
+      this.confirmAmount.Location = new System.Drawing.Point(158, 317);
+      this.confirmAmount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.confirmAmount.Name = "confirmAmount";
-      this.confirmAmount.Size = new System.Drawing.Size(100, 17);
+      this.confirmAmount.Size = new System.Drawing.Size(117, 19);
       this.confirmAmount.TabIndex = 18;
       this.confirmAmount.Text = "Confirm Amount";
       this.confirmAmount.UseVisualStyleBackColor = true;
@@ -141,18 +146,20 @@ namespace BoozeHoundBooks
       // transactionRecurring
       // 
       this.transactionRecurring.AutoSize = true;
-      this.transactionRecurring.Location = new System.Drawing.Point(56, 275);
+      this.transactionRecurring.Location = new System.Drawing.Point(65, 317);
+      this.transactionRecurring.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionRecurring.Name = "transactionRecurring";
-      this.transactionRecurring.Size = new System.Drawing.Size(72, 17);
+      this.transactionRecurring.Size = new System.Drawing.Size(77, 19);
       this.transactionRecurring.TabIndex = 17;
       this.transactionRecurring.Text = "Recurring";
       this.transactionRecurring.UseVisualStyleBackColor = true;
       // 
       // transactionProcessAsNew
       // 
-      this.transactionProcessAsNew.Location = new System.Drawing.Point(8, 312);
+      this.transactionProcessAsNew.Location = new System.Drawing.Point(9, 360);
+      this.transactionProcessAsNew.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionProcessAsNew.Name = "transactionProcessAsNew";
-      this.transactionProcessAsNew.Size = new System.Drawing.Size(108, 23);
+      this.transactionProcessAsNew.Size = new System.Drawing.Size(126, 27);
       this.transactionProcessAsNew.TabIndex = 20;
       this.transactionProcessAsNew.Text = "Process as New";
       this.transactionProcessAsNew.UseVisualStyleBackColor = true;
@@ -162,18 +169,20 @@ namespace BoozeHoundBooks
       // 
       this.panel1.Controls.Add(this.actionLoan);
       this.panel1.Controls.Add(this.actionRepayment);
-      this.panel1.Location = new System.Drawing.Point(56, 97);
+      this.panel1.Location = new System.Drawing.Point(65, 112);
+      this.panel1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(165, 15);
+      this.panel1.Size = new System.Drawing.Size(192, 17);
       this.panel1.TabIndex = 26;
       // 
       // actionLoan
       // 
       this.actionLoan.AutoSize = true;
       this.actionLoan.Checked = true;
-      this.actionLoan.Location = new System.Drawing.Point(3, 0);
+      this.actionLoan.Location = new System.Drawing.Point(4, 0);
+      this.actionLoan.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.actionLoan.Name = "actionLoan";
-      this.actionLoan.Size = new System.Drawing.Size(49, 17);
+      this.actionLoan.Size = new System.Drawing.Size(51, 19);
       this.actionLoan.TabIndex = 7;
       this.actionLoan.TabStop = true;
       this.actionLoan.Text = "Loan";
@@ -183,9 +192,10 @@ namespace BoozeHoundBooks
       // actionRepayment
       // 
       this.actionRepayment.AutoSize = true;
-      this.actionRepayment.Location = new System.Drawing.Point(72, 0);
+      this.actionRepayment.Location = new System.Drawing.Point(84, 0);
+      this.actionRepayment.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.actionRepayment.Name = "actionRepayment";
-      this.actionRepayment.Size = new System.Drawing.Size(79, 17);
+      this.actionRepayment.Size = new System.Drawing.Size(85, 19);
       this.actionRepayment.TabIndex = 8;
       this.actionRepayment.Text = "Repayment";
       this.actionRepayment.UseVisualStyleBackColor = true;
@@ -194,18 +204,20 @@ namespace BoozeHoundBooks
       // label3
       // 
       this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(8, 97);
+      this.label3.Location = new System.Drawing.Point(9, 112);
+      this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label3.Name = "label3";
-      this.label3.Size = new System.Drawing.Size(37, 13);
+      this.label3.Size = new System.Drawing.Size(42, 15);
       this.label3.TabIndex = 25;
       this.label3.Text = "Action";
       // 
       // transactionDebt
       // 
       this.transactionDebt.AutoSize = true;
-      this.transactionDebt.Location = new System.Drawing.Point(56, 47);
+      this.transactionDebt.Location = new System.Drawing.Point(65, 54);
+      this.transactionDebt.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionDebt.Name = "transactionDebt";
-      this.transactionDebt.Size = new System.Drawing.Size(48, 17);
+      this.transactionDebt.Size = new System.Drawing.Size(50, 19);
       this.transactionDebt.TabIndex = 4;
       this.transactionDebt.Text = "Debt";
       this.transactionDebt.UseVisualStyleBackColor = true;
@@ -215,9 +227,10 @@ namespace BoozeHoundBooks
       // transactionCredit
       // 
       this.transactionCredit.AutoSize = true;
-      this.transactionCredit.Location = new System.Drawing.Point(125, 47);
+      this.transactionCredit.Location = new System.Drawing.Point(146, 54);
+      this.transactionCredit.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionCredit.Name = "transactionCredit";
-      this.transactionCredit.Size = new System.Drawing.Size(52, 17);
+      this.transactionCredit.Size = new System.Drawing.Size(57, 19);
       this.transactionCredit.TabIndex = 5;
       this.transactionCredit.Text = "Credit";
       this.transactionCredit.UseVisualStyleBackColor = true;
@@ -228,18 +241,20 @@ namespace BoozeHoundBooks
       // 
       this.periodName.AutoSize = true;
       this.periodName.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-      this.periodName.Location = new System.Drawing.Point(154, 176);
+      this.periodName.Location = new System.Drawing.Point(180, 203);
+      this.periodName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.periodName.Name = "periodName";
-      this.periodName.Size = new System.Drawing.Size(77, 13);
+      this.periodName.Size = new System.Drawing.Size(90, 15);
       this.periodName.TabIndex = 22;
       this.periodName.Text = "<period name>";
       // 
       // transactionCancel
       // 
       this.transactionCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.transactionCancel.Location = new System.Drawing.Point(254, 312);
+      this.transactionCancel.Location = new System.Drawing.Point(296, 360);
+      this.transactionCancel.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionCancel.Name = "transactionCancel";
-      this.transactionCancel.Size = new System.Drawing.Size(64, 23);
+      this.transactionCancel.Size = new System.Drawing.Size(75, 27);
       this.transactionCancel.TabIndex = 21;
       this.transactionCancel.Text = "Cancel";
       this.transactionCancel.UseVisualStyleBackColor = true;
@@ -248,9 +263,10 @@ namespace BoozeHoundBooks
       // transactionBudget
       // 
       this.transactionBudget.AutoSize = true;
-      this.transactionBudget.Location = new System.Drawing.Point(56, 252);
+      this.transactionBudget.Location = new System.Drawing.Point(65, 291);
+      this.transactionBudget.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionBudget.Name = "transactionBudget";
-      this.transactionBudget.Size = new System.Drawing.Size(119, 17);
+      this.transactionBudget.Size = new System.Drawing.Size(127, 19);
       this.transactionBudget.TabIndex = 16;
       this.transactionBudget.Text = "Budget Transaction";
       this.transactionBudget.UseVisualStyleBackColor = true;
@@ -258,9 +274,10 @@ namespace BoozeHoundBooks
       // transactionInter
       // 
       this.transactionInter.AutoSize = true;
-      this.transactionInter.Location = new System.Drawing.Point(197, 24);
+      this.transactionInter.Location = new System.Drawing.Point(230, 28);
+      this.transactionInter.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionInter.Name = "transactionInter";
-      this.transactionInter.Size = new System.Drawing.Size(89, 17);
+      this.transactionInter.Size = new System.Drawing.Size(99, 19);
       this.transactionInter.TabIndex = 3;
       this.transactionInter.Text = "Inter-Account";
       this.transactionInter.UseVisualStyleBackColor = true;
@@ -271,9 +288,10 @@ namespace BoozeHoundBooks
       // 
       this.transactionMasterAccount.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.transactionMasterAccount.FormattingEnabled = true;
-      this.transactionMasterAccount.Location = new System.Drawing.Point(56, 70);
+      this.transactionMasterAccount.Location = new System.Drawing.Point(65, 81);
+      this.transactionMasterAccount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionMasterAccount.Name = "transactionMasterAccount";
-      this.transactionMasterAccount.Size = new System.Drawing.Size(135, 21);
+      this.transactionMasterAccount.Size = new System.Drawing.Size(157, 23);
       this.transactionMasterAccount.TabIndex = 6;
       this.transactionMasterAccount.SelectedIndexChanged += new System.EventHandler(this.transactionMasterAccountSelectedIndexChanged);
       this.transactionMasterAccount.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TransactionMasterAccountKeyPress);
@@ -281,9 +299,10 @@ namespace BoozeHoundBooks
       // label8
       // 
       this.label8.AutoSize = true;
-      this.label8.Location = new System.Drawing.Point(8, 73);
+      this.label8.Location = new System.Drawing.Point(9, 84);
+      this.label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label8.Name = "label8";
-      this.label8.Size = new System.Drawing.Size(39, 13);
+      this.label8.Size = new System.Drawing.Size(43, 15);
       this.label8.TabIndex = 18;
       this.label8.Text = "Master";
       // 
@@ -291,9 +310,10 @@ namespace BoozeHoundBooks
       // 
       this.transactionDate.CustomFormat = "dd/MM/yyyy";
       this.transactionDate.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-      this.transactionDate.Location = new System.Drawing.Point(56, 172);
+      this.transactionDate.Location = new System.Drawing.Point(65, 198);
+      this.transactionDate.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionDate.Name = "transactionDate";
-      this.transactionDate.Size = new System.Drawing.Size(91, 20);
+      this.transactionDate.Size = new System.Drawing.Size(106, 23);
       this.transactionDate.TabIndex = 11;
       this.transactionDate.ValueChanged += new System.EventHandler(this.transactionDate_ValueChanged);
       this.transactionDate.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TransactionDateKeyPress);
@@ -301,17 +321,19 @@ namespace BoozeHoundBooks
       // label2
       // 
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(8, 177);
+      this.label2.Location = new System.Drawing.Point(9, 204);
+      this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(30, 13);
+      this.label2.Size = new System.Drawing.Size(31, 15);
       this.label2.TabIndex = 16;
       this.label2.Text = "Date";
       // 
       // transactionProcess
       // 
-      this.transactionProcess.Location = new System.Drawing.Point(170, 312);
+      this.transactionProcess.Location = new System.Drawing.Point(198, 360);
+      this.transactionProcess.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionProcess.Name = "transactionProcess";
-      this.transactionProcess.Size = new System.Drawing.Size(78, 23);
+      this.transactionProcess.Size = new System.Drawing.Size(91, 27);
       this.transactionProcess.TabIndex = 19;
       this.transactionProcess.Text = "Process";
       this.transactionProcess.UseVisualStyleBackColor = true;
@@ -319,9 +341,10 @@ namespace BoozeHoundBooks
       // 
       // transactionAmount
       // 
-      this.transactionAmount.Location = new System.Drawing.Point(56, 226);
+      this.transactionAmount.Location = new System.Drawing.Point(65, 261);
+      this.transactionAmount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionAmount.Name = "transactionAmount";
-      this.transactionAmount.Size = new System.Drawing.Size(77, 20);
+      this.transactionAmount.Size = new System.Drawing.Size(89, 23);
       this.transactionAmount.TabIndex = 13;
       this.transactionAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
       this.transactionAmount.Click += new System.EventHandler(this.transactionAmount_Click);
@@ -330,26 +353,29 @@ namespace BoozeHoundBooks
       // label7
       // 
       this.label7.AutoSize = true;
-      this.label7.Location = new System.Drawing.Point(8, 229);
+      this.label7.Location = new System.Drawing.Point(9, 264);
+      this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label7.Name = "label7";
-      this.label7.Size = new System.Drawing.Size(43, 13);
+      this.label7.Size = new System.Drawing.Size(51, 15);
       this.label7.TabIndex = 13;
       this.label7.Text = "Amount";
       // 
       // transactionInfo
       // 
-      this.transactionInfo.Location = new System.Drawing.Point(56, 199);
+      this.transactionInfo.Location = new System.Drawing.Point(65, 230);
+      this.transactionInfo.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionInfo.Name = "transactionInfo";
-      this.transactionInfo.Size = new System.Drawing.Size(262, 20);
+      this.transactionInfo.Size = new System.Drawing.Size(305, 23);
       this.transactionInfo.TabIndex = 12;
       this.transactionInfo.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TransactionInfoKeyPress);
       // 
       // label6
       // 
       this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(8, 202);
+      this.label6.Location = new System.Drawing.Point(9, 233);
+      this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label6.Name = "label6";
-      this.label6.Size = new System.Drawing.Size(25, 13);
+      this.label6.Size = new System.Drawing.Size(28, 15);
       this.label6.TabIndex = 11;
       this.label6.Text = "Info";
       // 
@@ -357,9 +383,10 @@ namespace BoozeHoundBooks
       // 
       this.transactionToAcc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.transactionToAcc.FormattingEnabled = true;
-      this.transactionToAcc.Location = new System.Drawing.Point(56, 145);
+      this.transactionToAcc.Location = new System.Drawing.Point(65, 167);
+      this.transactionToAcc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionToAcc.Name = "transactionToAcc";
-      this.transactionToAcc.Size = new System.Drawing.Size(262, 21);
+      this.transactionToAcc.Size = new System.Drawing.Size(305, 23);
       this.transactionToAcc.TabIndex = 10;
       this.transactionToAcc.SelectedIndexChanged += new System.EventHandler(this.TransactionToAccSelectedIndexChanged);
       this.transactionToAcc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TransactionToAccKeyPress);
@@ -367,9 +394,10 @@ namespace BoozeHoundBooks
       // label4
       // 
       this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(8, 148);
+      this.label4.Location = new System.Drawing.Point(9, 171);
+      this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label4.Name = "label4";
-      this.label4.Size = new System.Drawing.Size(20, 13);
+      this.label4.Size = new System.Drawing.Size(19, 15);
       this.label4.TabIndex = 9;
       this.label4.Text = "To";
       // 
@@ -377,27 +405,30 @@ namespace BoozeHoundBooks
       // 
       this.transactionFromAcc.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.transactionFromAcc.FormattingEnabled = true;
-      this.transactionFromAcc.Location = new System.Drawing.Point(56, 118);
+      this.transactionFromAcc.Location = new System.Drawing.Point(65, 136);
+      this.transactionFromAcc.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionFromAcc.Name = "transactionFromAcc";
-      this.transactionFromAcc.Size = new System.Drawing.Size(262, 21);
+      this.transactionFromAcc.Size = new System.Drawing.Size(305, 23);
       this.transactionFromAcc.TabIndex = 9;
       this.transactionFromAcc.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.TransactionFromAccKeyPress);
       // 
       // label5
       // 
       this.label5.AutoSize = true;
-      this.label5.Location = new System.Drawing.Point(8, 121);
+      this.label5.Location = new System.Drawing.Point(9, 140);
+      this.label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label5.Name = "label5";
-      this.label5.Size = new System.Drawing.Size(30, 13);
+      this.label5.Size = new System.Drawing.Size(35, 15);
       this.label5.TabIndex = 7;
       this.label5.Text = "From";
       // 
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(8, 26);
+      this.label1.Location = new System.Drawing.Point(9, 30);
+      this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(31, 13);
+      this.label1.Size = new System.Drawing.Size(31, 15);
       this.label1.TabIndex = 2;
       this.label1.Text = "Type";
       // 
@@ -405,9 +436,10 @@ namespace BoozeHoundBooks
       // 
       this.transactionIncome.AutoSize = true;
       this.transactionIncome.Checked = true;
-      this.transactionIncome.Location = new System.Drawing.Point(56, 24);
+      this.transactionIncome.Location = new System.Drawing.Point(65, 28);
+      this.transactionIncome.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionIncome.Name = "transactionIncome";
-      this.transactionIncome.Size = new System.Drawing.Size(60, 17);
+      this.transactionIncome.Size = new System.Drawing.Size(65, 19);
       this.transactionIncome.TabIndex = 0;
       this.transactionIncome.TabStop = true;
       this.transactionIncome.Text = "Income";
@@ -418,9 +450,10 @@ namespace BoozeHoundBooks
       // transactionExpense
       // 
       this.transactionExpense.AutoSize = true;
-      this.transactionExpense.Location = new System.Drawing.Point(125, 24);
+      this.transactionExpense.Location = new System.Drawing.Point(146, 28);
+      this.transactionExpense.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.transactionExpense.Name = "transactionExpense";
-      this.transactionExpense.Size = new System.Drawing.Size(66, 17);
+      this.transactionExpense.Size = new System.Drawing.Size(68, 19);
       this.transactionExpense.TabIndex = 1;
       this.transactionExpense.Text = "Expense";
       this.transactionExpense.UseVisualStyleBackColor = true;
@@ -429,13 +462,14 @@ namespace BoozeHoundBooks
       // 
       // KTransactionForm
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.transactionCancel;
-      this.ClientSize = new System.Drawing.Size(334, 347);
+      this.ClientSize = new System.Drawing.Size(390, 400);
       this.ControlBox = false;
       this.Controls.Add(this.groupBox1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+      this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "KTransactionForm";

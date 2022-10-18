@@ -72,17 +72,20 @@ namespace BoozeHoundBooks
       this.groupBox1.Controls.Add(this.label4);
       this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.groupBox1.Location = new System.Drawing.Point(0, 0);
+      this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.groupBox1.Name = "groupBox1";
-      this.groupBox1.Size = new System.Drawing.Size(333, 218);
+      this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 3, 4, 3);
+      this.groupBox1.Size = new System.Drawing.Size(388, 252);
       this.groupBox1.TabIndex = 6;
       this.groupBox1.TabStop = false;
       // 
       // confirmAmount
       // 
       this.confirmAmount.AutoSize = true;
-      this.confirmAmount.Location = new System.Drawing.Point(133, 150);
+      this.confirmAmount.Location = new System.Drawing.Point(155, 173);
+      this.confirmAmount.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.confirmAmount.Name = "confirmAmount";
-      this.confirmAmount.Size = new System.Drawing.Size(100, 17);
+      this.confirmAmount.Size = new System.Drawing.Size(117, 19);
       this.confirmAmount.TabIndex = 23;
       this.confirmAmount.Text = "Confirm Amount";
       this.confirmAmount.UseVisualStyleBackColor = true;
@@ -90,9 +93,10 @@ namespace BoozeHoundBooks
       // recurringBox
       // 
       this.recurringBox.AutoSize = true;
-      this.recurringBox.Location = new System.Drawing.Point(55, 150);
+      this.recurringBox.Location = new System.Drawing.Point(64, 173);
+      this.recurringBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.recurringBox.Name = "recurringBox";
-      this.recurringBox.Size = new System.Drawing.Size(72, 17);
+      this.recurringBox.Size = new System.Drawing.Size(77, 19);
       this.recurringBox.TabIndex = 5;
       this.recurringBox.Text = "Recurring";
       this.recurringBox.UseVisualStyleBackColor = true;
@@ -101,18 +105,20 @@ namespace BoozeHoundBooks
       // 
       this.periodName.AutoSize = true;
       this.periodName.ForeColor = System.Drawing.SystemColors.ActiveCaption;
-      this.periodName.Location = new System.Drawing.Point(153, 51);
+      this.periodName.Location = new System.Drawing.Point(178, 59);
+      this.periodName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.periodName.Name = "periodName";
-      this.periodName.Size = new System.Drawing.Size(77, 13);
+      this.periodName.Size = new System.Drawing.Size(90, 15);
       this.periodName.TabIndex = 22;
       this.periodName.Text = "<period name>";
       // 
       // cancelButton
       // 
       this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-      this.cancelButton.Location = new System.Drawing.Point(226, 183);
+      this.cancelButton.Location = new System.Drawing.Point(264, 211);
+      this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.cancelButton.Name = "cancelButton";
-      this.cancelButton.Size = new System.Drawing.Size(91, 23);
+      this.cancelButton.Size = new System.Drawing.Size(106, 27);
       this.cancelButton.TabIndex = 7;
       this.cancelButton.Text = "Cancel";
       this.cancelButton.UseVisualStyleBackColor = true;
@@ -121,9 +127,10 @@ namespace BoozeHoundBooks
       // budgetBox
       // 
       this.budgetBox.AutoSize = true;
-      this.budgetBox.Location = new System.Drawing.Point(55, 127);
+      this.budgetBox.Location = new System.Drawing.Point(64, 147);
+      this.budgetBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.budgetBox.Name = "budgetBox";
-      this.budgetBox.Size = new System.Drawing.Size(119, 17);
+      this.budgetBox.Size = new System.Drawing.Size(127, 19);
       this.budgetBox.TabIndex = 4;
       this.budgetBox.Text = "Budget Transaction";
       this.budgetBox.UseVisualStyleBackColor = true;
@@ -132,9 +139,10 @@ namespace BoozeHoundBooks
       // 
       this.dateBox.CustomFormat = "dd/MM/yyyy";
       this.dateBox.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-      this.dateBox.Location = new System.Drawing.Point(55, 47);
+      this.dateBox.Location = new System.Drawing.Point(64, 54);
+      this.dateBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.dateBox.Name = "dateBox";
-      this.dateBox.Size = new System.Drawing.Size(91, 20);
+      this.dateBox.Size = new System.Drawing.Size(106, 23);
       this.dateBox.TabIndex = 1;
       this.dateBox.ValueChanged += new System.EventHandler(this.DateBox_ValueChanged);
       this.dateBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.DateBoxKeyPress);
@@ -142,17 +150,19 @@ namespace BoozeHoundBooks
       // label2
       // 
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(7, 52);
+      this.label2.Location = new System.Drawing.Point(8, 60);
+      this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(30, 13);
+      this.label2.Size = new System.Drawing.Size(31, 15);
       this.label2.TabIndex = 16;
       this.label2.Text = "Date";
       // 
       // processBtn
       // 
-      this.processBtn.Location = new System.Drawing.Point(129, 183);
+      this.processBtn.Location = new System.Drawing.Point(150, 211);
+      this.processBtn.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.processBtn.Name = "processBtn";
-      this.processBtn.Size = new System.Drawing.Size(91, 23);
+      this.processBtn.Size = new System.Drawing.Size(106, 27);
       this.processBtn.TabIndex = 6;
       this.processBtn.Text = "Process";
       this.processBtn.UseVisualStyleBackColor = true;
@@ -160,9 +170,10 @@ namespace BoozeHoundBooks
       // 
       // amountBox
       // 
-      this.amountBox.Location = new System.Drawing.Point(55, 101);
+      this.amountBox.Location = new System.Drawing.Point(64, 117);
+      this.amountBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.amountBox.Name = "amountBox";
-      this.amountBox.Size = new System.Drawing.Size(77, 20);
+      this.amountBox.Size = new System.Drawing.Size(89, 23);
       this.amountBox.TabIndex = 3;
       this.amountBox.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
       this.amountBox.Click += new System.EventHandler(this.amountBox_Click);
@@ -171,26 +182,29 @@ namespace BoozeHoundBooks
       // label7
       // 
       this.label7.AutoSize = true;
-      this.label7.Location = new System.Drawing.Point(7, 104);
+      this.label7.Location = new System.Drawing.Point(8, 120);
+      this.label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label7.Name = "label7";
-      this.label7.Size = new System.Drawing.Size(43, 13);
+      this.label7.Size = new System.Drawing.Size(51, 15);
       this.label7.TabIndex = 13;
       this.label7.Text = "Amount";
       // 
       // infoBox
       // 
-      this.infoBox.Location = new System.Drawing.Point(55, 74);
+      this.infoBox.Location = new System.Drawing.Point(64, 85);
+      this.infoBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.infoBox.Name = "infoBox";
-      this.infoBox.Size = new System.Drawing.Size(262, 20);
+      this.infoBox.Size = new System.Drawing.Size(305, 23);
       this.infoBox.TabIndex = 2;
       this.infoBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.InfoBoxKeyPress);
       // 
       // label6
       // 
       this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(7, 77);
+      this.label6.Location = new System.Drawing.Point(8, 89);
+      this.label6.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label6.Name = "label6";
-      this.label6.Size = new System.Drawing.Size(25, 13);
+      this.label6.Size = new System.Drawing.Size(28, 15);
       this.label6.TabIndex = 11;
       this.label6.Text = "Info";
       // 
@@ -198,9 +212,10 @@ namespace BoozeHoundBooks
       // 
       this.accountBox.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
       this.accountBox.FormattingEnabled = true;
-      this.accountBox.Location = new System.Drawing.Point(55, 20);
+      this.accountBox.Location = new System.Drawing.Point(64, 23);
+      this.accountBox.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.accountBox.Name = "accountBox";
-      this.accountBox.Size = new System.Drawing.Size(262, 21);
+      this.accountBox.Size = new System.Drawing.Size(305, 23);
       this.accountBox.Sorted = true;
       this.accountBox.TabIndex = 0;
       this.accountBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.AccountBoxKeyPress);
@@ -208,21 +223,23 @@ namespace BoozeHoundBooks
       // label4
       // 
       this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(7, 23);
+      this.label4.Location = new System.Drawing.Point(8, 27);
+      this.label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
       this.label4.Name = "label4";
-      this.label4.Size = new System.Drawing.Size(47, 13);
+      this.label4.Size = new System.Drawing.Size(52, 15);
       this.label4.TabIndex = 9;
       this.label4.Text = "Account";
       // 
       // KAdjustmentForm
       // 
-      this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+      this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.cancelButton;
-      this.ClientSize = new System.Drawing.Size(333, 218);
+      this.ClientSize = new System.Drawing.Size(388, 252);
       this.ControlBox = false;
       this.Controls.Add(this.groupBox1);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+      this.Margin = new System.Windows.Forms.Padding(4, 3, 4, 3);
       this.MaximizeBox = false;
       this.MinimizeBox = false;
       this.Name = "KAdjustmentForm";
