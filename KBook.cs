@@ -11,10 +11,10 @@ namespace BoozeHoundBooks
     public const string c_setting_setTransactionGridBgWithAccount = "SetTransactionGridBgWithAccount";
 
     private string m_path;
-    private List<KAccount> m_account = new List<KAccount>();
-    private List<KPeriod> m_period = new List<KPeriod>();
-    private Hashtable m_setting = new Hashtable(10);
-    private List<KSummaryExpression> m_summaryExpression = new List<KSummaryExpression>();
+    private List<KAccount> m_accounts = new List<KAccount>();
+    private List<KPeriod> m_periods = new List<KPeriod>();
+    private Hashtable m_settings = new Hashtable(10);
+    private List<KSummaryExpression> m_summaryExpressions = new List<KSummaryExpression>();
 
     private Size m_accountTreeIconSize = new Size(20, 20);
     private Size m_transactionGridIconSize = new Size(16, 16);
@@ -38,7 +38,7 @@ namespace BoozeHoundBooks
 
           acc.SetupIcon(m_accountTreeIconSize, false);
 
-          m_account.Add(acc);
+          m_accounts.Add(acc);
         }
       }
 
@@ -71,7 +71,7 @@ namespace BoozeHoundBooks
 
       foreach (XmlElement settingNode in settingList)
       {
-        m_setting.Add(settingNode.GetAttribute("Name"), settingNode.GetAttribute("Value"));
+        m_settings.Add(settingNode.GetAttribute("Name"), settingNode.GetAttribute("Value"));
       }
 
       // load periods
@@ -83,7 +83,7 @@ namespace BoozeHoundBooks
       {
         KPeriod period = new KPeriod(periodNode);
 
-        m_period.Add(period);
+        m_periods.Add(period);
       }
 
       // load accounts
@@ -98,9 +98,9 @@ namespace BoozeHoundBooks
 
       // update account transactions with contra-accounts
       // now that all accounts are loaded.
-      foreach (KAccount a in m_account)
+      foreach (KAccount a in m_accounts)
       {
-        a.UpdateTransactionsWithContraAccounts(m_account);
+        a.UpdateTransactionsWithContraAccounts(m_accounts);
         a.SetupIcon(m_accountTreeIconSize, false);
       }
 
@@ -113,7 +113,7 @@ namespace BoozeHoundBooks
       {
         KSummaryExpression expression = new KSummaryExpression(e, this);
 
-        m_summaryExpression.Add(expression);
+        m_summaryExpressions.Add(expression);
       }
     }
 
@@ -122,9 +122,9 @@ namespace BoozeHoundBooks
     private void LoadAccountFromXml(XmlElement element, KAccount parent)
     {
       // load the account
-      KAccount acc = new KAccount(element, parent, m_period);
+      KAccount acc = new KAccount(element, parent, m_periods);
 
-      m_account.Add(acc);
+      m_accounts.Add(acc);
 
       // does it have any sub accounts? load them too
       XmlNodeList list = element.SelectNodes("./Account");
@@ -156,7 +156,7 @@ namespace BoozeHoundBooks
 
         bookElement.AppendChild(settingListElement);
 
-        IDictionaryEnumerator settingEnum = m_setting.GetEnumerator();
+        IDictionaryEnumerator settingEnum = m_settings.GetEnumerator();
 
         while (settingEnum.MoveNext())
         {
@@ -175,7 +175,7 @@ namespace BoozeHoundBooks
 
         bookElement.AppendChild(summaryExpressionElement);
 
-        foreach (KSummaryExpression expression in m_summaryExpression)
+        foreach (KSummaryExpression expression in m_summaryExpressions)
         {
           // create expression element
           XmlElement expressionElement = doc.CreateElement("SummaryExpression");
@@ -192,7 +192,7 @@ namespace BoozeHoundBooks
 
         bookElement.AppendChild(periodListElement);
 
-        foreach (KPeriod period in m_period)
+        foreach (KPeriod period in m_periods)
         {
           // create period element
           XmlElement periodElement = doc.CreateElement("Period");
@@ -209,7 +209,7 @@ namespace BoozeHoundBooks
 
         bookElement.AppendChild(accListElement);
 
-        foreach (KAccount acc in m_account)
+        foreach (KAccount acc in m_accounts)
         {
           // create master account elements
           if (acc.GetParent() == null)
@@ -272,24 +272,24 @@ namespace BoozeHoundBooks
       // sort the accounts, but keep master accounts at the top of the list
       bool keepSorting;
 
-      m_account.Sort();
+      m_accounts.Sort();
 
       do
       {
         keepSorting = false;
 
         // loop through accounts
-        foreach (KAccount a in m_account)
+        foreach (KAccount a in m_accounts)
         {
           // is a master account?
           if (a.IsMasterAccount())
           {
             // not where it should be in the list?
-            if (m_account.IndexOf(a) != a.GetAccountType())
+            if (m_accounts.IndexOf(a) != a.GetAccountType())
             {
               // move it to where it should be
-              m_account.Remove(a);
-              m_account.Insert(a.GetAccountType(), a);
+              m_accounts.Remove(a);
+              m_accounts.Insert(a.GetAccountType(), a);
 
               // keep sorting
               keepSorting = true;
@@ -347,7 +347,7 @@ namespace BoozeHoundBooks
       parent.ClearTransactions();
 
       // add new account to list
-      m_account.Add(acc);
+      m_accounts.Add(acc);
 
       // sort the accounts
       SortAccounts();
@@ -367,7 +367,7 @@ namespace BoozeHoundBooks
       // find the period
       KPeriod period = null;
 
-      foreach (KPeriod p in m_period)
+      foreach (KPeriod p in m_periods)
       {
         if (p.DateInPeriod(date))
         {
@@ -429,7 +429,7 @@ namespace BoozeHoundBooks
       // find the period
       KPeriod period = null;
 
-      foreach (KPeriod p in m_period)
+      foreach (KPeriod p in m_periods)
       {
         if (p.DateInPeriod(date))
         {
@@ -467,7 +467,7 @@ namespace BoozeHoundBooks
     public void DeleteTransaction(uint id)
     {
       // loop through accounts
-      foreach (KAccount a in m_account)
+      foreach (KAccount a in m_accounts)
       {
         a.DeleteTransaction(id, false);
       }
@@ -480,7 +480,7 @@ namespace BoozeHoundBooks
       var list = new List<KTransaction>();
 
       // loop through accounts
-      foreach (KAccount account in m_account)
+      foreach (KAccount account in m_accounts)
       {
         // loop though account's transactions
         foreach (KTransaction t in account.GetTransactions())
@@ -502,7 +502,7 @@ namespace BoozeHoundBooks
       int count = 0;
 
       // loop through accounts
-      foreach (KAccount account in m_account)
+      foreach (KAccount account in m_accounts)
       {
         foreach (KTransaction transaction in account.GetTransactions())
         {
@@ -524,7 +524,7 @@ namespace BoozeHoundBooks
     {
       var transactions = new List<KTransaction>();
 
-      m_account
+      m_accounts
         .ForEach(a => KAccount.GetTransactionsForPeriodRecursive(
           a,
           period,
@@ -537,7 +537,7 @@ namespace BoozeHoundBooks
 
     public IEnumerable<KAccount> GetAccountList()
     {
-      return m_account;
+      return m_accounts;
     }
 
     //---------------------------------------------------------------
@@ -545,7 +545,7 @@ namespace BoozeHoundBooks
     public KAccount GetAccount(string qualifiedName)
     {
       // look for account with specified name
-      foreach (KAccount acc in m_account)
+      foreach (KAccount acc in m_accounts)
       {
         if (acc.GetQualifiedAccountName().Equals(qualifiedName))
         {
@@ -561,14 +561,14 @@ namespace BoozeHoundBooks
 
     public void SetPeriodList(IEnumerable<KPeriod> periodList)
     {
-      m_period = periodList.ToList();
+      m_periods = periodList.ToList();
     }
 
     //---------------------------------------------------------------
 
     public IEnumerable<KPeriod> GetPeriodList()
     {
-      return m_period;
+      return m_periods;
     }
 
     //---------------------------------------------------------------
@@ -576,7 +576,7 @@ namespace BoozeHoundBooks
     public string GetPeriodName(DateTime date)
     {
       // look for period for specified date
-      foreach (KPeriod p in m_period)
+      foreach (KPeriod p in m_periods)
       {
         if (p.DateInPeriod(date))
         {
@@ -592,21 +592,21 @@ namespace BoozeHoundBooks
 
     public KPeriod GetPeriodForDate(DateTime date)
     {
-      return m_period.FirstOrDefault(p => p.DateInPeriod(date));
+      return m_periods.FirstOrDefault(p => p.DateInPeriod(date));
     }
 
     //---------------------------------------------------------------
 
     public IEnumerable<KSummaryExpression> GetSummaryExpressionList()
     {
-      return m_summaryExpression;
+      return m_summaryExpressions;
     }
 
     //---------------------------------------------------------------
 
     public KSummaryExpression GetSummaryExpression(string name)
     {
-      IEnumerator expressions = m_summaryExpression.GetEnumerator();
+      IEnumerator expressions = m_summaryExpressions.GetEnumerator();
 
       while (expressions.MoveNext())
       {
@@ -625,7 +625,7 @@ namespace BoozeHoundBooks
 
     public void AddSummaryExpression(KSummaryExpression expression)
     {
-      m_summaryExpression.Add(expression);
+      m_summaryExpressions.Add(expression);
     }
 
     //---------------------------------------------------------------
@@ -633,13 +633,13 @@ namespace BoozeHoundBooks
     public string GetSetting(string name)
     {
       // doesn't exist?
-      if (m_setting.Contains(name) == false)
+      if (m_settings.Contains(name) == false)
       {
         return null;
       }
 
       // find and return value
-      IDictionaryEnumerator e = m_setting.GetEnumerator();
+      IDictionaryEnumerator e = m_settings.GetEnumerator();
 
       while (e.MoveNext())
       {
@@ -656,12 +656,12 @@ namespace BoozeHoundBooks
 
     public void SetSetting(string name, string value)
     {
-      if (m_setting.Contains(name))
+      if (m_settings.Contains(name))
       {
-        m_setting.Remove(name);
+        m_settings.Remove(name);
       }
 
-      m_setting.Add(name, value);
+      m_settings.Add(name, value);
     }
 
     //---------------------------------------------------------------
@@ -698,13 +698,13 @@ namespace BoozeHoundBooks
     {
       var balances = new Dictionary<KAccount, Dictionary<KPeriod, OpeningAndClosingBalances>>();
 
-      m_account.ForEach(a => balances.Add(a, new Dictionary<KPeriod, OpeningAndClosingBalances>()));
+      m_accounts.ForEach(a => balances.Add(a, new Dictionary<KPeriod, OpeningAndClosingBalances>()));
 
       KPeriod previousPeriod = null;
 
-      foreach (var period in m_period)
+      foreach (var period in m_periods)
       {
-        foreach (var account in m_account)
+        foreach (var account in m_accounts)
         {
           decimal openingBalance = 0;
           decimal closingBalance = 0;

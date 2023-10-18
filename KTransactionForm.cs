@@ -16,7 +16,7 @@
     private bool _formLoading = true;
 
     //--------------------------------------------------------------------------
-    
+
     public KTransactionForm(KBook book,
       KAccount account,
       DateTime transDate)
@@ -84,7 +84,7 @@
       transactionProcessAsNew.Hide();
 
       // multiply amount
-      multiplyAmount.Text = 
+      multiplyAmount.Text =
         $"{((decimal)KMain.m_appSetting.GetSetting("DefaultTransactionMultiplyAmount", 1.15M)):0.##}";
 
       // load complete

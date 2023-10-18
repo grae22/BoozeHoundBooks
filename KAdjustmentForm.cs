@@ -36,7 +36,7 @@
     }
 
     //--------------------------------------------------------------------------
-    
+
     public KAdjustmentForm(KBook book, KTransaction trans)
     {
       // init components

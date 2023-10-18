@@ -642,8 +642,8 @@ namespace BoozeHoundBooks
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
-                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
-                    $" ( {bal:0.00} )";
+                    $" ( {bal:n2} ) {priorPeriodBalPrefix}{balanceDelta:n2}" :
+                    $" ( {bal:n2} )";
 
                 if (rebuildTree)
                 {
@@ -699,8 +699,8 @@ namespace BoozeHoundBooks
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
-                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
-                    $" ( {bal:0.00} )";
+                    $" ( {bal:n2} ) {priorPeriodBalPrefix}{balanceDelta:n2}" :
+                    $" ( {bal:n2} )";
 
                 if (rebuildTree)
                 {
@@ -846,8 +846,8 @@ namespace BoozeHoundBooks
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
-                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
-                    $" ( {bal:0.00} )";
+                    $" ( {bal:n2} ) {priorPeriodBalPrefix}{balanceDelta:n2}" :
+                    $" ( {bal:n2} )";
 
                 if (rebuildTree || a.TreeNode == null)
                 {
@@ -903,8 +903,8 @@ namespace BoozeHoundBooks
 
                 var balText =
                   versusPriorPeriods.Count > 0 ?
-                    $" ( {bal:0.00} ) {priorPeriodBalPrefix}{balanceDelta:0.00}" :
-                    $" ( {bal:0.00} )";
+                    $" ( {bal:n2} ) {priorPeriodBalPrefix}{balanceDelta:n2}" :
+                    $" ( {bal:n2} )";
 
                 if (rebuildTree)
                 {
@@ -1177,7 +1177,7 @@ namespace BoozeHoundBooks
             trans.IsBudget,
             trans.GetDate().ToString("yyyy/MM/dd"),
             KMain.m_resourceManager.m_dayOfWeek[(int) trans.GetDate().DayOfWeek].GetImage(m_activeBook.GetTransactionGridIconSize()),
-            trans.GetSignedAmount().ToString("0.00"),
+            trans.GetSignedAmount().ToString("n2"),
             trans.GetAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
             trans.GetAccount().ToString(),
             trans.GetContraAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
@@ -1391,7 +1391,7 @@ namespace BoozeHoundBooks
     }
 
     //---------------------------------------------------------------
-    
+
     private void viewBudget_CheckedChanged(object sender, EventArgs e)
     {
       try
@@ -1734,7 +1734,7 @@ namespace BoozeHoundBooks
           object[] cols =
           {
             expression.GetName(),
-            $"{expression.CalculateValue(start, end, viewBudget.Checked):0.00}"
+            $"{expression.CalculateValue(start, end, viewBudget.Checked):n2}"
           };
 
           summaryExpressionGrid.Rows.Add(cols);
