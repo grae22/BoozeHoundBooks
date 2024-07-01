@@ -202,6 +202,9 @@
             multiplyAmount.Text =
               $"{((decimal)KMain.m_appSetting.GetSetting("DefaultTransactionMultiplyAmount", 1.15M)):0.##}";
 
+            // tags
+            uiTags.InitialiseTagBag(debit.TagBag);
+
             // load complete
             _formLoading = false;
         }
@@ -560,7 +563,8 @@
                   transactionInfo.Text,
                   transactionBudget.Checked,
                   transactionRecurring.Checked,
-                  confirmAmount.Checked);
+                  confirmAmount.Checked,
+                  uiTags.Tags);
 
                 // updating an existing transaction? delete the orig transaction
                 if (_editingTransaction)
@@ -646,7 +650,8 @@
                   transactionInfo.Text,
                   transactionBudget.Checked,
                   transactionRecurring.Checked,
-                  confirmAmount.Checked);
+                  confirmAmount.Checked,
+                  uiTags.Tags);
 
                 _book.Save();
 

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.ComponentModel;
 using System.Globalization;
+using System.Linq.Expressions;
 
 namespace BoozeHoundBooks
 {
@@ -1118,6 +1119,7 @@ namespace BoozeHoundBooks
 
                 // populate box
                 PopulateAccountTransactionGrid(m_activeBook.GetAccount(selectedAcc));
+                PopulateTagsGrid();
             }
             catch (Exception ex)
             {
@@ -1173,17 +1175,17 @@ namespace BoozeHoundBooks
 
                     Object[] row =
                     {
-            trans.GetId().ToString(),
-            trans.IsBudget,
-            trans.GetDate().ToString("yyyy/MM/dd"),
-            KMain.m_resourceManager.m_dayOfWeek[(int) trans.GetDate().DayOfWeek].GetImage(m_activeBook.GetTransactionGridIconSize()),
-            trans.GetSignedAmount().ToString("n2"),
-            trans.GetAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
-            trans.GetAccount().ToString(),
-            trans.GetContraAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
-            trans.GetContraAccount().ToString(),
-            trans.IsAdjustment() ? $"### ADJ ### : {trans.GetDescription()}" : trans.GetDescription()
-          };
+                        trans.GetId().ToString(),
+                        trans.IsBudget,
+                        trans.GetDate().ToString("yyyy/MM/dd"),
+                        KMain.m_resourceManager.m_dayOfWeek[(int) trans.GetDate().DayOfWeek].GetImage(m_activeBook.GetTransactionGridIconSize()),
+                        trans.GetSignedAmount().ToString("n2"),
+                        trans.GetAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
+                        trans.GetAccount().ToString(),
+                        trans.GetContraAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
+                        trans.GetContraAccount().ToString(),
+                        trans.IsAdjustment() ? $"### ADJ ### : {trans.GetDescription()}" : trans.GetDescription()
+                    };
 
                     int rowNum = transactionGrid.Rows.Add(row);
 
@@ -1316,6 +1318,7 @@ namespace BoozeHoundBooks
                 PopulateAccountTree(true, false);
                 PopulateAccountTransactionGrid();
                 PopulateSummaryExpressionGrid();
+                PopulateTagsGrid();
             }
             catch (Exception ex)
             {
@@ -1733,9 +1736,9 @@ namespace BoozeHoundBooks
 
                     object[] cols =
                     {
-            expression.GetName(),
-            $"{expression.CalculateValue(start, end, viewBudget.Checked):n2}"
-          };
+                        expression.GetName(),
+                        $"{expression.CalculateValue(start, end, viewBudget.Checked):n2}"
+                    };
 
                     summaryExpressionGrid.Rows.Add(cols);
                 }
@@ -1743,6 +1746,47 @@ namespace BoozeHoundBooks
             catch (Exception ex)
             {
                 KMain.HandleException(ex, true);
+            }
+        }
+
+        //---------------------------------------------------------------
+
+        private void PopulateTagsGrid()
+        {
+            uiTags.Rows.Clear();
+
+            var totalByTag = new Dictionary<string, decimal>();
+
+            foreach (DataGridViewRow row in transactionGrid.Rows)
+            {
+                var transaction = row.Tag as KTransaction;
+
+                if (transaction is null ||
+                    transaction.GetTransactionType() != KTransaction.TransactionType.c_credit)
+                {
+                    continue;
+                }
+
+                foreach (var tag in transaction.TagBag.Tags)
+                {
+                    if (!totalByTag.ContainsKey(tag))
+                    {
+                        totalByTag.Add(tag, 0);
+                    }
+
+                    totalByTag[tag] += transaction.GetAmount();
+                }
+            }
+
+            foreach (var pair in totalByTag)
+            {
+                object[] cols =
+                {
+                    pair.Key,
+                    pair.Value
+                };
+
+                uiTags.Rows.Add(cols);
             }
         }
 
@@ -1988,14 +2032,15 @@ namespace BoozeHoundBooks
                       }
 
                       m_activeBook.CreateTransaction(
-                debitAccount,
-                creditAccount,
-                t.IsRecurringConfirmAmount() ? 0 : t.GetAmount(),
-                t.GetDate().AddMonths(1),
-                t.GetDescription(),
-                true,
-                true,
-                t.IsRecurringConfirmAmount());
+                        debitAccount,
+                        creditAccount,
+                        t.IsRecurringConfirmAmount() ? 0 : t.GetAmount(),
+                        t.GetDate().AddMonths(1),
+                        t.GetDescription(),
+                        true,
+                        true,
+                        t.IsRecurringConfirmAmount(),
+                        t.TagBag.Tags.ToArray());
 
                       transactionsCreatedCount++;
                   });

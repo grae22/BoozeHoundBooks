@@ -2,8 +2,8 @@
 {
     public class KMain
     {
-        public const int c_build = 21;
-        public const int c_buildRevision = 1;
+        internal const int c_build = 21;
+        internal const int c_buildRevision = 2;
 
         internal static KResourceManager m_resourceManager;
         internal static KSettingFile m_appSetting;

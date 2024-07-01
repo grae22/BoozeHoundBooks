@@ -238,7 +238,8 @@
                   infoBox.Text,
                   budgetBox.Checked,
                   recurringBox.Checked,
-                  confirmAmount.Checked);
+                  confirmAmount.Checked,
+                  Array.Empty<string>());
 
                 // updating an existing transaction? delete the orig transaction
                 if (_editingAdjustment)

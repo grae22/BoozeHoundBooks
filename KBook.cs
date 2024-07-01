@@ -340,7 +340,8 @@ namespace BoozeHoundBooks
                       t.IsBudget,
                       false,
                       t.IsRecurring(),
-                      t.IsRecurringConfirmAmount());
+                      t.IsRecurringConfirmAmount(),
+                      t.TagBag.Tags.ToArray());
                 }
             }
 
@@ -355,14 +356,16 @@ namespace BoozeHoundBooks
 
         //---------------------------------------------------------------
 
-        public void CreateTransaction(KAccount debitAccount,
+        public void CreateTransaction(
+          KAccount debitAccount,
           KAccount creditAccount,
           decimal amount,
           DateTime date,
           string description,
           bool isBudgetTransaction,
           bool isRecurring,
-          bool isRecurringConfirmAmount)
+          bool isRecurringConfirmAmount,
+          string[] tags)
         {
             // find the period
             KPeriod period = null;
@@ -397,7 +400,8 @@ namespace BoozeHoundBooks
               isBudgetTransaction,
               false,
               isRecurring,
-              isRecurringConfirmAmount);
+              isRecurringConfirmAmount,
+              tags);
 
             creditAccount.CreateTransaction(id,
               KTransaction.TransactionType.c_credit,
@@ -410,21 +414,24 @@ namespace BoozeHoundBooks
               isBudgetTransaction,
               true,
               isRecurring,
-              isRecurringConfirmAmount);
+              isRecurringConfirmAmount,
+              tags);
         }
 
         //---------------------------------------------------------------
 
         // Adjustment (one sided) transaction.
 
-        public void CreateTransaction(KAccount account,
+        public void CreateTransaction(
+          KAccount account,
           KTransaction.TransactionType transactionType,
           decimal amount,
           DateTime date,
           string description,
           bool budgetTransaction,
           bool isRecurring,
-          bool isRecurringConfirmAmount)
+          bool isRecurringConfirmAmount,
+          string[] tags)
         {
             // find the period
             KPeriod period = null;
@@ -459,7 +466,8 @@ namespace BoozeHoundBooks
               budgetTransaction,
               false,
               isRecurring,
-              isRecurringConfirmAmount);
+              isRecurringConfirmAmount,
+              tags);
         }
 
         //---------------------------------------------------------------

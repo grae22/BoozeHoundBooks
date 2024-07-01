@@ -618,7 +618,8 @@ namespace BoozeHoundBooks
           bool isBudgetTransaction,
           bool setLastTransactionContra,
           bool isRecurring,
-          bool isRecurringConfirmAmount)
+          bool isRecurringConfirmAmount,
+          string[] tags)
         {
             // create the transaction
             KTransaction trans = new KTransaction(id,
@@ -632,7 +633,8 @@ namespace BoozeHoundBooks
               isAdjustment,
               isBudgetTransaction,
               isRecurring,
-              isRecurringConfirmAmount);
+              isRecurringConfirmAmount,
+              tags);
 
             // add to transactions
             m_transaction.Add(trans);

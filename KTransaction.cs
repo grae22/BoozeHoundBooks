@@ -16,6 +16,7 @@ namespace BoozeHoundBooks
 
         // properties ---------------------------------------------------
         public bool IsBudget { get; set; }
+        public KTagBag TagBag { get; private set; } = new KTagBag();
 
         // xml constants ------------------------------------------------
         private const string c_attrib_id = "Id";
@@ -29,6 +30,7 @@ namespace BoozeHoundBooks
         private const string c_attrib_budget = "Budget";
         private const string c_attrib_recurring = "Recurring";
         private const string c_attrib_recurringConfirmAmount = "RecurringConfirmAmount";
+        private const string c_attrib_tags = "Tags";
 
         // class vars ---------------------------------------------------
         private uint m_id;
@@ -146,6 +148,14 @@ namespace BoozeHoundBooks
             m_isRecurring = element.HasAttribute(c_attrib_recurring);
             m_isRecurringConfirmAmount = element.HasAttribute(c_attrib_recurringConfirmAmount);
 
+            // tags
+            if (element.HasAttribute(c_attrib_tags))
+            {
+                string tagsCsv = element.GetAttribute(c_attrib_tags);
+
+                TagBag.Deserialise(tagsCsv);
+            }
+
             // set class vars
             m_account = account;
 
@@ -185,7 +195,8 @@ namespace BoozeHoundBooks
           bool isAdjustment,
           bool isBudgetTransaction,
           bool isRecurring,
-          bool isRecurringConfirmAmount)
+          bool isRecurringConfirmAmount,
+          string[] tags)
         {
             // set class vars
             m_id = id;
@@ -206,6 +217,11 @@ namespace BoozeHoundBooks
             if (m_id >= m_nextTransactionId)
             {
                 m_nextTransactionId = m_id + 1;
+            }
+
+            foreach (var t in tags)
+            {
+                TagBag.Add(t);
             }
         }
 
@@ -244,6 +260,11 @@ namespace BoozeHoundBooks
             if (m_isRecurringConfirmAmount)
             {
                 element.SetAttribute(c_attrib_recurringConfirmAmount, "");
+            }
+
+            if (TagBag.Count > 0)
+            {
+                element.SetAttribute(c_attrib_tags, TagBag.Serialise());
             }
 
             return element;
