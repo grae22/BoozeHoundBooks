@@ -1,14 +1,14 @@
 ﻿namespace BoozeHoundBooks
 {
-  public struct OpeningAndClosingBalances
-  {
-    public decimal OpeningBalance { get; }
-    public decimal ClosingBalance { get; }
-
-    public OpeningAndClosingBalances(decimal openingBalance, decimal closingBalance)
+    public struct OpeningAndClosingBalances
     {
-      OpeningBalance = openingBalance;
-      ClosingBalance = closingBalance;
+        public decimal OpeningBalance { get; }
+        public decimal ClosingBalance { get; }
+
+        public OpeningAndClosingBalances(decimal openingBalance, decimal closingBalance)
+        {
+            OpeningBalance = openingBalance;
+            ClosingBalance = closingBalance;
+        }
     }
-  }
 }
