@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.ComponentModel;
 using System.Globalization;
-using System.Linq.Expressions;
 
 namespace BoozeHoundBooks
 {
@@ -35,7 +34,8 @@ namespace BoozeHoundBooks
         enum ComponentWithFocus
         {
             AccountTree,
-            SummaryExpressionGrid
+            SummaryExpressionGrid,
+            TagsGrid
         }
 
         // class vars ---------------------------------------------------
@@ -1111,15 +1111,14 @@ namespace BoozeHoundBooks
                     return;
                 }
 
-                // get account name
-                string selectedAcc = accountTree.SelectedNode.Name;
-
-                // clear box
                 transactionGrid.Rows.Clear();
 
-                // populate box
+                summaryExpressionGrid.ClearSelection();
+                uiTags.ClearSelection();
+
+                string selectedAcc = accountTree.SelectedNode.Name;
+
                 PopulateAccountTransactionGrid(m_activeBook.GetAccount(selectedAcc));
-                PopulateTagsGrid();
             }
             catch (Exception ex)
             {
@@ -1139,74 +1138,7 @@ namespace BoozeHoundBooks
                     return;
                 }
 
-                // loop through account's transactions
-                foreach (KTransaction trans in account.GetTransactions())
-                {
-                    // include budget transactions?
-                    if (viewBudget.Checked == false &&
-                        trans.IsBudget)
-                    {
-                        continue;
-                    }
-
-                    // transaction is in selected period?
-                    if (viewByPeriod.Checked &&
-                        trans.GetPeriod() != viewPeriod.SelectedItem)
-                    {
-                        continue;
-                    }
-
-                    // transaction is before selected 'from' date?
-                    if (viewByDateFrom.Checked &&
-                        trans.GetDate().Date < viewFrom.Value.Date)
-                    {
-                        continue;
-                    }
-
-                    // transaction is after selected 'to' date?
-                    if (viewByDateTo.Checked &&
-                        trans.GetDate().Date > viewTo.Value.Date)
-                    {
-                        continue;
-                    }
-
-                    // add transaction row to grid
-                    transactionGrid.SuspendLayout();
-
-                    Object[] row =
-                    {
-                        trans.GetId().ToString(),
-                        trans.IsBudget,
-                        trans.GetDate().ToString("yyyy/MM/dd"),
-                        KMain.m_resourceManager.m_dayOfWeek[(int) trans.GetDate().DayOfWeek].GetImage(m_activeBook.GetTransactionGridIconSize()),
-                        trans.GetSignedAmount().ToString("n2"),
-                        trans.GetAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
-                        trans.GetAccount().ToString(),
-                        trans.GetContraAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
-                        trans.GetContraAccount().ToString(),
-                        trans.IsAdjustment() ? $"### ADJ ### : {trans.GetDescription()}" : trans.GetDescription()
-                    };
-
-                    int rowNum = transactionGrid.Rows.Add(row);
-
-                    transactionGrid.Rows[rowNum].Tag = trans;
-
-                    // is a budget transaction, change forecolour
-                    if (trans.IsBudget)
-                    {
-                        transactionGrid.Rows[rowNum].DefaultCellStyle.ForeColor = GetBudgetFontColour(trans.GetDate());
-                    }
-
-                    // set the row background colour with contra account colour?
-                    if (viewTransactionGridBGAccount.Checked)
-                    {
-                        transactionGrid.Rows[rowNum].DefaultCellStyle.BackColor = trans.GetAccount().GetColour();
-                    }
-                    else if (viewTransactionGridBGContra.Checked)
-                    {
-                        transactionGrid.Rows[rowNum].DefaultCellStyle.BackColor = trans.GetContraAccount().GetColour();
-                    }
-                }
+                AddTransactionsToGrid(account.GetTransactions());
 
                 // add transactions from children accounts
                 foreach (KAccount acc in account.GetChildren(false))
@@ -1221,6 +1153,8 @@ namespace BoozeHoundBooks
                 transactionGrid.ClearSelection();
 
                 transactionGrid.ResumeLayout();
+
+                PopulateTagsGrid();
             }
             catch (Exception ex)
             {
@@ -1230,27 +1164,101 @@ namespace BoozeHoundBooks
 
         //---------------------------------------------------------------
 
+        private void AddTransactionsToGrid(
+            in IEnumerable<KTransaction> transactions)
+        {
+            // loop through account's transactions
+            foreach (KTransaction trans in transactions)
+            {
+                // include budget transactions?
+                if (viewBudget.Checked == false &&
+                    trans.IsBudget)
+                {
+                    continue;
+                }
+
+                // transaction is in selected period?
+                if (viewByPeriod.Checked &&
+                    trans.GetPeriod() != viewPeriod.SelectedItem)
+                {
+                    continue;
+                }
+
+                // transaction is before selected 'from' date?
+                if (viewByDateFrom.Checked &&
+                    trans.GetDate().Date < viewFrom.Value.Date)
+                {
+                    continue;
+                }
+
+                // transaction is after selected 'to' date?
+                if (viewByDateTo.Checked &&
+                    trans.GetDate().Date > viewTo.Value.Date)
+                {
+                    continue;
+                }
+
+                // add transaction row to grid
+                transactionGrid.SuspendLayout();
+
+                Object[] row =
+                {
+                    trans.GetId().ToString(),
+                    trans.IsBudget,
+                    trans.GetDate().ToString("yyyy/MM/dd"),
+                    KMain.m_resourceManager.m_dayOfWeek[(int) trans.GetDate().DayOfWeek].GetImage(m_activeBook.GetTransactionGridIconSize()),
+                    trans.GetSignedAmount().ToString("n2"),
+                    trans.GetAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
+                    trans.GetAccount().ToString(),
+                    trans.GetContraAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
+                    trans.GetContraAccount().ToString(),
+                    trans.IsAdjustment() ? $"### ADJ ### : {trans.GetDescription()}" : trans.GetDescription(),
+                    string.Join(", ", trans.TagBag.Tags)
+                };
+
+                int rowNum = transactionGrid.Rows.Add(row);
+
+                transactionGrid.Rows[rowNum].Tag = trans;
+
+                // is a budget transaction, change forecolour
+                if (trans.IsBudget)
+                {
+                    transactionGrid.Rows[rowNum].DefaultCellStyle.ForeColor = GetBudgetFontColour(trans.GetDate());
+                }
+
+                // set the row background colour with contra account colour?
+                if (viewTransactionGridBGAccount.Checked)
+                {
+                    transactionGrid.Rows[rowNum].DefaultCellStyle.BackColor = trans.GetAccount().GetColour();
+                }
+                else if (viewTransactionGridBGContra.Checked)
+                {
+                    transactionGrid.Rows[rowNum].DefaultCellStyle.BackColor = trans.GetContraAccount().GetColour();
+                }
+            }
+        }
+
+        //---------------------------------------------------------------
+
         private void PopulateAccountTransactionGrid()
         {
             try
             {
-                // clear box
-                transactionGrid.Rows.Clear();
-
                 if (m_componentWithFocus == ComponentWithFocus.AccountTree)
                 {
-                    // populate transaction box if an account is selected
                     if (accountTree.SelectedNode != null)
                     {
-                        // get account name
                         string selectedAcc = accountTree.SelectedNode.Name;
 
-                        // populate box
+                        transactionGrid.Rows.Clear();
+
                         PopulateAccountTransactionGrid(m_activeBook.GetAccount(selectedAcc));
                     }
                 }
                 else if (m_componentWithFocus == ComponentWithFocus.SummaryExpressionGrid)
                 {
+                    transactionGrid.Rows.Clear();
+
                     string name = (string)summaryExpressionGrid.SelectedRows[0].Cells[0].Value;
                     KSummaryExpression expression = m_activeBook.GetSummaryExpression(name);
 
@@ -1262,6 +1270,27 @@ namespace BoozeHoundBooks
 
                             PopulateAccountTransactionGrid(m_activeBook.GetAccount(selectedAcc));
                         }
+                    }
+                }
+                else if (m_componentWithFocus == ComponentWithFocus.TagsGrid)
+                {
+                    if (uiTags.SelectedRows.Count == 0)
+                    {
+                        return;
+                    }
+
+                    string tag = (string)uiTags.SelectedRows[0].Cells[0].Value;
+
+                    foreach (DataGridViewRow row in transactionGrid.Rows)
+                    {
+                        var transaction = row.Tag as KTransaction;
+
+                        if (transaction == null)
+                        {
+                            continue;
+                        }
+
+                        row.Visible = transaction.TagBag.Contains(tag);
                     }
                 }
             }
@@ -1318,7 +1347,6 @@ namespace BoozeHoundBooks
                 PopulateAccountTree(true, false);
                 PopulateAccountTransactionGrid();
                 PopulateSummaryExpressionGrid();
-                PopulateTagsGrid();
             }
             catch (Exception ex)
             {
@@ -1742,6 +1770,8 @@ namespace BoozeHoundBooks
 
                     summaryExpressionGrid.Rows.Add(cols);
                 }
+
+                summaryExpressionGrid.ClearSelection();
             }
             catch (Exception ex)
             {
@@ -1753,46 +1783,65 @@ namespace BoozeHoundBooks
 
         private void PopulateTagsGrid()
         {
-            uiTags.Rows.Clear();
-
-            var totalByTag = new Dictionary<string, decimal>();
-
-            foreach (DataGridViewRow row in transactionGrid.Rows)
+            try
             {
-                var transaction = row.Tag as KTransaction;
+                uiTags.Rows.Clear();
 
-                if (transaction is null ||
-                    transaction.GetTransactionType() != KTransaction.TransactionType.c_credit)
-                {
-                    continue;
-                }
+                var totalByTag = new Dictionary<string, decimal>();
+                var addedTransactions = new List<uint>();
 
-                foreach (var tag in transaction.TagBag.Tags)
+                foreach (DataGridViewRow row in transactionGrid.Rows)
                 {
-                    if (!totalByTag.ContainsKey(tag))
+                    var transaction = row.Tag as KTransaction;
+
+                    if (transaction is null)
                     {
-                        totalByTag.Add(tag, 0);
+                        continue;
                     }
 
-                    totalByTag[tag] += transaction.GetAmount();
+                    uint transactionId = transaction.GetId();
+
+                    if (addedTransactions.Contains(transactionId))
+                    {
+                        continue;
+                    }
+
+                    addedTransactions.Add(transaction.GetId());
+
+                    foreach (var tag in transaction.TagBag.Tags)
+                    {
+
+                        if (!totalByTag.ContainsKey(tag))
+                        {
+                            totalByTag.Add(tag, 0);
+                        }
+
+                        totalByTag[tag] += Math.Abs(transaction.GetAmount());
+                    }
                 }
-            }
 
-            foreach (var pair in totalByTag)
-            {
-                object[] cols =
+                foreach (var pair in totalByTag.OrderBy(p => p.Key))
                 {
-                    pair.Key,
-                    pair.Value
-                };
+                    object[] cols =
+                    {
+                        pair.Key,
+                        $"{pair.Value:n2}"
+                    };
 
-                uiTags.Rows.Add(cols);
+                    uiTags.Rows.Add(cols);
+                }
+
+                uiTags.ClearSelection();
+            }
+            catch (Exception ex)
+            {
+                KMain.HandleException(ex, true);
             }
         }
 
         //---------------------------------------------------------------
 
-        void AddSummaryExpressionItemClick(object sender, EventArgs e)
+        private void AddSummaryExpressionItemClick(object sender, EventArgs e)
         {
             try
             {
@@ -1812,7 +1861,7 @@ namespace BoozeHoundBooks
 
         //---------------------------------------------------------------
 
-        void SummaryExpressionGridDoubleClick(object sender, EventArgs e)
+        private void SummaryExpressionGridDoubleClick(object sender, EventArgs e)
         {
             try
             {
@@ -1865,6 +1914,35 @@ namespace BoozeHoundBooks
                 {
                     return;
                 }
+
+                accountTree.SelectedNode = null;
+                uiTags.ClearSelection();
+
+                PopulateAccountTransactionGrid();
+            }
+            catch (Exception ex)
+            {
+                KMain.HandleException(ex, true);
+            }
+        }
+
+        //---------------------------------------------------------------
+
+        private void uiTags_Click(object sender, EventArgs e)
+        {
+            m_componentWithFocus = ComponentWithFocus.TagsGrid;
+
+            try
+            {
+                // active book?
+                if (CheckForActiveBook(false) == false ||
+                    uiTags.SelectedRows.Count == 0)
+                {
+                    return;
+                }
+
+                accountTree.SelectedNode = null;
+                summaryExpressionGrid.ClearSelection();
 
                 PopulateAccountTransactionGrid();
             }

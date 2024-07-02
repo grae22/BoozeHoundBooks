@@ -83,7 +83,9 @@ partial class KTagControl
         uiTagList.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         uiTagList.CheckOnClick = true;
         uiTagList.FormattingEnabled = true;
+        uiTagList.HorizontalScrollbar = true;
         uiTagList.Location = new Point(3, 21);
+        uiTagList.MultiColumn = true;
         uiTagList.Name = "uiTagList";
         uiTagList.Size = new Size(290, 112);
         uiTagList.TabIndex = 0;
