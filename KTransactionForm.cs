@@ -87,6 +87,9 @@
             multiplyAmount.Text =
               $"{((decimal)KMain.m_appSetting.GetSetting("DefaultTransactionMultiplyAmount", 1.15M)):0.##}";
 
+            // tags
+            uiTags.InitialiseTagBag(new KTagBag());
+
             // load complete
             _formLoading = false;
         }
@@ -234,7 +237,7 @@
                 if (acc.GetAccountType() == KAccount.c_income &&
                     acc.HasChildren() == false)
                 {
-                    transactionFromAcc.Items.Add(acc); //.GetAccountName() );
+                    transactionFromAcc.Items.Add(acc);
                 }
             }
 
@@ -251,7 +254,7 @@
                 if (acc.GetAccountType() == KAccount.c_bank &&
                     acc.HasChildren() == false)
                 {
-                    transactionToAcc.Items.Add(acc); //.GetAccountName() );
+                    transactionToAcc.Items.Add(acc);
                 }
             }
 
@@ -286,7 +289,7 @@
                 if (acc.GetAccountType() == KAccount.c_bank &&
                     acc.HasChildren() == false)
                 {
-                    transactionFromAcc.Items.Add(acc); //.GetAccountName() );
+                    transactionFromAcc.Items.Add(acc);
                 }
             }
 
@@ -303,7 +306,7 @@
                 if (acc.GetAccountType() == KAccount.c_expense &&
                     acc.HasChildren() == false)
                 {
-                    transactionToAcc.Items.Add(acc); //.GetAccountName() );
+                    transactionToAcc.Items.Add(acc);
                 }
             }
 
@@ -406,8 +409,8 @@
                 {
                     if (acc.HasChildren() == false)
                     {
-                        transactionFromAcc.Items.Add(acc); //.GetAccountName() );
-                        transactionToAcc.Items.Add(acc); //.GetAccountName() );
+                        transactionFromAcc.Items.Add(acc);
+                        transactionToAcc.Items.Add(acc);
                     }
                 }
 
@@ -464,7 +467,7 @@
                 if (acc.GetAccountType() == fromAccType &&
                     acc.HasChildren() == false)
                 {
-                    transactionFromAcc.Items.Add(acc); //.GetAccountName() );
+                    transactionFromAcc.Items.Add(acc);
                 }
             }
 
@@ -481,7 +484,7 @@
                 if (acc.GetAccountType() == toAccType &&
                     acc.HasChildren() == false)
                 {
-                    transactionToAcc.Items.Add(acc); //.GetAccountName() );
+                    transactionToAcc.Items.Add(acc);
                 }
             }
 
@@ -665,7 +668,7 @@
 
         //--------------------------------------------------------------------------
 
-        void TransactionTypeKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        void TransactionTypeKeyPress(object sender, KeyPressEventArgs e)
         {
             // enter? move to next box
             if (e.KeyChar == (char)Keys.Enter)
@@ -676,7 +679,7 @@
 
         //--------------------------------------------------------------------------
 
-        void TransactionMasterAccountKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        void TransactionMasterAccountKeyPress(object sender, KeyPressEventArgs e)
         {
             // enter? move to next box
             if (e.KeyChar == (char)Keys.Enter)
@@ -687,7 +690,7 @@
 
         //--------------------------------------------------------------------------
 
-        void TransactionFromAccKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        void TransactionFromAccKeyPress(object sender, KeyPressEventArgs e)
         {
             // enter? move to next box
             if (e.KeyChar == (char)Keys.Enter)
@@ -698,7 +701,7 @@
 
         //--------------------------------------------------------------------------
 
-        void TransactionToAccKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        void TransactionToAccKeyPress(object sender, KeyPressEventArgs e)
         {
             // enter? move to next box
             if (e.KeyChar == (char)Keys.Enter)
@@ -709,7 +712,7 @@
 
         //--------------------------------------------------------------------------
 
-        void TransactionDateKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        void TransactionDateKeyPress(object sender, KeyPressEventArgs e)
         {
             // enter? move to next box
             if (e.KeyChar == (char)Keys.Enter)
@@ -720,7 +723,7 @@
 
         //--------------------------------------------------------------------------
 
-        void TransactionInfoKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        void TransactionInfoKeyPress(object sender, KeyPressEventArgs e)
         {
             // enter? move to next box
             if (e.KeyChar == (char)Keys.Enter)
@@ -731,7 +734,7 @@
 
         //--------------------------------------------------------------------------
 
-        void TransactionAmountKeyPress(object sender, System.Windows.Forms.KeyPressEventArgs e)
+        void TransactionAmountKeyPress(object sender, KeyPressEventArgs e)
         {
             // enter? move to next box
             if (e.KeyChar == (char)Keys.Enter)

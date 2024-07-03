@@ -37,11 +37,13 @@ namespace BoozeHoundBooks
         private void InitializeComponent()
         {
             groupBox1 = new GroupBox();
+            groupBox2 = new GroupBox();
+            transactionBudget = new CheckBox();
+            transactionRecurring = new CheckBox();
+            confirmAmount = new CheckBox();
             uiTags = new KTagControl();
             multiplyAmount = new TextBox();
             multiply = new Button();
-            confirmAmount = new CheckBox();
-            transactionRecurring = new CheckBox();
             transactionProcessAsNew = new Button();
             panel1 = new Panel();
             actionLoan = new RadioButton();
@@ -51,7 +53,6 @@ namespace BoozeHoundBooks
             transactionCredit = new RadioButton();
             periodName = new Label();
             transactionCancel = new Button();
-            transactionBudget = new CheckBox();
             transactionInter = new RadioButton();
             transactionMasterAccount = new ComboBox();
             label8 = new Label();
@@ -70,16 +71,16 @@ namespace BoozeHoundBooks
             transactionIncome = new RadioButton();
             transactionExpense = new RadioButton();
             groupBox1.SuspendLayout();
+            groupBox2.SuspendLayout();
             panel1.SuspendLayout();
             SuspendLayout();
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(groupBox2);
             groupBox1.Controls.Add(uiTags);
             groupBox1.Controls.Add(multiplyAmount);
             groupBox1.Controls.Add(multiply);
-            groupBox1.Controls.Add(confirmAmount);
-            groupBox1.Controls.Add(transactionRecurring);
             groupBox1.Controls.Add(transactionProcessAsNew);
             groupBox1.Controls.Add(panel1);
             groupBox1.Controls.Add(label3);
@@ -87,7 +88,6 @@ namespace BoozeHoundBooks
             groupBox1.Controls.Add(transactionCredit);
             groupBox1.Controls.Add(periodName);
             groupBox1.Controls.Add(transactionCancel);
-            groupBox1.Controls.Add(transactionBudget);
             groupBox1.Controls.Add(transactionInter);
             groupBox1.Controls.Add(transactionMasterAccount);
             groupBox1.Controls.Add(label8);
@@ -106,19 +106,63 @@ namespace BoozeHoundBooks
             groupBox1.Controls.Add(transactionIncome);
             groupBox1.Controls.Add(transactionExpense);
             groupBox1.Dock = DockStyle.Fill;
-            groupBox1.Location = new Point(0, 0);
+            groupBox1.Location = new Point(4, 0);
             groupBox1.Margin = new Padding(4, 3, 4, 3);
             groupBox1.Name = "groupBox1";
             groupBox1.Padding = new Padding(4, 3, 4, 3);
-            groupBox1.Size = new Size(390, 553);
+            groupBox1.Size = new Size(381, 612);
             groupBox1.TabIndex = 4;
             groupBox1.TabStop = false;
             // 
+            // groupBox2
+            // 
+            groupBox2.Controls.Add(transactionBudget);
+            groupBox2.Controls.Add(transactionRecurring);
+            groupBox2.Controls.Add(confirmAmount);
+            groupBox2.Location = new Point(9, 473);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(361, 75);
+            groupBox2.TabIndex = 28;
+            groupBox2.TabStop = false;
+            // 
+            // transactionBudget
+            // 
+            transactionBudget.AutoSize = true;
+            transactionBudget.Location = new Point(18, 22);
+            transactionBudget.Margin = new Padding(4, 3, 4, 3);
+            transactionBudget.Name = "transactionBudget";
+            transactionBudget.Size = new Size(127, 19);
+            transactionBudget.TabIndex = 16;
+            transactionBudget.Text = "Budget Transaction";
+            transactionBudget.UseVisualStyleBackColor = true;
+            // 
+            // transactionRecurring
+            // 
+            transactionRecurring.AutoSize = true;
+            transactionRecurring.Location = new Point(18, 48);
+            transactionRecurring.Margin = new Padding(4, 3, 4, 3);
+            transactionRecurring.Name = "transactionRecurring";
+            transactionRecurring.Size = new Size(77, 19);
+            transactionRecurring.TabIndex = 17;
+            transactionRecurring.Text = "Recurring";
+            transactionRecurring.UseVisualStyleBackColor = true;
+            // 
+            // confirmAmount
+            // 
+            confirmAmount.AutoSize = true;
+            confirmAmount.Location = new Point(111, 48);
+            confirmAmount.Margin = new Padding(4, 3, 4, 3);
+            confirmAmount.Name = "confirmAmount";
+            confirmAmount.Size = new Size(117, 19);
+            confirmAmount.TabIndex = 18;
+            confirmAmount.Text = "Confirm Amount";
+            confirmAmount.UseVisualStyleBackColor = true;
+            // 
             // uiTags
             // 
-            uiTags.Location = new Point(9, 352);
+            uiTags.Location = new Point(9, 299);
             uiTags.Name = "uiTags";
-            uiTags.Size = new Size(361, 144);
+            uiTags.Size = new Size(361, 168);
             uiTags.TabIndex = 27;
             // 
             // multiplyAmount
@@ -141,32 +185,10 @@ namespace BoozeHoundBooks
             multiply.UseVisualStyleBackColor = true;
             multiply.Click += multiply_Click;
             // 
-            // confirmAmount
-            // 
-            confirmAmount.AutoSize = true;
-            confirmAmount.Location = new Point(158, 317);
-            confirmAmount.Margin = new Padding(4, 3, 4, 3);
-            confirmAmount.Name = "confirmAmount";
-            confirmAmount.Size = new Size(117, 19);
-            confirmAmount.TabIndex = 18;
-            confirmAmount.Text = "Confirm Amount";
-            confirmAmount.UseVisualStyleBackColor = true;
-            // 
-            // transactionRecurring
-            // 
-            transactionRecurring.AutoSize = true;
-            transactionRecurring.Location = new Point(65, 317);
-            transactionRecurring.Margin = new Padding(4, 3, 4, 3);
-            transactionRecurring.Name = "transactionRecurring";
-            transactionRecurring.Size = new Size(77, 19);
-            transactionRecurring.TabIndex = 17;
-            transactionRecurring.Text = "Recurring";
-            transactionRecurring.UseVisualStyleBackColor = true;
-            // 
             // transactionProcessAsNew
             // 
             transactionProcessAsNew.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            transactionProcessAsNew.Location = new Point(9, 514);
+            transactionProcessAsNew.Location = new Point(9, 569);
             transactionProcessAsNew.Margin = new Padding(4, 3, 4, 3);
             transactionProcessAsNew.Name = "transactionProcessAsNew";
             transactionProcessAsNew.Size = new Size(126, 27);
@@ -214,7 +236,7 @@ namespace BoozeHoundBooks
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new Point(9, 112);
+            label3.Location = new Point(3, 105);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(42, 15);
@@ -224,7 +246,7 @@ namespace BoozeHoundBooks
             // transactionDebt
             // 
             transactionDebt.AutoSize = true;
-            transactionDebt.Location = new Point(65, 54);
+            transactionDebt.Location = new Point(59, 47);
             transactionDebt.Margin = new Padding(4, 3, 4, 3);
             transactionDebt.Name = "transactionDebt";
             transactionDebt.Size = new Size(50, 19);
@@ -237,7 +259,7 @@ namespace BoozeHoundBooks
             // transactionCredit
             // 
             transactionCredit.AutoSize = true;
-            transactionCredit.Location = new Point(146, 54);
+            transactionCredit.Location = new Point(140, 47);
             transactionCredit.Margin = new Padding(4, 3, 4, 3);
             transactionCredit.Name = "transactionCredit";
             transactionCredit.Size = new Size(57, 19);
@@ -251,7 +273,7 @@ namespace BoozeHoundBooks
             // 
             periodName.AutoSize = true;
             periodName.ForeColor = SystemColors.ActiveCaption;
-            periodName.Location = new Point(180, 203);
+            periodName.Location = new Point(174, 196);
             periodName.Margin = new Padding(4, 0, 4, 0);
             periodName.Name = "periodName";
             periodName.Size = new Size(90, 15);
@@ -262,7 +284,7 @@ namespace BoozeHoundBooks
             // 
             transactionCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
             transactionCancel.DialogResult = DialogResult.Cancel;
-            transactionCancel.Location = new Point(296, 514);
+            transactionCancel.Location = new Point(295, 569);
             transactionCancel.Margin = new Padding(4, 3, 4, 3);
             transactionCancel.Name = "transactionCancel";
             transactionCancel.Size = new Size(75, 27);
@@ -271,21 +293,10 @@ namespace BoozeHoundBooks
             transactionCancel.UseVisualStyleBackColor = true;
             transactionCancel.Click += TransactionCancelClick;
             // 
-            // transactionBudget
-            // 
-            transactionBudget.AutoSize = true;
-            transactionBudget.Location = new Point(65, 291);
-            transactionBudget.Margin = new Padding(4, 3, 4, 3);
-            transactionBudget.Name = "transactionBudget";
-            transactionBudget.Size = new Size(127, 19);
-            transactionBudget.TabIndex = 16;
-            transactionBudget.Text = "Budget Transaction";
-            transactionBudget.UseVisualStyleBackColor = true;
-            // 
             // transactionInter
             // 
             transactionInter.AutoSize = true;
-            transactionInter.Location = new Point(230, 28);
+            transactionInter.Location = new Point(224, 21);
             transactionInter.Margin = new Padding(4, 3, 4, 3);
             transactionInter.Name = "transactionInter";
             transactionInter.Size = new Size(99, 19);
@@ -310,7 +321,7 @@ namespace BoozeHoundBooks
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(9, 84);
+            label8.Location = new Point(3, 77);
             label8.Margin = new Padding(4, 0, 4, 0);
             label8.Name = "label8";
             label8.Size = new Size(43, 15);
@@ -332,7 +343,7 @@ namespace BoozeHoundBooks
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(9, 204);
+            label2.Location = new Point(3, 197);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(31, 15);
@@ -342,7 +353,7 @@ namespace BoozeHoundBooks
             // transactionProcess
             // 
             transactionProcess.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            transactionProcess.Location = new Point(198, 514);
+            transactionProcess.Location = new Point(197, 569);
             transactionProcess.Margin = new Padding(4, 3, 4, 3);
             transactionProcess.Name = "transactionProcess";
             transactionProcess.Size = new Size(91, 27);
@@ -365,7 +376,7 @@ namespace BoozeHoundBooks
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(9, 264);
+            label7.Location = new Point(3, 257);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new Size(51, 15);
@@ -384,7 +395,7 @@ namespace BoozeHoundBooks
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(9, 233);
+            label6.Location = new Point(3, 226);
             label6.Margin = new Padding(4, 0, 4, 0);
             label6.Name = "label6";
             label6.Size = new Size(28, 15);
@@ -406,7 +417,7 @@ namespace BoozeHoundBooks
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new Point(9, 171);
+            label4.Location = new Point(3, 164);
             label4.Margin = new Padding(4, 0, 4, 0);
             label4.Name = "label4";
             label4.Size = new Size(19, 15);
@@ -427,7 +438,7 @@ namespace BoozeHoundBooks
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(9, 140);
+            label5.Location = new Point(3, 133);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
             label5.Size = new Size(35, 15);
@@ -437,7 +448,7 @@ namespace BoozeHoundBooks
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new Point(9, 30);
+            label1.Location = new Point(3, 23);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
             label1.Size = new Size(31, 15);
@@ -448,7 +459,7 @@ namespace BoozeHoundBooks
             // 
             transactionIncome.AutoSize = true;
             transactionIncome.Checked = true;
-            transactionIncome.Location = new Point(65, 28);
+            transactionIncome.Location = new Point(59, 21);
             transactionIncome.Margin = new Padding(4, 3, 4, 3);
             transactionIncome.Name = "transactionIncome";
             transactionIncome.Size = new Size(65, 19);
@@ -462,7 +473,7 @@ namespace BoozeHoundBooks
             // transactionExpense
             // 
             transactionExpense.AutoSize = true;
-            transactionExpense.Location = new Point(146, 28);
+            transactionExpense.Location = new Point(140, 21);
             transactionExpense.Margin = new Padding(4, 3, 4, 3);
             transactionExpense.Name = "transactionExpense";
             transactionExpense.Size = new Size(68, 19);
@@ -477,7 +488,7 @@ namespace BoozeHoundBooks
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             CancelButton = transactionCancel;
-            ClientSize = new Size(390, 553);
+            ClientSize = new Size(389, 616);
             ControlBox = false;
             Controls.Add(groupBox1);
             FormBorderStyle = FormBorderStyle.FixedDialog;
@@ -485,12 +496,15 @@ namespace BoozeHoundBooks
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "KTransactionForm";
+            Padding = new Padding(4, 0, 4, 4);
             ShowIcon = false;
             ShowInTaskbar = false;
             StartPosition = FormStartPosition.CenterParent;
             Text = "Transaction";
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             panel1.ResumeLayout(false);
             panel1.PerformLayout();
             ResumeLayout(false);
@@ -529,5 +543,6 @@ namespace BoozeHoundBooks
     private System.Windows.Forms.TextBox multiplyAmount;
     private System.Windows.Forms.Button multiply;
         private KTagControl uiTags;
+        private GroupBox groupBox2;
     }
 }
