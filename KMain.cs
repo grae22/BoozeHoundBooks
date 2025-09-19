@@ -3,7 +3,7 @@
     public class KMain
     {
         internal const int c_build = 21;
-        internal const int c_buildRevision = 2;
+        internal const int c_buildRevision = 3;
 
         internal static KResourceManager m_resourceManager;
         internal static KSettingFile m_appSetting;

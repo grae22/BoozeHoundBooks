@@ -30,13 +30,13 @@ namespace BoozeHoundBooks
         // account type names
         public static readonly string[] m_accountTypeName =
         {
-      "Unknown",
-      "Bank",
-      "Income",
-      "Expense",
-      "Debt",
-      "Credit"
-    };
+            "Unknown",
+            "Bank",
+            "Income",
+            "Expense",
+            "Debt",
+            "Credit"
+        };
 
         public TreeNode TreeNode => m_treeNode;
 
@@ -74,8 +74,8 @@ namespace BoozeHoundBooks
         private string m_description;
         private byte m_type;
         private KAccount m_parent;
-        private List<KAccount> m_children = new List<KAccount>();
-        private List<KTransaction> m_transaction = new List<KTransaction>();
+        private List<KAccount> m_children = new();
+        private List<KTransaction> m_transactions = new();
         private int m_iconId = -1;
         private Color m_colour = Color.FromName(c_noColourName);
         private string m_iconName;
@@ -187,7 +187,7 @@ namespace BoozeHoundBooks
                 {
                     KTransaction trans = new KTransaction(e, this, periods);
 
-                    m_transaction.Add(trans);
+                    m_transactions.Add(trans);
                 }
             }
         }
@@ -332,7 +332,7 @@ namespace BoozeHoundBooks
             element.SetAttribute(c_attrib_hideInTree, HideInTree.ToString());
 
             // transactions
-            foreach (KTransaction trans in m_transaction)
+            foreach (KTransaction trans in m_transactions)
             {
                 XmlElement e = element.OwnerDocument.CreateElement("Transaction");
 
@@ -473,7 +473,7 @@ namespace BoozeHoundBooks
             // add up account's transactions
             decimal balance = 0m;
 
-            foreach (KTransaction t in m_transaction)
+            foreach (KTransaction t in m_transactions)
             {
                 // include budget transactions?
                 if (t.IsBudget &&
@@ -483,15 +483,15 @@ namespace BoozeHoundBooks
                 }
 
                 // in period?
-                if (t.GetDate().Date <= date.Date)
+                if (t.Date <= date.Date)
                 {
-                    if (t.GetTransactionType() == KTransaction.TransactionType.c_debit)
+                    if (t.TransType == KTransaction.TransactionType.c_debit)
                     {
-                        balance -= t.GetAmount();
+                        balance -= t.Amount;
                     }
                     else
                     {
-                        balance += t.GetAmount();
+                        balance += t.Amount;
                     }
                 }
             }
@@ -514,10 +514,10 @@ namespace BoozeHoundBooks
             // add up account's transactions
             decimal balance = 0m;
 
-            foreach (KTransaction t in m_transaction)
+            foreach (KTransaction t in m_transactions)
             {
-                if (t.GetDate().Date >= start.Date &&
-                    t.GetDate().Date <= end.Date)
+                if (t.Date >= start.Date &&
+                    t.Date <= end.Date)
                 {
                     // include budget transactions?
                     if (t.IsBudget &&
@@ -527,13 +527,13 @@ namespace BoozeHoundBooks
                     }
 
                     // update balance
-                    if (t.GetTransactionType() == KTransaction.TransactionType.c_debit)
+                    if (t.TransType == KTransaction.TransactionType.c_debit)
                     {
-                        balance -= t.GetAmount();
+                        balance -= t.Amount;
                     }
                     else
                     {
-                        balance += t.GetAmount();
+                        balance += t.Amount;
                     }
                 }
             }
@@ -637,7 +637,7 @@ namespace BoozeHoundBooks
               tags);
 
             // add to transactions
-            m_transaction.Add(trans);
+            m_transactions.Add(trans);
 
             // misc
             if (setLastTransactionContra)
@@ -654,11 +654,11 @@ namespace BoozeHoundBooks
         public void DeleteTransaction(uint id, bool deleteFromChildren)
         {
             // delete from this account
-            foreach (KTransaction t in m_transaction)
+            foreach (KTransaction t in m_transactions)
             {
-                if (t.GetId() == id)
+                if (t.Id == id)
                 {
-                    m_transaction.Remove(t);
+                    m_transactions.Remove(t);
 
                     break;
                 }
@@ -678,7 +678,7 @@ namespace BoozeHoundBooks
 
         public IEnumerable<KTransaction> GetTransactions()
         {
-            return m_transaction;
+            return m_transactions;
         }
 
         //---------------------------------------------------------------
@@ -692,8 +692,8 @@ namespace BoozeHoundBooks
               account
                 .GetTransactions()
                 .Where(t =>
-                  t.GetPeriod() == period &&
-                  transactions.FirstOrDefault(x => x.GetId() == t.GetId()) == null));
+                  t.Period == period &&
+                  transactions.FirstOrDefault(x => x.Id == t.Id) == null));
 
             account
               .GetChildren(false)
@@ -705,7 +705,7 @@ namespace BoozeHoundBooks
 
         public void ClearTransactions()
         {
-            m_transaction.Clear();
+            m_transactions.Clear();
         }
 
         //---------------------------------------------------------------
@@ -719,7 +719,7 @@ namespace BoozeHoundBooks
         public void UpdateTransactionsWithContraAccounts(IEnumerable<KAccount> accounts)
         {
             // loop through transactions
-            foreach (KTransaction t in m_transaction)
+            foreach (KTransaction t in m_transactions)
             {
                 string accName = t.GetContraQualifiedAccountName();
 
@@ -736,7 +736,7 @@ namespace BoozeHoundBooks
                 }
 
                 // account not found?
-                if (t.GetContraAccount() == null)
+                if (t.ContraAccount == null)
                 {
                     throw new Exception("Contra-account not found.");
                 }
@@ -814,11 +814,11 @@ namespace BoozeHoundBooks
             hasOverdueBudgetTransactions = false;
 
             // check this account's transactions
-            foreach (KTransaction t in m_transaction)
+            foreach (KTransaction t in m_transactions)
             {
                 if (t.IsBudget)
                 {
-                    DateTime date = t.GetDate();
+                    DateTime date = t.Date;
 
                     // after end date?
                     if (date.Date > end.Date)

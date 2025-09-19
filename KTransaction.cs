@@ -33,19 +33,8 @@ namespace BoozeHoundBooks
         private const string c_attrib_tags = "Tags";
 
         // class vars ---------------------------------------------------
-        private uint m_id;
-
-        private TransactionType m_type;
-        private KAccount m_account;
-        private KAccount m_contraAccount;
         private string m_contraQualifiedAccountName;
-        private decimal m_amount;
         private DateTime m_date;
-        private KPeriod m_period;
-        private string m_description;
-        private bool m_isAdjustment;
-        private bool m_isRecurring;
-        private bool m_isRecurringConfirmAmount;
 
         //---------------------------------------------------------------
 
@@ -65,7 +54,7 @@ namespace BoozeHoundBooks
             // id
             if (element.HasAttribute(c_attrib_id))
             {
-                m_id = uint.Parse(element.GetAttribute(c_attrib_id));
+                Id = uint.Parse(element.GetAttribute(c_attrib_id));
             }
             else
             {
@@ -87,7 +76,7 @@ namespace BoozeHoundBooks
             // type
             if (element.HasAttribute(c_attrib_type))
             {
-                m_type = (TransactionType)Enum.Parse(typeof(TransactionType), element.GetAttribute(c_attrib_type));
+                TransType = (TransactionType)Enum.Parse(typeof(TransactionType), element.GetAttribute(c_attrib_type));
             }
             else
             {
@@ -97,7 +86,7 @@ namespace BoozeHoundBooks
             // amount
             if (element.HasAttribute(c_attrib_amount))
             {
-                m_amount = decimal.Parse(element.GetAttribute(c_attrib_amount));
+                Amount = decimal.Parse(element.GetAttribute(c_attrib_amount));
             }
             else
             {
@@ -117,21 +106,21 @@ namespace BoozeHoundBooks
             // description
             if (element.HasAttribute(c_attrib_description))
             {
-                m_description = element.GetAttribute(c_attrib_description);
+                Description = element.GetAttribute(c_attrib_description);
             }
             else
             {
-                m_description = "";
+                Description = "";
             }
 
             // adjustment?
             if (element.HasAttribute(c_attrib_adjustment))
             {
-                m_isAdjustment = true;
+                IsAdjustment = true;
             }
             else
             {
-                m_isAdjustment = false;
+                IsAdjustment = false;
             }
 
             // budget transaction
@@ -145,8 +134,8 @@ namespace BoozeHoundBooks
             }
 
             // recurring?
-            m_isRecurring = element.HasAttribute(c_attrib_recurring);
-            m_isRecurringConfirmAmount = element.HasAttribute(c_attrib_recurringConfirmAmount);
+            IsRecurring = element.HasAttribute(c_attrib_recurring);
+            IsRecurringConfirmAmount = element.HasAttribute(c_attrib_recurringConfirmAmount);
 
             // tags
             if (element.HasAttribute(c_attrib_tags))
@@ -157,12 +146,12 @@ namespace BoozeHoundBooks
             }
 
             // set class vars
-            m_account = account;
+            Account = account;
 
             // update next id
-            if (m_id >= m_nextTransactionId)
+            if (Id >= m_nextTransactionId)
             {
-                m_nextTransactionId = m_id + 1;
+                m_nextTransactionId = Id + 1;
             }
 
             // period
@@ -170,13 +159,13 @@ namespace BoozeHoundBooks
             {
                 if (p.DateInPeriod(m_date))
                 {
-                    m_period = p;
+                    Period = p;
 
                     break;
                 }
             }
 
-            if (m_period == null)
+            if (Period == null)
             {
                 throw new Exception("No period found for date.");
             }
@@ -199,24 +188,24 @@ namespace BoozeHoundBooks
           string[] tags)
         {
             // set class vars
-            m_id = id;
-            m_type = type;
-            m_account = account;
-            m_contraAccount = contraAccount;
-            m_contraQualifiedAccountName = m_contraAccount.GetQualifiedAccountName();
-            m_amount = amount;
+            Id = id;
+            TransType = type;
+            Account = account;
+            ContraAccount = contraAccount;
+            m_contraQualifiedAccountName = ContraAccount.GetQualifiedAccountName();
+            Amount = amount;
             m_date = date;
-            m_period = period;
-            m_description = description;
-            m_isAdjustment = isAdjustment;
+            Period = period;
+            Description = description;
+            IsAdjustment = isAdjustment;
             IsBudget = isBudgetTransaction;
-            m_isRecurring = isRecurring;
-            m_isRecurringConfirmAmount = isRecurringConfirmAmount;
+            IsRecurring = isRecurring;
+            IsRecurringConfirmAmount = isRecurringConfirmAmount;
 
             // update next id
-            if (m_id >= m_nextTransactionId)
+            if (Id >= m_nextTransactionId)
             {
-                m_nextTransactionId = m_id + 1;
+                m_nextTransactionId = Id + 1;
             }
 
             foreach (var t in tags)
@@ -229,20 +218,20 @@ namespace BoozeHoundBooks
 
         public XmlElement GetXml(XmlElement element)
         {
-            element.SetAttribute(c_attrib_id, "" + m_id);
-            element.SetAttribute(c_attrib_type, "" + m_type);
+            element.SetAttribute(c_attrib_id, "" + Id);
+            element.SetAttribute(c_attrib_type, "" + TransType);
             element.SetAttribute(c_attrib_contra,
               GetContraQualifiedAccountName()
                 .Replace(KAccount.c_accountLevelSeparator, KAccount.c_accountLevelSeparatorInFile));
-            element.SetAttribute(c_attrib_amount, "" + m_amount);
+            element.SetAttribute(c_attrib_amount, "" + Amount);
             element.SetAttribute(c_attrib_date, m_date.ToString("yyyy/MM/dd"));
 
-            if (m_description.Equals("") == false)
+            if (Description.Length > 0)
             {
-                element.SetAttribute(c_attrib_description, m_description);
+                element.SetAttribute(c_attrib_description, Description);
             }
 
-            if (m_isAdjustment)
+            if (IsAdjustment)
             {
                 element.SetAttribute(c_attrib_adjustment, "");
             }
@@ -252,12 +241,12 @@ namespace BoozeHoundBooks
                 element.SetAttribute(c_attrib_budget, "");
             }
 
-            if (m_isRecurring)
+            if (IsRecurring)
             {
                 element.SetAttribute(c_attrib_recurring, "");
             }
 
-            if (m_isRecurringConfirmAmount)
+            if (IsRecurringConfirmAmount)
             {
                 element.SetAttribute(c_attrib_recurringConfirmAmount, "");
             }
@@ -272,118 +261,85 @@ namespace BoozeHoundBooks
 
         //---------------------------------------------------------------
 
-        public uint GetId()
-        {
-            return m_id;
-        }
+        public uint Id { get; private set; }
 
         //---------------------------------------------------------------
 
-        public TransactionType GetTransactionType()
-        {
-            return m_type;
-        }
+        public TransactionType TransType { get; private set; }
 
         //---------------------------------------------------------------
 
-        public KAccount GetAccount()
-        {
-            return m_account;
-        }
+        public KAccount Account { get; private set; }
 
         //---------------------------------------------------------------
 
-        public KAccount GetContraAccount()
-        {
-            return m_contraAccount;
-        }
+        public KAccount ContraAccount { get; private set; }
 
         //---------------------------------------------------------------
 
         public void SetContraAccount(KAccount contra)
         {
-            m_contraAccount = contra;
-            m_contraQualifiedAccountName = m_contraAccount.GetQualifiedAccountName();
+            ContraAccount = contra;
+            m_contraQualifiedAccountName = ContraAccount.GetQualifiedAccountName();
         }
 
         //---------------------------------------------------------------
 
         public string GetContraQualifiedAccountName()
         {
-            if (m_contraAccount == null)
+            if (ContraAccount == null)
             {
                 return m_contraQualifiedAccountName;
             }
             else
             {
-                m_contraQualifiedAccountName = m_contraAccount.GetQualifiedAccountName();
+                m_contraQualifiedAccountName = ContraAccount.GetQualifiedAccountName();
 
-                return m_contraAccount.GetQualifiedAccountName();
+                return ContraAccount.GetQualifiedAccountName();
             }
         }
 
         //---------------------------------------------------------------
 
-        public decimal GetAmount()
-        {
-            return m_amount;
-        }
+        public decimal Amount { get; private set; }
 
         //---------------------------------------------------------------
 
         public decimal GetSignedAmount()
         {
-            if (m_type == TransactionType.c_debit)
+            if (TransType == TransactionType.c_debit)
             {
-                return m_amount * -1m;
+                return Amount * -1m;
             }
             else
             {
-                return m_amount;
+                return Amount;
             }
         }
 
         //---------------------------------------------------------------
 
-        public DateTime GetDate()
-        {
-            return m_date.Date;
-        }
+        public DateTime Date => m_date.Date;
 
         //---------------------------------------------------------------
 
-        public string GetDescription()
-        {
-            return m_description;
-        }
+        public string Description { get; private set; }
 
         //---------------------------------------------------------------
 
-        public KPeriod GetPeriod()
-        {
-            return m_period;
-        }
+        public KPeriod Period { get; private set; }
 
         //---------------------------------------------------------------
 
-        public bool IsAdjustment()
-        {
-            return m_isAdjustment;
-        }
+        public bool IsAdjustment { get; private set; }
 
         //---------------------------------------------------------------
 
-        public bool IsRecurring()
-        {
-            return m_isRecurring;
-        }
+        public bool IsRecurring { get; private set; }
 
         //---------------------------------------------------------------
 
-        public bool IsRecurringConfirmAmount()
-        {
-            return m_isRecurringConfirmAmount;
-        }
+        public bool IsRecurringConfirmAmount { get; private set; }
 
         //---------------------------------------------------------------
     }

@@ -110,33 +110,33 @@
             // init vars
             _book = book;
             _editingTransaction = true;
-            _editingTransactionId = debit.GetId();
+            _editingTransactionId = debit.Id;
 
             // show the 'process as new' button
             transactionProcessAsNew.Show();
 
             // type?
             // inter-account transfer
-            if (debit.GetAccount().GetAccountType() == credit.GetAccount().GetAccountType())
+            if (debit.Account.GetAccountType() == credit.Account.GetAccountType())
             {
                 transactionInter.Checked = true;
             }
             // expense
-            else if (debit.GetAccount().GetAccountType() == KAccount.c_bank &&
-                     credit.GetAccount().GetAccountType() == KAccount.c_expense)
+            else if (debit.Account.GetAccountType() == KAccount.c_bank &&
+                     credit.Account.GetAccountType() == KAccount.c_expense)
             {
                 transactionExpense.Checked = true;
             }
             // income
-            else if (debit.GetAccount().GetAccountType() == KAccount.c_income &&
-                     credit.GetAccount().GetAccountType() == KAccount.c_bank)
+            else if (debit.Account.GetAccountType() == KAccount.c_income &&
+                     credit.Account.GetAccountType() == KAccount.c_bank)
             {
                 transactionIncome.Checked = false;
                 transactionIncome.Checked = true;
             }
             // debt - loan
-            else if (debit.GetAccount().GetAccountType() == KAccount.c_debt &&
-                     credit.GetAccount().GetAccountType() == KAccount.c_bank)
+            else if (debit.Account.GetAccountType() == KAccount.c_debt &&
+                     credit.Account.GetAccountType() == KAccount.c_bank)
             {
                 transactionDebt.Checked = false;
                 transactionDebt.Checked = true;
@@ -145,8 +145,8 @@
                 actionLoan.Checked = true;
             }
             // debt - repayment
-            else if (debit.GetAccount().GetAccountType() == KAccount.c_bank &&
-                     credit.GetAccount().GetAccountType() == KAccount.c_debt)
+            else if (debit.Account.GetAccountType() == KAccount.c_bank &&
+                     credit.Account.GetAccountType() == KAccount.c_debt)
             {
                 transactionDebt.Checked = false;
                 transactionDebt.Checked = true;
@@ -155,8 +155,8 @@
                 actionRepayment.Checked = true;
             }
             // credit - loan
-            else if (debit.GetAccount().GetAccountType() == KAccount.c_bank &&
-                     credit.GetAccount().GetAccountType() == KAccount.c_credit)
+            else if (debit.Account.GetAccountType() == KAccount.c_bank &&
+                     credit.Account.GetAccountType() == KAccount.c_credit)
             {
                 transactionCredit.Checked = false;
                 transactionCredit.Checked = true;
@@ -165,8 +165,8 @@
                 actionLoan.Checked = true;
             }
             // credit - repayment
-            else if (debit.GetAccount().GetAccountType() == KAccount.c_credit &&
-                     credit.GetAccount().GetAccountType() == KAccount.c_bank)
+            else if (debit.Account.GetAccountType() == KAccount.c_credit &&
+                     credit.Account.GetAccountType() == KAccount.c_bank)
             {
                 transactionCredit.Checked = false;
                 transactionCredit.Checked = true;
@@ -180,26 +180,26 @@
             }
 
             // debit account
-            transactionFromAcc.Text = debit.GetAccount().ToString();
+            transactionFromAcc.Text = debit.Account.ToString();
 
             // credit account
-            transactionToAcc.Text = credit.GetAccount().ToString();
+            transactionToAcc.Text = credit.Account.ToString();
 
             // date
-            transactionDate.Value = debit.GetDate();
+            transactionDate.Value = debit.Date;
 
             // description
-            transactionInfo.Text = debit.GetDescription();
+            transactionInfo.Text = debit.Description;
 
             // amount
-            transactionAmount.Text = debit.GetAmount().ToString("0.00");
+            transactionAmount.Text = debit.Amount.ToString("0.00");
 
             // budget transaction
             transactionBudget.Checked = debit.IsBudget;
 
             // recurring
-            transactionRecurring.Checked = debit.IsRecurring();
-            confirmAmount.Checked = debit.IsRecurringConfirmAmount();
+            transactionRecurring.Checked = debit.IsRecurring;
+            confirmAmount.Checked = debit.IsRecurringConfirmAmount;
 
             // multiply amount
             multiplyAmount.Text =

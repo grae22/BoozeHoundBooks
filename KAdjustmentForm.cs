@@ -51,36 +51,36 @@
             // init vars
             _book = book;
             _editingAdjustment = true;
-            _editingAdjustmentId = trans.GetId();
+            _editingAdjustmentId = trans.Id;
 
             // populate account box
             PopulateAccountBox();
 
             // account
-            accountBox.Text = trans.GetAccount().ToString();
+            accountBox.Text = trans.Account.ToString();
 
             // date
-            dateBox.Value = trans.GetDate();
+            dateBox.Value = trans.Date;
 
             // description
-            infoBox.Text = trans.GetDescription();
+            infoBox.Text = trans.Description;
 
             // amount
-            if (trans.GetTransactionType() == KTransaction.TransactionType.c_debit)
+            if (trans.TransType == KTransaction.TransactionType.c_debit)
             {
-                amountBox.Text = (-trans.GetAmount()).ToString("0.00");
+                amountBox.Text = (-trans.Amount).ToString("0.00");
             }
             else
             {
-                amountBox.Text = trans.GetAmount().ToString("0.00");
+                amountBox.Text = trans.Amount.ToString("0.00");
             }
 
             // budget transaction
             budgetBox.Checked = trans.IsBudget;
 
             // recurring
-            recurringBox.Checked = trans.IsRecurring();
-            confirmAmount.Checked = trans.IsRecurringConfirmAmount();
+            recurringBox.Checked = trans.IsRecurring;
+            confirmAmount.Checked = trans.IsRecurringConfirmAmount;
         }
 
         //---------------------------------------------------------------

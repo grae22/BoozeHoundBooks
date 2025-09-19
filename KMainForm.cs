@@ -1179,21 +1179,21 @@ namespace BoozeHoundBooks
 
                 // transaction is in selected period?
                 if (viewByPeriod.Checked &&
-                    trans.GetPeriod() != viewPeriod.SelectedItem)
+                    trans.Period != viewPeriod.SelectedItem)
                 {
                     continue;
                 }
 
                 // transaction is before selected 'from' date?
                 if (viewByDateFrom.Checked &&
-                    trans.GetDate().Date < viewFrom.Value.Date)
+                    trans.Date < viewFrom.Value.Date)
                 {
                     continue;
                 }
 
                 // transaction is after selected 'to' date?
                 if (viewByDateTo.Checked &&
-                    trans.GetDate().Date > viewTo.Value.Date)
+                    trans.Date > viewTo.Value.Date)
                 {
                     continue;
                 }
@@ -1203,16 +1203,16 @@ namespace BoozeHoundBooks
 
                 Object[] row =
                 {
-                    trans.GetId().ToString(),
+                    trans.Id.ToString(),
                     trans.IsBudget,
-                    trans.GetDate().ToString("yyyy/MM/dd"),
-                    KMain.m_resourceManager.m_dayOfWeek[(int) trans.GetDate().DayOfWeek].GetImage(m_activeBook.GetTransactionGridIconSize()),
+                    trans.Date.ToString("yyyy/MM/dd"),
+                    KMain.m_resourceManager.m_dayOfWeek[(int) trans.Date.DayOfWeek].GetImage(m_activeBook.GetTransactionGridIconSize()),
                     trans.GetSignedAmount().ToString("n2"),
-                    trans.GetAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
-                    trans.GetAccount().ToString(),
-                    trans.GetContraAccount().GetIcon(m_activeBook.GetTransactionGridIconSize()),
-                    trans.GetContraAccount().ToString(),
-                    trans.IsAdjustment() ? $"### ADJ ### : {trans.GetDescription()}" : trans.GetDescription(),
+                    trans.Account.GetIcon(m_activeBook.GetTransactionGridIconSize()),
+                    trans.Account.ToString(),
+                    trans.ContraAccount.GetIcon(m_activeBook.GetTransactionGridIconSize()),
+                    trans.ContraAccount.ToString(),
+                    trans.IsAdjustment ? $"### ADJ ### : {trans.Description}" : trans.Description,
                     string.Join(", ", trans.TagBag.Tags)
                 };
 
@@ -1223,17 +1223,17 @@ namespace BoozeHoundBooks
                 // is a budget transaction, change forecolour
                 if (trans.IsBudget)
                 {
-                    transactionGrid.Rows[rowNum].DefaultCellStyle.ForeColor = GetBudgetFontColour(trans.GetDate());
+                    transactionGrid.Rows[rowNum].DefaultCellStyle.ForeColor = GetBudgetFontColour(trans.Date);
                 }
 
                 // set the row background colour with contra account colour?
                 if (viewTransactionGridBGAccount.Checked)
                 {
-                    transactionGrid.Rows[rowNum].DefaultCellStyle.BackColor = trans.GetAccount().GetColour();
+                    transactionGrid.Rows[rowNum].DefaultCellStyle.BackColor = trans.Account.GetColour();
                 }
                 else if (viewTransactionGridBGContra.Checked)
                 {
-                    transactionGrid.Rows[rowNum].DefaultCellStyle.BackColor = trans.GetContraAccount().GetColour();
+                    transactionGrid.Rows[rowNum].DefaultCellStyle.BackColor = trans.ContraAccount.GetColour();
                 }
             }
         }
@@ -1601,7 +1601,7 @@ namespace BoozeHoundBooks
                 }
 
                 // normal transaction?
-                if (list.First().IsAdjustment() == false)
+                if (list.First().IsAdjustment == false)
                 {
                     // should have 2 parts (double entry)
                     int count = list.ToList().Count;
@@ -1620,7 +1620,7 @@ namespace BoozeHoundBooks
                     KTransaction debit;
                     KTransaction credit;
 
-                    if (trans[0].GetTransactionType() == KTransaction.TransactionType.c_debit)
+                    if (trans[0].TransType == KTransaction.TransactionType.c_debit)
                     {
                         debit = trans[0];
                         credit = trans[1];
@@ -1799,14 +1799,14 @@ namespace BoozeHoundBooks
                         continue;
                     }
 
-                    uint transactionId = transaction.GetId();
+                    uint transactionId = transaction.Id;
 
                     if (addedTransactions.Contains(transactionId))
                     {
                         continue;
                     }
 
-                    addedTransactions.Add(transaction.GetId());
+                    addedTransactions.Add(transaction.Id);
 
                     foreach (var tag in transaction.TagBag.Tags)
                     {
@@ -1816,7 +1816,26 @@ namespace BoozeHoundBooks
                             totalByTag.Add(tag, 0);
                         }
 
-                        totalByTag[tag] += Math.Abs(transaction.GetAmount());
+
+
+                        decimal amount = transaction.Amount;
+
+                        amount *=
+                            transaction.TransType == KTransaction.TransactionType.c_debit ?
+                            1 :
+                            -1;
+
+                        switch (transaction.ContraAccount.GetAccountType())
+                        {
+                            case KAccount.c_bank:
+                                amount *=
+                                    transaction.TransType == KTransaction.TransactionType.c_debit ?
+                                    1 :
+                                    -1;
+                                break;
+                        }
+
+                        totalByTag[tag] += amount;
                     }
                 }
 
@@ -1973,10 +1992,10 @@ namespace BoozeHoundBooks
 
                 var contraTransaction =
                   transaction
-                    .GetContraAccount()
+                    .ContraAccount
                     .GetTransactions()
                     .Cast<KTransaction>()
-                    .FirstOrDefault(t => t.GetId() == transaction.GetId());
+                    .FirstOrDefault(t => t.Id == transaction.Id);
 
                 if (contraTransaction == null)
                 {
@@ -2070,7 +2089,7 @@ namespace BoozeHoundBooks
                 bool nextPeriodContainsRecurringTransactions =
                   m_activeBook
                     .GetTransactionsForPeriod(nextPeriod)
-                    .Any(t => t.IsRecurring());
+                    .Any(t => t.IsRecurring);
 
                 if (nextPeriodContainsRecurringTransactions)
                 {
@@ -2091,37 +2110,37 @@ namespace BoozeHoundBooks
 
                 m_activeBook
                   .GetTransactionsForPeriod(currentPeriod)
-                  .Where(t => t.IsRecurring())
+                  .Where(t => t.IsRecurring)
                   .ToList()
-                  .ForEach(t =>
+                  .ForEach((Action<KTransaction>)(t =>
                   {
                       KAccount debitAccount;
                       KAccount creditAccount;
 
-                      if (t.GetTransactionType() == KTransaction.TransactionType.c_credit)
+                      if (t.TransType == KTransaction.TransactionType.c_credit)
                       {
-                          debitAccount = t.GetContraAccount();
-                          creditAccount = t.GetAccount();
+                          debitAccount = t.ContraAccount;
+                          creditAccount = t.Account;
                       }
                       else
                       {
-                          debitAccount = t.GetAccount();
-                          creditAccount = t.GetContraAccount();
+                          debitAccount = t.Account;
+                          creditAccount = t.ContraAccount;
                       }
 
                       m_activeBook.CreateTransaction(
                         debitAccount,
                         creditAccount,
-                        t.IsRecurringConfirmAmount() ? 0 : t.GetAmount(),
-                        t.GetDate().AddMonths(1),
-                        t.GetDescription(),
+                        t.IsRecurringConfirmAmount ? 0 : t.Amount,
+                        t.Date.AddMonths(1),
+                        t.Description,
                         true,
                         true,
-                        t.IsRecurringConfirmAmount(),
+                        t.IsRecurringConfirmAmount,
                         t.TagBag.Tags.ToArray());
 
                       transactionsCreatedCount++;
-                  });
+                  }));
 
                 if (transactionsCreatedCount == 0)
                 {
@@ -2186,10 +2205,10 @@ namespace BoozeHoundBooks
 
                     var contraTransaction =
                       transaction
-                        .GetContraAccount()
+                        .ContraAccount
                         .GetTransactions()
                         .Cast<KTransaction>()
-                        .FirstOrDefault(t => t.GetId() == transaction.GetId());
+                        .FirstOrDefault(t => t.Id == transaction.Id);
 
                     if (contraTransaction == null)
                     {

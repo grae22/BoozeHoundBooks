@@ -329,18 +329,18 @@ namespace BoozeHoundBooks
             {
                 foreach (KTransaction t in parent.GetTransactions())
                 {
-                    acc.CreateTransaction(t.GetId(),
-                      t.GetTransactionType(),
-                      t.GetContraAccount(),
-                      t.GetAmount(),
-                      t.GetDate(),
-                      t.GetPeriod(),
-                      t.GetDescription(),
-                      t.IsAdjustment(),
+                    acc.CreateTransaction(t.Id,
+                      t.TransType,
+                      t.ContraAccount,
+                      t.Amount,
+                      t.Date,
+                      t.Period,
+                      t.Description,
+                      t.IsAdjustment,
                       t.IsBudget,
                       false,
-                      t.IsRecurring(),
-                      t.IsRecurringConfirmAmount(),
+                      t.IsRecurring,
+                      t.IsRecurringConfirmAmount,
                       t.TagBag.Tags.ToArray());
                 }
             }
@@ -493,7 +493,7 @@ namespace BoozeHoundBooks
                 // loop though account's transactions
                 foreach (KTransaction t in account.GetTransactions())
                 {
-                    if (t.GetId() == id)
+                    if (t.Id == id)
                     {
                         list.Add(t);
                     }
@@ -514,9 +514,9 @@ namespace BoozeHoundBooks
             {
                 foreach (KTransaction transaction in account.GetTransactions())
                 {
-                    if (transaction.IsAdjustment() == false &&
+                    if (transaction.IsAdjustment == false &&
                         transaction.IsBudget == false &&
-                        transaction.GetTransactionType() == KTransaction.TransactionType.c_debit)
+                        transaction.TransType == KTransaction.TransactionType.c_debit)
                     {
                         count++;
                     }
