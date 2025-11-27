@@ -8,9 +8,10 @@ public class KTagBag
 
     public int Count => _tags.Count;
 
-    private static readonly List<string> _allTags = new();
+    private static readonly List<string> _allTags = [];
+    private static readonly Dictionary<string, decimal> _allMultipliers = [];
 
-    private readonly List<string> _tags = new();
+    private readonly List<string> _tags = [];
 
     public string Serialise()
     {
@@ -46,6 +47,8 @@ public class KTagBag
         {
             _allTags.Add(tag);
             _allTags.Sort();
+
+            _allMultipliers[tag] = ExtractMultiplier(tag);
         }
     }
 
@@ -64,5 +67,49 @@ public class KTagBag
         }
 
         return _tags.Contains(tag, StringComparer.OrdinalIgnoreCase);
+    }
+
+    public decimal GetMultiplier()
+    {
+        foreach (var t in _tags)
+        {
+            decimal m = _allMultipliers[t];
+
+            if (m != 1m)
+            {
+                return m;
+            }
+        }
+
+        return 1m;
+    }
+
+    private static decimal ExtractMultiplier(
+        in string tag)
+    {
+        if (!tag.Contains('/'))
+        {
+            return 1m;
+        }
+
+        int startIndex = tag.LastIndexOf('/') + 1;
+
+        if (startIndex >= tag.Length)
+        {
+            return 1m;
+        }
+
+        string multiplierString = tag[startIndex..];
+
+        if (decimal.TryParse(multiplierString, out decimal tagMultiplier))
+        {
+            tagMultiplier = 1m / tagMultiplier;
+        }
+        else
+        {
+            tagMultiplier = 1m;
+        }
+
+        return tagMultiplier;
     }
 }

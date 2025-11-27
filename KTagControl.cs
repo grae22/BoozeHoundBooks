@@ -60,7 +60,7 @@ public partial class KTagControl : UserControl
         uiNewTag.Text = string.Concat(
             uiNewTag
                 .Text
-                .Where(c => char.IsLetterOrDigit(c)));
+                .Where(c => char.IsLetterOrDigit(c) || c == '/'));
 
         uiNewTag.TextChanged += uiNewTag_TextChanged;
     }

@@ -1810,13 +1810,10 @@ namespace BoozeHoundBooks
 
                     foreach (var tag in transaction.TagBag.Tags)
                     {
-
                         if (!totalByTag.ContainsKey(tag))
                         {
                             totalByTag.Add(tag, 0);
                         }
-
-
 
                         decimal amount = transaction.Amount;
 
@@ -1835,7 +1832,9 @@ namespace BoozeHoundBooks
                                 break;
                         }
 
-                        totalByTag[tag] += amount;
+                        decimal tagMultiplier = transaction.TagBag.GetMultiplier();
+
+                        totalByTag[tag] += amount * tagMultiplier;
                     }
                 }
 
