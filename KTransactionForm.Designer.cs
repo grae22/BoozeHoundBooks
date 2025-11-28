@@ -421,6 +421,7 @@ namespace BoozeHoundBooks
             transactionToAcc.Margin = new Padding(4, 3, 4, 3);
             transactionToAcc.Name = "transactionToAcc";
             transactionToAcc.Size = new Size(403, 23);
+            transactionToAcc.Sorted = true;
             transactionToAcc.TabIndex = 10;
             transactionToAcc.SelectedIndexChanged += TransactionToAccSelectedIndexChanged;
             transactionToAcc.KeyPress += TransactionToAccKeyPress;
@@ -443,6 +444,7 @@ namespace BoozeHoundBooks
             transactionFromAcc.Margin = new Padding(4, 3, 4, 3);
             transactionFromAcc.Name = "transactionFromAcc";
             transactionFromAcc.Size = new Size(403, 23);
+            transactionFromAcc.Sorted = true;
             transactionFromAcc.TabIndex = 9;
             transactionFromAcc.KeyPress += TransactionFromAccKeyPress;
             // 

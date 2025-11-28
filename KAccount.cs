@@ -39,6 +39,7 @@ namespace BoozeHoundBooks
         };
 
         public TreeNode TreeNode => m_treeNode;
+        public bool HideInTree { get; set; }
 
         // xml attrib constants
         private const string c_attrib_name = "Name";
@@ -936,10 +937,6 @@ namespace BoozeHoundBooks
         {
             return m_lastTransactionContraName;
         }
-
-        //---------------------------------------------------------------
-
-        public bool HideInTree { get; set; }
 
         //---------------------------------------------------------------
 

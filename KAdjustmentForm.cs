@@ -90,7 +90,8 @@
             foreach (KAccount a in _book.GetAccountList())
             {
                 if (a.HasChildren() == false &&
-                    a.GetAccountType() != KAccount.c_unknown)
+                    a.GetAccountType() != KAccount.c_unknown &&
+                    !a.HideInTree)
                 {
                     accountBox.Items.Add(a);
                 }

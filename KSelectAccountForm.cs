@@ -15,7 +15,8 @@
             // populate account list
             foreach (KAccount acc in book.GetAccountList())
             {
-                if (acc.GetAccountType() != KAccount.c_unknown)
+                if (acc.GetAccountType() != KAccount.c_unknown &&
+                    !acc.HideInTree)
                 {
                     accountList.Items.Add(acc);
                 }

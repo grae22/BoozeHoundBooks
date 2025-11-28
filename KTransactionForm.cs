@@ -17,9 +17,10 @@
 
         //--------------------------------------------------------------------------
 
-        public KTransactionForm(KBook book,
-          KAccount account,
-          DateTime transDate)
+        public KTransactionForm(
+            KBook book,
+            KAccount account,
+            DateTime transDate)
         {
             // init components
             InitializeComponent();
@@ -96,7 +97,10 @@
 
         //---------------------------------------------------------------
 
-        public KTransactionForm(KBook book, KTransaction debit, KTransaction credit)
+        public KTransactionForm(
+            KBook book,
+            KTransaction debit,
+            KTransaction credit)
         {
             // init components
             InitializeComponent();
@@ -235,7 +239,8 @@
             foreach (KAccount acc in _book.GetAccountList())
             {
                 if (acc.GetAccountType() == KAccount.c_income &&
-                    acc.HasChildren() == false)
+                    acc.HasChildren() == false &&
+                    !acc.HideInTree)
                 {
                     transactionFromAcc.Items.Add(acc);
                 }
@@ -252,7 +257,8 @@
             foreach (KAccount acc in _book.GetAccountList())
             {
                 if (acc.GetAccountType() == KAccount.c_bank &&
-                    acc.HasChildren() == false)
+                    acc.HasChildren() == false &&
+                    !acc.HideInTree)
                 {
                     transactionToAcc.Items.Add(acc);
                 }
@@ -287,7 +293,8 @@
             foreach (KAccount acc in _book.GetAccountList())
             {
                 if (acc.GetAccountType() == KAccount.c_bank &&
-                    acc.HasChildren() == false)
+                    acc.HasChildren() == false &&
+                    !acc.HideInTree)
                 {
                     transactionFromAcc.Items.Add(acc);
                 }
@@ -304,7 +311,8 @@
             foreach (KAccount acc in _book.GetAccountList())
             {
                 if (acc.GetAccountType() == KAccount.c_expense &&
-                    acc.HasChildren() == false)
+                    acc.HasChildren() == false &&
+                    !acc.HideInTree)
                 {
                     transactionToAcc.Items.Add(acc);
                 }
@@ -465,7 +473,8 @@
             foreach (KAccount acc in _book.GetAccountList())
             {
                 if (acc.GetAccountType() == fromAccType &&
-                    acc.HasChildren() == false)
+                    acc.HasChildren() == false &&
+                    !acc.HideInTree)
                 {
                     transactionFromAcc.Items.Add(acc);
                 }
@@ -482,7 +491,8 @@
             foreach (KAccount acc in _book.GetAccountList())
             {
                 if (acc.GetAccountType() == toAccType &&
-                    acc.HasChildren() == false)
+                    acc.HasChildren() == false &&
+                    !acc.HideInTree)
                 {
                     transactionToAcc.Items.Add(acc);
                 }
