@@ -41,14 +41,15 @@ namespace BoozeHoundBooks
             var dataGridViewCellStyle3 = new DataGridViewCellStyle();
             var dataGridViewCellStyle4 = new DataGridViewCellStyle();
             var dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            var dataGridViewCellStyle9 = new DataGridViewCellStyle();
             var dataGridViewCellStyle10 = new DataGridViewCellStyle();
             var dataGridViewCellStyle11 = new DataGridViewCellStyle();
             var dataGridViewCellStyle12 = new DataGridViewCellStyle();
             var dataGridViewCellStyle13 = new DataGridViewCellStyle();
+            var dataGridViewCellStyle14 = new DataGridViewCellStyle();
             var dataGridViewCellStyle6 = new DataGridViewCellStyle();
             var dataGridViewCellStyle7 = new DataGridViewCellStyle();
             var dataGridViewCellStyle8 = new DataGridViewCellStyle();
+            var dataGridViewCellStyle9 = new DataGridViewCellStyle();
             var resources = new System.ComponentModel.ComponentResourceManager(typeof(KMainForm));
             topMenu = new MenuStrip();
             fileMenu = new ToolStripMenuItem();
@@ -110,6 +111,7 @@ namespace BoozeHoundBooks
             transactionCountLbl = new Label();
             dataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn2 = new DataGridViewTextBoxColumn();
+            ModValue = new DataGridViewTextBoxColumn();
             dataGridViewTextBoxColumn3 = new DataGridViewTextBoxColumn();
             topMenu.SuspendLayout();
             mainPanel.SuspendLayout();
@@ -176,7 +178,7 @@ namespace BoozeHoundBooks
             // 
             viewTransactionGridBGAccount.CheckOnClick = true;
             viewTransactionGridBGAccount.Name = "viewTransactionGridBGAccount";
-            viewTransactionGridBGAccount.Size = new Size(356, 22);
+            viewTransactionGridBGAccount.Size = new Size(357, 22);
             viewTransactionGridBGAccount.Text = "Use Account colours for Transaction Grid background";
             viewTransactionGridBGAccount.CheckedChanged += ViewTransactionGridBGCheckedChanged;
             // 
@@ -184,20 +186,20 @@ namespace BoozeHoundBooks
             // 
             viewTransactionGridBGContra.CheckOnClick = true;
             viewTransactionGridBGContra.Name = "viewTransactionGridBGContra";
-            viewTransactionGridBGContra.Size = new Size(356, 22);
+            viewTransactionGridBGContra.Size = new Size(357, 22);
             viewTransactionGridBGContra.Text = "Use Contra colours for Transaction Grid background";
             viewTransactionGridBGContra.CheckedChanged += ViewTransactionGridBGCheckedChanged;
             // 
             // toolStripSeparator2
             // 
             toolStripSeparator2.Name = "toolStripSeparator2";
-            toolStripSeparator2.Size = new Size(353, 6);
+            toolStripSeparator2.Size = new Size(354, 6);
             // 
             // showHiddenAccountsToolStripMenuItem
             // 
             showHiddenAccountsToolStripMenuItem.CheckOnClick = true;
             showHiddenAccountsToolStripMenuItem.Name = "showHiddenAccountsToolStripMenuItem";
-            showHiddenAccountsToolStripMenuItem.Size = new Size(356, 22);
+            showHiddenAccountsToolStripMenuItem.Size = new Size(357, 22);
             showHiddenAccountsToolStripMenuItem.Text = "Show Hidden Accounts";
             showHiddenAccountsToolStripMenuItem.CheckedChanged += showHiddenAccountsToolStripMenuItem_CheckedChanged;
             // 
@@ -254,20 +256,20 @@ namespace BoozeHoundBooks
             // 
             transactionsToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { generateRecurringTransactions, toggleBudgetStatus });
             transactionsToolStripMenuItem.Name = "transactionsToolStripMenuItem";
-            transactionsToolStripMenuItem.Size = new Size(84, 20);
+            transactionsToolStripMenuItem.Size = new Size(85, 20);
             transactionsToolStripMenuItem.Text = "&Transactions";
             // 
             // generateRecurringTransactions
             // 
             generateRecurringTransactions.Name = "generateRecurringTransactions";
-            generateRecurringTransactions.Size = new Size(185, 22);
+            generateRecurringTransactions.Size = new Size(186, 22);
             generateRecurringTransactions.Text = "&Generate Recurring";
             generateRecurringTransactions.Click += generateRecurringTransactions_Click;
             // 
             // toggleBudgetStatus
             // 
             toggleBudgetStatus.Name = "toggleBudgetStatus";
-            toggleBudgetStatus.Size = new Size(185, 22);
+            toggleBudgetStatus.Size = new Size(186, 22);
             toggleBudgetStatus.Text = "&Toggle Budget Status";
             toggleBudgetStatus.Click += toggleBudgetStatus_Click;
             // 
@@ -449,7 +451,7 @@ namespace BoozeHoundBooks
             uiTags.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle5;
             uiTags.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             uiTags.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            uiTags.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, dataGridViewTextBoxColumn3 });
+            uiTags.Columns.AddRange(new DataGridViewColumn[] { dataGridViewTextBoxColumn1, dataGridViewTextBoxColumn2, ModValue, dataGridViewTextBoxColumn3 });
             uiTags.Dock = DockStyle.Fill;
             uiTags.Location = new Point(0, 0);
             uiTags.Margin = new Padding(4, 3, 4, 3);
@@ -497,9 +499,9 @@ namespace BoozeHoundBooks
             // 
             // Date
             // 
-            dataGridViewCellStyle9.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle9.Padding = new Padding(2, 0, 2, 0);
-            Date.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.Padding = new Padding(2, 0, 2, 0);
+            Date.DefaultCellStyle = dataGridViewCellStyle10;
             Date.FillWeight = 7.5F;
             Date.HeaderText = "Date";
             Date.MinimumWidth = 6;
@@ -518,10 +520,10 @@ namespace BoozeHoundBooks
             // 
             // Amount
             // 
-            dataGridViewCellStyle10.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGridViewCellStyle10.NullValue = null;
-            dataGridViewCellStyle10.Padding = new Padding(2, 0, 2, 0);
-            Amount.DefaultCellStyle = dataGridViewCellStyle10;
+            dataGridViewCellStyle11.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle11.NullValue = null;
+            dataGridViewCellStyle11.Padding = new Padding(2, 0, 2, 0);
+            Amount.DefaultCellStyle = dataGridViewCellStyle11;
             Amount.FillWeight = 8F;
             Amount.HeaderText = "Amount";
             Amount.MinimumWidth = 6;
@@ -538,9 +540,9 @@ namespace BoozeHoundBooks
             // 
             // Account
             // 
-            dataGridViewCellStyle11.Font = new Font("Microsoft Sans Serif", 6.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle11.Padding = new Padding(2, 0, 2, 0);
-            Account.DefaultCellStyle = dataGridViewCellStyle11;
+            dataGridViewCellStyle12.Font = new Font("Microsoft Sans Serif", 6.75F);
+            dataGridViewCellStyle12.Padding = new Padding(2, 0, 2, 0);
+            Account.DefaultCellStyle = dataGridViewCellStyle12;
             Account.FillWeight = 20F;
             Account.HeaderText = "Account";
             Account.MinimumWidth = 6;
@@ -557,9 +559,9 @@ namespace BoozeHoundBooks
             // 
             // Contra
             // 
-            dataGridViewCellStyle12.Font = new Font("Microsoft Sans Serif", 6.75F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle12.Padding = new Padding(2, 0, 2, 0);
-            Contra.DefaultCellStyle = dataGridViewCellStyle12;
+            dataGridViewCellStyle13.Font = new Font("Microsoft Sans Serif", 6.75F);
+            dataGridViewCellStyle13.Padding = new Padding(2, 0, 2, 0);
+            Contra.DefaultCellStyle = dataGridViewCellStyle13;
             Contra.FillWeight = 20F;
             Contra.HeaderText = "Contra";
             Contra.MinimumWidth = 6;
@@ -568,8 +570,8 @@ namespace BoozeHoundBooks
             // 
             // Description
             // 
-            dataGridViewCellStyle13.Padding = new Padding(2, 0, 0, 0);
-            Description.DefaultCellStyle = dataGridViewCellStyle13;
+            dataGridViewCellStyle14.Padding = new Padding(2, 0, 0, 0);
+            Description.DefaultCellStyle = dataGridViewCellStyle14;
             Description.FillWeight = 20F;
             Description.HeaderText = "Description";
             Description.MinimumWidth = 6;
@@ -770,7 +772,7 @@ namespace BoozeHoundBooks
             dataGridViewTextBoxColumn1.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
             dataGridViewCellStyle6.Padding = new Padding(5, 0, 0, 0);
             dataGridViewTextBoxColumn1.DefaultCellStyle = dataGridViewCellStyle6;
-            dataGridViewTextBoxColumn1.FillWeight = 40F;
+            dataGridViewTextBoxColumn1.FillWeight = 30F;
             dataGridViewTextBoxColumn1.HeaderText = "Tag";
             dataGridViewTextBoxColumn1.MinimumWidth = 6;
             dataGridViewTextBoxColumn1.Name = "dataGridViewTextBoxColumn1";
@@ -788,12 +790,23 @@ namespace BoozeHoundBooks
             dataGridViewTextBoxColumn2.Name = "dataGridViewTextBoxColumn2";
             dataGridViewTextBoxColumn2.ReadOnly = true;
             // 
+            // ModValue
+            // 
+            ModValue.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+            dataGridViewCellStyle8.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGridViewCellStyle8.Padding = new Padding(0, 0, 5, 0);
+            ModValue.DefaultCellStyle = dataGridViewCellStyle8;
+            ModValue.FillWeight = 20F;
+            ModValue.HeaderText = "Value (modified)";
+            ModValue.Name = "ModValue";
+            ModValue.ReadOnly = true;
+            // 
             // dataGridViewTextBoxColumn3
             // 
             dataGridViewTextBoxColumn3.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-            dataGridViewCellStyle8.BackColor = Color.FromArgb(224, 224, 224);
-            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle8;
-            dataGridViewTextBoxColumn3.FillWeight = 40F;
+            dataGridViewCellStyle9.BackColor = Color.FromArgb(224, 224, 224);
+            dataGridViewTextBoxColumn3.DefaultCellStyle = dataGridViewCellStyle9;
+            dataGridViewTextBoxColumn3.FillWeight = 30F;
             dataGridViewTextBoxColumn3.HeaderText = "";
             dataGridViewTextBoxColumn3.MinimumWidth = 6;
             dataGridViewTextBoxColumn3.Name = "dataGridViewTextBoxColumn3";
@@ -901,6 +914,7 @@ namespace BoozeHoundBooks
         private DataGridViewTextBoxColumn Tags;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn2;
+        private DataGridViewTextBoxColumn ModValue;
         private DataGridViewTextBoxColumn dataGridViewTextBoxColumn3;
     }
 }

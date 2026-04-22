@@ -299,6 +299,7 @@ namespace BoozeHoundBooks
                 PopulateAccountTree(false, true);
                 PopulateViewPeriodBox(true);
                 PopulateSummaryExpressionGrid();
+                PopulateTagsGrid();
 
                 // apply settings
                 string value;
@@ -1347,6 +1348,7 @@ namespace BoozeHoundBooks
                 PopulateAccountTree(true, false);
                 PopulateAccountTransactionGrid();
                 PopulateSummaryExpressionGrid();
+                PopulateTagsGrid();
             }
             catch (Exception ex)
             {
@@ -1430,6 +1432,7 @@ namespace BoozeHoundBooks
                 PopulateAccountTree(true, false);
                 PopulateAccountTransactionGrid();
                 PopulateSummaryExpressionGrid();
+                PopulateTagsGrid();
             }
             catch (Exception ex)
             {
@@ -1521,6 +1524,7 @@ namespace BoozeHoundBooks
                 PopulateAccountTree(true, false);
                 PopulateAccountTransactionGrid();
                 PopulateSummaryExpressionGrid();
+                PopulateTagsGrid();
             }
             catch (Exception ex)
             {
@@ -1541,6 +1545,7 @@ namespace BoozeHoundBooks
                 PopulateAccountTree(true, false);
                 PopulateAccountTransactionGrid();
                 PopulateSummaryExpressionGrid();
+                PopulateTagsGrid();
 
                 BringToFront();
             }
@@ -1571,6 +1576,7 @@ namespace BoozeHoundBooks
                 PopulateAccountTree(true, false);
                 PopulateAccountTransactionGrid();
                 PopulateSummaryExpressionGrid();
+                PopulateTagsGrid();
 
                 BringToFront();
             }
@@ -1660,6 +1666,7 @@ namespace BoozeHoundBooks
                 PopulateAccountTree(true, false);
                 PopulateAccountTransactionGrid();
                 PopulateSummaryExpressionGrid();
+                PopulateTagsGrid();
 
                 BringToFront();
             }
@@ -1756,17 +1763,15 @@ namespace BoozeHoundBooks
                 // populate
                 summaryExpressionGrid.Rows.Clear();
 
-                IEnumerator expressions = m_activeBook.GetSummaryExpressionList().GetEnumerator();
+                var expressions = m_activeBook.GetSummaryExpressionList();
 
-                while (expressions.MoveNext())
+                foreach (var e in expressions)
                 {
-                    KSummaryExpression expression = (KSummaryExpression)expressions.Current;
-
                     object[] cols =
-                    {
-                        expression.GetName(),
-                        $"{expression.CalculateValue(start, end, viewBudget.Checked):n2}"
-                    };
+                    [
+                        e.GetName(),
+                        $"{e.CalculateValue(start, end, viewBudget.Checked):n2}"
+                    ];
 
                     summaryExpressionGrid.Rows.Add(cols);
                 }
@@ -1788,6 +1793,7 @@ namespace BoozeHoundBooks
                 uiTags.Rows.Clear();
 
                 var totalByTag = new Dictionary<string, decimal>();
+                var totalByTagExMultiplier = new Dictionary<string, decimal>();
                 var addedTransactions = new List<uint>();
 
                 foreach (DataGridViewRow row in transactionGrid.Rows)
@@ -1813,40 +1819,26 @@ namespace BoozeHoundBooks
                         if (!totalByTag.ContainsKey(tag))
                         {
                             totalByTag.Add(tag, 0);
+                            totalByTagExMultiplier.Add(tag, 0);
                         }
 
-                        decimal amount = transaction.Amount;
-
-                        amount *=
-                            transaction.TransType == KTransaction.TransactionType.c_debit ?
-                            1 :
-                            -1;
-
-                        switch (transaction.ContraAccount.GetAccountType())
-                        {
-                            case KAccount.c_bank:
-                                amount *=
-                                    transaction.TransType == KTransaction.TransactionType.c_debit ?
-                                    1 :
-                                    -1;
-                                break;
-                        }
+                        decimal amount = Math.Abs(transaction.Amount);
 
                         decimal tagMultiplier = transaction.TagBag.GetMultiplier();
 
                         totalByTag[tag] += amount * tagMultiplier;
+                        totalByTagExMultiplier[tag] += amount;
                     }
                 }
 
                 foreach (var pair in totalByTag.OrderBy(p => p.Key))
                 {
-                    object[] cols =
-                    {
+                    uiTags.Rows.Add(
+                    [
                         pair.Key,
+                        $"{totalByTagExMultiplier[pair.Key]:n2}",
                         $"{pair.Value:n2}"
-                    };
-
-                    uiTags.Rows.Add(cols);
+                    ]);
                 }
 
                 uiTags.ClearSelection();
@@ -1911,6 +1903,7 @@ namespace BoozeHoundBooks
                 PopulateAccountTree(true, true);
                 PopulateAccountTransactionGrid();
                 PopulateSummaryExpressionGrid();
+                PopulateTagsGrid();
             }
             catch (Exception ex)
             {
@@ -2007,6 +2000,7 @@ namespace BoozeHoundBooks
 
                 PopulateAccountTree(true, false);
                 PopulateAccountTransactionGrid();
+                PopulateTagsGrid();
             }
             catch (Exception ex)
             {
@@ -2222,6 +2216,7 @@ namespace BoozeHoundBooks
                 PopulateAccountTree(true, false);
                 PopulateAccountTransactionGrid();
                 PopulateSummaryExpressionGrid();
+                PopulateTagsGrid();
             }
             catch (Exception ex)
             {
